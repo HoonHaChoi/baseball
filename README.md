@@ -1,2 +1,6 @@
-# baseball
-그룹프로젝트 #3
+# baseball - 3팀
+## 구성원
+
+- BackEnd : MJ
+- iOS : Neo, Elly
+
