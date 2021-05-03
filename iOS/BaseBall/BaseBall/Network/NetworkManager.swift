@@ -9,13 +9,13 @@ import Foundation
 import Combine
 
 protocol NetworkManagable {
-    func requestResource<T: Decodable>(decodeType: T.Type) -> AnyPublisher<T, NetworkError>
+    func requestResource<T: Decodable>(gameURL: URLType, decodeType: T.Type, at index: Int?) -> AnyPublisher<T, NetworkError>
 }
 
 final class NetworkManager: NetworkManagable {
     
-    func requestResource<T: Decodable>(decodeType: T.Type) -> AnyPublisher<T, NetworkError> {
-        guard let url = EndPoint.url() else {
+    func requestResource<T: Decodable>(gameURL: URLType, decodeType: T.Type, at index: Int? = nil) -> AnyPublisher<T, NetworkError> {
+        guard let url = EndPoint.URL(type: gameURL, at: index) else {
             return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
         }
         return request(url: url, decodeType: T.self)

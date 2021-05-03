@@ -8,15 +8,27 @@
 import Foundation
 
 enum EndPoint {
-    private static let scheme = ""
-    private static let host = ""
-    private static let path = ""
+    private static let scheme = "https"
+    private static let host = "5df57542-184c-4abd-9d36-b346c97c6092.mock.pstmn.io"
+    private static let path = "/api/"
     
-    static func url() -> URL? {
+    static func URL<T>(type: T, at index: Int?) -> URL? {
         var componets = URLComponents()
         componets.scheme = EndPoint.scheme
         componets.host = EndPoint.host
-        componets.path = EndPoint.path
+        componets.path = EndPoint.path + "\(type)"
+        componets.queryItems = addQueryItem(at: index)
         return componets.url
     }
+    
+    private static func addQueryItem(at index: Int?) -> [URLQueryItem]? {
+        index != nil ? [URLQueryItem(name: "id", value: "\(index ?? 0)")] : nil
+    }
+    
+}
+
+enum URLType {
+    case games
+    case game
+    case pitch
 }
