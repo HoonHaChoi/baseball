@@ -1,18 +1,15 @@
 package web.mj.baseballGameApi.domain.game;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Embedded;
+import web.mj.baseballGameApi.domain.team.Team;
+
+import java.util.List;
 
 public class Game {
 
     @Id
     private Long id;
 
-//    @Embedded.Nullable
-//    private Team homeTeam;
-//
-//    @Embedded.Nullable
-//    private Team awayTeam;
 
     public Game() {
     }
@@ -22,12 +19,5 @@ public class Game {
     }
 
 
-    //    public Team getHomeTeam() {
-//        return homeTeam;
-//    }
-//
-//    public Team getAwayTeam() {
-//        return awayTeam;
-//    }
 }
 

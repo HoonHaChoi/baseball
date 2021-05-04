@@ -1,4 +1,4 @@
-package web.mj.baseballGameApi.domain.game;
+package web.mj.baseballGameApi.domain.team;
 
 import org.springframework.data.annotation.Id;
 
@@ -8,6 +8,7 @@ public class Team {
     private Long id;
     private String name;
     private boolean isOccupied;
+    private Long gameId;
 
     public Team(){}
 
@@ -21,5 +22,9 @@ public class Team {
 
     public boolean isOccupied() {
         return isOccupied;
+    }
+
+    public Long getGameId() {
+        return gameId;
     }
 }
