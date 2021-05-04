@@ -27,8 +27,10 @@ class GameListController: UIViewController {
 
 extension GameListController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! GameCell
-        cell.flip()
+//        let cell = collectionView.cellForItem(at: indexPath) as! GameCell
+//        cell.flip()
+        let viewController = (storyboard?.instantiateViewController(identifier: "GameOptionController"))! as GameOptionController
+        self.present(viewController, animated: true, completion: nil)
     }
 }
 

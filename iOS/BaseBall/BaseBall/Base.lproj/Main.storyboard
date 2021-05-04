@@ -50,13 +50,13 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GameCell" id="X1p-M2-XSg" customClass="GameCell" customModule="BaseBall" customModuleProvider="target">
-                                                <rect key="frame" x="45" y="0.0" width="510" height="105"/>
+                                                <rect key="frame" x="45" y="0.0" width="510" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wfy-7r-fZO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="510" height="105"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="510" height="100"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </collectionViewCellContentView>
-                                                <size key="customSize" width="510" height="105"/>
+                                                <size key="customSize" width="510" height="100"/>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
@@ -95,6 +95,63 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-191.18644067796612" y="93.658536585365852"/>
+        </scene>
+        <!--Game Option Controller-->
+        <scene sceneID="WTB-6a-sBj">
+            <objects>
+                <viewController storyboardIdentifier="GameOptionController" id="FZA-rd-pxg" customClass="GameOptionController" customModule="BaseBall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oh8-i4-6va">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1fc-Wj-gWj">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="200"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="팀을 선택하세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efV-OB-cpj">
+                                        <rect key="frame" x="321.5" y="0.0" width="157" height="66.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="yyN-uY-vAY">
+                                        <rect key="frame" x="189.5" y="66.5" width="421" height="133.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VrO-Ba-vfq">
+                                                <rect key="frame" x="0.0" y="0.0" width="132" height="133.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
+                                                <state key="normal" title="Button"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJO-5l-Mxa">
+                                                <rect key="frame" x="172" y="0.0" width="77" height="133.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCI-VQ-YPA">
+                                                <rect key="frame" x="289" y="0.0" width="132" height="133.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
+                                                <state key="normal" title="Button"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WuN-BH-dwl"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WuN-BH-dwl" firstAttribute="trailing" secondItem="1fc-Wj-gWj" secondAttribute="trailing" id="5mY-KY-z6b"/>
+                            <constraint firstItem="1fc-Wj-gWj" firstAttribute="leading" secondItem="WuN-BH-dwl" secondAttribute="leading" id="743-TZ-5d6"/>
+                            <constraint firstItem="1fc-Wj-gWj" firstAttribute="top" secondItem="oh8-i4-6va" secondAttribute="top" id="DQZ-QY-lPg"/>
+                            <constraint firstItem="WuN-BH-dwl" firstAttribute="bottom" secondItem="1fc-Wj-gWj" secondAttribute="bottom" id="PeW-cx-tQh"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="800" height="200"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VX5-ex-WVi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="358" y="-134"/>
         </scene>
     </scenes>
     <resources>
