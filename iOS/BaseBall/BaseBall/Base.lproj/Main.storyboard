@@ -99,7 +99,7 @@
         <!--Game Option Controller-->
         <scene sceneID="WTB-6a-sBj">
             <objects>
-                <viewController storyboardIdentifier="GameOptionController" id="FZA-rd-pxg" customClass="GameOptionController" customModule="BaseBall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameOptionController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="FZA-rd-pxg" customClass="GameOptionController" customModule="BaseBall" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oh8-i4-6va">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -146,6 +146,7 @@
                             <constraint firstItem="WuN-BH-dwl" firstAttribute="bottom" secondItem="1fc-Wj-gWj" secondAttribute="bottom" id="PeW-cx-tQh"/>
                         </constraints>
                     </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="800" height="200"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="800" height="200"/>
                 </viewController>
