@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.GameRepository;
 import web.mj.baseballGameApi.domain.team.TeamRepository;
+import web.mj.baseballGameApi.service.GameService;
 import web.mj.baseballGameApi.web.dto.GameResponseDto;
 import web.mj.baseballGameApi.web.dto.TeamResponseDto;
 
@@ -20,25 +21,16 @@ import java.util.stream.Collectors;
 public class GameController {
     private final Logger logger = LoggerFactory.getLogger(GameController.class);
 
-    public final GameRepository gameRepository;
-    public final TeamRepository teamRepository;
+    public final GameService gameService;
 
-    public GameController(GameRepository gameRepository, TeamRepository teamRepository){
-        this.gameRepository = gameRepository;
-        this.teamRepository = teamRepository;
+    public GameController(GameService gameService){
+        this.gameService = gameService;
     }
 
     @GetMapping
     public List<GameResponseDto> viewAllGames(){
         logger.info("모든 게임 요청");
-        return gameRepository.findAll().stream()
-                    .map(game -> new GameResponseDto(game, getTeamResponseDtos(game.getId())))
-                    .collect(Collectors.toList());
-    }
 
-    private List<TeamResponseDto> getTeamResponseDtos(Long id){
-        return teamRepository.findAllByGameId(id).stream()
-                .map(TeamResponseDto::new)
-                .collect(Collectors.toList());
+        return gameService.findAllGames();
     }
 }
