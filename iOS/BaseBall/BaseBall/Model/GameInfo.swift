@@ -11,7 +11,7 @@ struct GameInfo: Decodable {
     let id: Int
     let homeTeam, awayTeam: TeamInfo
     let statusBoard: StatusBoard
-    let pitckerOnMound: PitckerOnMound
+    let pitcherOnMound: PitcherOnMound
     let batterInBox: BatterInBox
     let recordOfPitching: [RecordOfPitching]
 }
@@ -35,14 +35,14 @@ struct StatusBoard: Decodable {
     }
 }
 
-struct PitckerOnMound: Decodable {
+struct PitcherOnMound: Decodable {
     let name: String
     let numOfThrowing: Int
 }
 
 struct BatterInBox: Decodable {
     let name: String
-    let atBat: Int
+    let numOfBatting: Int
     let numOfHitting: Int
 }
 

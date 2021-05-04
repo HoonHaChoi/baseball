@@ -8,6 +8,5 @@
 import Foundation
 
 struct Pitch {
-    let isHit: Bool
-    let isStrike: Bool
+    let result: String
 }
