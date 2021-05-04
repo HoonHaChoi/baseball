@@ -13,6 +13,7 @@ class GameListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionViewConfiure()
         registerNIB()
         gameList.delegate = self
         gameList.dataSource = self
@@ -30,7 +31,10 @@ extension GameListController : UICollectionViewDelegate {
 //        let cell = collectionView.cellForItem(at: indexPath) as! GameCell
 //        cell.flip()
         let viewController = (storyboard?.instantiateViewController(identifier: "GameOptionController"))! as GameOptionController
+        
         self.present(viewController, animated: true, completion: nil)
+        viewController.homeTeam.setTitle("Rockets", for: .normal)
+        viewController.awayTeam.setTitle("Dodgers", for: .normal)
     }
 }
 
@@ -46,6 +50,13 @@ extension GameListController : UICollectionViewDataSource {
     }
 }
 extension GameListController: UICollectionViewDelegateFlowLayout {
+    func collectionViewConfiure() {
+        gameList.translatesAutoresizingMaskIntoConstraints = false
+        gameList.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 300).isActive = true
+        gameList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 80).isActive = true
+        gameList.widthAnchor.constraint(equalToConstant: 600).isActive = true
+        gameList.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: gameList.frame.width / 1.3, height: 80)
     }

@@ -36,12 +36,10 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uZ8-cl-GO5">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uZ8-cl-GO5">
                                         <rect key="frame" x="290" y="247" width="600" height="513"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="600" id="WR4-Qu-LSc"/>
-                                        </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Swy-X0-3O8">
                                             <size key="itemSize" width="510" height="105"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -66,11 +64,8 @@
                                     <constraint firstAttribute="trailing" secondItem="ey2-Zo-Llv" secondAttribute="trailing" constant="404" id="0Kk-7f-saQ"/>
                                     <constraint firstItem="ey2-Zo-Llv" firstAttribute="top" secondItem="fC6-wm-BEi" secondAttribute="bottom" constant="17" id="0WT-vZ-hXa"/>
                                     <constraint firstAttribute="trailing" secondItem="fC6-wm-BEi" secondAttribute="trailing" constant="274" id="O74-cK-acx"/>
-                                    <constraint firstItem="uZ8-cl-GO5" firstAttribute="leading" secondItem="FBR-JE-O26" secondAttribute="leading" constant="290" id="Rgo-Q7-bK0"/>
                                     <constraint firstItem="ey2-Zo-Llv" firstAttribute="leading" secondItem="FBR-JE-O26" secondAttribute="leading" constant="404" id="Ssi-gg-2fD"/>
-                                    <constraint firstAttribute="bottom" secondItem="uZ8-cl-GO5" secondAttribute="bottom" constant="60" id="icU-o2-U9Z"/>
                                     <constraint firstItem="fC6-wm-BEi" firstAttribute="top" secondItem="FBR-JE-O26" secondAttribute="top" constant="68" id="ruW-u9-Vr8"/>
-                                    <constraint firstItem="uZ8-cl-GO5" firstAttribute="top" secondItem="ey2-Zo-Llv" secondAttribute="bottom" constant="60" id="sgw-ig-ee7"/>
                                     <constraint firstItem="fC6-wm-BEi" firstAttribute="leading" secondItem="FBR-JE-O26" secondAttribute="leading" constant="275" id="wKk-7t-kOz"/>
                                 </constraints>
                             </view>
@@ -114,23 +109,29 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="yyN-uY-vAY">
-                                        <rect key="frame" x="189.5" y="66.5" width="421" height="133.5"/>
+                                        <rect key="frame" x="229" y="66.5" width="342" height="133.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VrO-Ba-vfq">
-                                                <rect key="frame" x="0.0" y="0.0" width="132" height="133.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="115" height="133.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
-                                                <state key="normal" title="Button"/>
+                                                <state key="normal" title="Home"/>
+                                                <connections>
+                                                    <action selector="didSelectHome:" destination="FZA-rd-pxg" eventType="touchUpInside" id="L1J-XM-MjF"/>
+                                                </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJO-5l-Mxa">
-                                                <rect key="frame" x="172" y="0.0" width="77" height="133.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJO-5l-Mxa">
+                                                <rect key="frame" x="155" y="0.0" width="40" height="133.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCI-VQ-YPA">
-                                                <rect key="frame" x="289" y="0.0" width="132" height="133.5"/>
+                                                <rect key="frame" x="235" y="0.0" width="107" height="133.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
-                                                <state key="normal" title="Button"/>
+                                                <state key="normal" title="Away"/>
+                                                <connections>
+                                                    <action selector="didSelectAway:" destination="FZA-rd-pxg" eventType="touchUpInside" id="kW5-B5-L1T"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -149,6 +150,10 @@
                     <value key="contentSizeForViewInPopover" type="size" width="800" height="200"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="800" height="200"/>
+                    <connections>
+                        <outlet property="awayTeam" destination="vCI-VQ-YPA" id="naa-mJ-jNA"/>
+                        <outlet property="homeTeam" destination="VrO-Ba-vfq" id="fsc-1Y-qOm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VX5-ex-WVi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

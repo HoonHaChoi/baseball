@@ -9,8 +9,16 @@ import UIKit
 
 class GameOptionController: UIViewController {
 
+    @IBOutlet weak var homeTeam: UIButton!
+    @IBOutlet weak var awayTeam: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
+    @IBAction func didSelectHome(_ sender: UIButton) {
+    }
+    
+    @IBAction func didSelectAway(_ sender: UIButton) {
+    }
 }
