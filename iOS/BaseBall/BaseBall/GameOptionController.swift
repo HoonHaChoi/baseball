@@ -21,6 +21,13 @@ class GameOptionController: UIViewController {
         super.viewDidLoad()
         homeTeam.setTitle(game?.homeTeam.name, for: .normal)
         awayTeam.setTitle(game?.awayTeam.name, for: .normal)
+        
+        if game?.homeTeam.occupied == true {
+            homeTeam.isEnabled = false
+        }
+        if game?.awayTeam.occupied == true {
+            homeTeam.isEnabled = false
+        }
     }
     @IBAction func didSelectHome(_ sender: UIButton) {
     }
