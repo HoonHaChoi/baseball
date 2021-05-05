@@ -7,18 +7,15 @@
 
 import Foundation
 
-struct Games: Decodable {
-    let games : [game]
-}
-
-struct game: Decodable {
-    let id: Int
+struct Game: Decodable {
+    let gameId: Int
     let homeTeam: Team
     let awayTeam: Team
 }
 
 struct Team: Decodable {
+    let teamId: Int
     let name: String
-    let isOccupied: Bool
+    let occupied: Bool
 }
 

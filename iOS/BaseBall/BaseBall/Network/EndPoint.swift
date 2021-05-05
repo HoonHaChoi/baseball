@@ -8,14 +8,16 @@
 import Foundation
 
 enum EndPoint {
-    private static let scheme = "https"
-    private static let host = "5df57542-184c-4abd-9d36-b346c97c6092.mock.pstmn.io"
+    private static let scheme = "http"
+    private static let host = "15.164.68.136"
+    private static let port = 8080
     private static let path = "/api/"
     
     static func URL<T>(type: T, at index: Int?) -> URL? {
         var componets = URLComponents()
         componets.scheme = EndPoint.scheme
         componets.host = EndPoint.host
+        componets.port = EndPoint.port
         componets.path = EndPoint.path + "\(type)"
         componets.queryItems = addQueryItem(at: index)
         return componets.url
