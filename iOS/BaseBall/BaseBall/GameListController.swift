@@ -51,7 +51,7 @@ class GameListController: UIViewController {
 extension GameListController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let viewController = (storyboard?.instantiateViewController(identifier: "GameOptionController"))! as GameOptionController
-        viewController.loadGame(with: indexPath.row + 1)
+        viewController.game = gameData[indexPath.row]
         present(viewController, animated: true, completion: nil)
     }
 }
