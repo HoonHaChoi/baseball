@@ -23,19 +23,6 @@
                             <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBR-JE-O26">
                                 <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASEBALL GAME ONLINE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC6-wm-BEi">
-                                        <rect key="frame" x="275" y="68" width="631" height="60"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="50"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="참가할 게임을 선택하세요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ey2-Zo-Llv">
-                                        <rect key="frame" x="404" y="145" width="372" height="42"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="36"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uZ8-cl-GO5">
                                         <rect key="frame" x="290" y="247" width="600" height="513"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -58,15 +45,34 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASEBALL GAME ONLINE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC6-wm-BEi">
+                                        <rect key="frame" x="267" y="68" width="647" height="60"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="647" id="Zgg-wh-9Ca"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="50"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="참가할 게임을 선택하세요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ey2-Zo-Llv">
+                                        <rect key="frame" x="404" y="145" width="372" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="372" id="azF-Iu-9sX"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="ey2-Zo-Llv" secondAttribute="trailing" constant="404" id="0Kk-7f-saQ"/>
                                     <constraint firstItem="ey2-Zo-Llv" firstAttribute="top" secondItem="fC6-wm-BEi" secondAttribute="bottom" constant="17" id="0WT-vZ-hXa"/>
-                                    <constraint firstAttribute="trailing" secondItem="fC6-wm-BEi" secondAttribute="trailing" constant="274" id="O74-cK-acx"/>
-                                    <constraint firstItem="ey2-Zo-Llv" firstAttribute="leading" secondItem="FBR-JE-O26" secondAttribute="leading" constant="404" id="Ssi-gg-2fD"/>
+                                    <constraint firstItem="ey2-Zo-Llv" firstAttribute="leading" secondItem="FBR-JE-O26" secondAttribute="leading" constant="404" id="0r4-iA-cdm"/>
+                                    <constraint firstAttribute="trailing" secondItem="fC6-wm-BEi" secondAttribute="trailing" constant="266" id="6RP-Ad-VC4"/>
+                                    <constraint firstItem="fC6-wm-BEi" firstAttribute="leading" secondItem="FBR-JE-O26" secondAttribute="leading" constant="267" id="fZk-6A-lyb"/>
+                                    <constraint firstAttribute="trailing" secondItem="ey2-Zo-Llv" secondAttribute="trailing" constant="404" id="kzn-RY-cKt"/>
                                     <constraint firstItem="fC6-wm-BEi" firstAttribute="top" secondItem="FBR-JE-O26" secondAttribute="top" constant="68" id="ruW-u9-Vr8"/>
-                                    <constraint firstItem="fC6-wm-BEi" firstAttribute="leading" secondItem="FBR-JE-O26" secondAttribute="leading" constant="275" id="wKk-7t-kOz"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -89,7 +95,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-191.18644067796612" y="93.658536585365852"/>
+            <point key="canvasLocation" x="-394" y="86"/>
         </scene>
         <!--Game Option Controller-->
         <scene sceneID="WTB-6a-sBj">

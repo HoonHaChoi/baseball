@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 class GameListController: UIViewController {
-
+    
     @IBOutlet weak var gameList: UICollectionView!
+    
+    private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +20,9 @@ class GameListController: UIViewController {
         registerNIB()
         gameList.delegate = self
         gameList.dataSource = self
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     func registerNIB() {
@@ -28,13 +34,9 @@ class GameListController: UIViewController {
 
 extension GameListController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let cell = collectionView.cellForItem(at: indexPath) as! GameCell
-//        cell.flip()
         let viewController = (storyboard?.instantiateViewController(identifier: "GameOptionController"))! as GameOptionController
-        
-        self.present(viewController, animated: true, completion: nil)
-        viewController.homeTeam.setTitle("Rockets", for: .normal)
-        viewController.awayTeam.setTitle("Dodgers", for: .normal)
+        viewController.loadGame()
+        present(viewController, animated: true, completion: nil)
     }
 }
 
