@@ -91,11 +91,11 @@
 				BFFEB0DA26402F42001E8842 /* Model */,
 				BFFEB0C6263FE8A0001E8842 /* Network */,
 				BFFEB0B5263FDD09001E8842 /* GameListController.swift */,
+				1061AF992641286700B29805 /* GameOptionController.swift */,
 				BFFEB0B7263FDD09001E8842 /* Main.storyboard */,
 				BFFEB0BA263FDD0C001E8842 /* Assets.xcassets */,
 				BFFEB0BC263FDD0C001E8842 /* LaunchScreen.storyboard */,
 				BFFEB0BF263FDD0C001E8842 /* Info.plist */,
-				1061AF992641286700B29805 /* GameOptionController.swift */,
 			);
 			path = BaseBall;
 			sourceTree = "<group>";

@@ -13,7 +13,7 @@ enum EndPoint {
     private static let port = 8080
     private static let path = "/api/"
     
-    static func URL<T>(type: T, at index: Int?) -> URL? {
+    static func URL<T>(type: T, at index: Int? = nil) -> URL? {
         var componets = URLComponents()
         componets.scheme = EndPoint.scheme
         componets.host = EndPoint.host
@@ -36,4 +36,5 @@ enum URLType {
     case games
     case game
     case pitch
+    case occupy
 }

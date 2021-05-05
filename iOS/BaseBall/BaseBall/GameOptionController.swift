@@ -19,6 +19,8 @@ class GameOptionController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureButton()
         homeTeam.setTitle(game?.homeTeam.name, for: .normal)
         awayTeam.setTitle(game?.awayTeam.name, for: .normal)
         
@@ -30,8 +32,14 @@ class GameOptionController: UIViewController {
         }
     }
     @IBAction func didSelectHome(_ sender: UIButton) {
+
     }
     
     @IBAction func didSelectAway(_ sender: UIButton) {
+        
+    }
+    
+    func configureButton(){
+
     }
 }
