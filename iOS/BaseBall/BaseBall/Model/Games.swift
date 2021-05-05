@@ -18,8 +18,8 @@ struct Game: Decodable {
 }
 
 struct Team: Decodable {
-    let teamId : Int
+    let teamId: Int
     let name: String
-    let isOccupied: Bool
+    let occupied: Bool
 }
 
