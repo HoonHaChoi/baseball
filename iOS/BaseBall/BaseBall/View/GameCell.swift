@@ -12,8 +12,9 @@ class GameCell: UICollectionViewCell {
     @IBOutlet weak var frontView: UIStackView!
     @IBOutlet weak var backView: UIStackView!
     
-    var homeTeam: String = ""
-    var awayTeam: String = ""
+    
+    @IBOutlet weak var homeTeam: UILabel!
+    @IBOutlet weak var awayTeam: UILabel!
     
     var isFaceUp: Bool = true
     override func awakeFromNib() {

@@ -12,12 +12,14 @@ class GameListController: UIViewController {
     
     @IBOutlet weak var gameList: UICollectionView!
     
+    @Published var gameData = [Game]()
     private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewConfiure()
         registerNIB()
+        loadGames()
         gameList.delegate = self
         gameList.dataSource = self
     }
@@ -30,23 +32,40 @@ class GameListController: UIViewController {
         gameList.register(nibName, forCellWithReuseIdentifier: "GameCell")
         gameList.register(nibName, forCellWithReuseIdentifier: "GameOptionCell")
     }
+    func loadGames(){
+        NetworkManager()
+            .requestResource(gameURL: .games, decodeType: [Game].self)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error): print(error.message)
+                case .finished:
+                    DispatchQueue.main.async {
+                        self?.gameList.reloadData()
+                    }
+                }
+            } , receiveValue: { self.gameData = $0 })
+            .store(in: &cancellables)
+    }
 }
 
 extension GameListController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let viewController = (storyboard?.instantiateViewController(identifier: "GameOptionController"))! as GameOptionController
-        viewController.loadGame()
+        viewController.loadGame(with: indexPath.row + 1)
         present(viewController, animated: true, completion: nil)
     }
 }
 
 extension GameListController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        print("game count : \(gameData.count)")
+        return gameData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = gameList.dequeueReusableCell(withReuseIdentifier: "GameCell", for: indexPath)
+        let cell = gameList.dequeueReusableCell(withReuseIdentifier: "GameCell", for: indexPath) as! GameCell
+        cell.homeTeam.text = gameData[indexPath.row].homeTeam.name
+        cell.awayTeam.text = gameData[indexPath.row].awayTeam.name
         cell.layer.cornerRadius = 10
         return cell
     }

@@ -19,7 +19,10 @@ enum EndPoint {
         componets.host = EndPoint.host
         componets.port = EndPoint.port
         componets.path = EndPoint.path + "\(type)"
-        componets.queryItems = addQueryItem(at: index)
+        if let index = index {
+            let indexString = String(index)
+            componets.path += "/\(indexString)"
+        }
         return componets.url
     }
     

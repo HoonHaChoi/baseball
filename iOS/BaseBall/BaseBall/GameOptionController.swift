@@ -6,32 +6,35 @@
 //
 
 import UIKit
+import Combine
 
 class GameOptionController: UIViewController {
     
     @IBOutlet weak var homeTeam: UIButton!
     @IBOutlet weak var awayTeam: UIButton!
     
-    var game: Game?
+    @Published var game: Game?
+    
+    private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    func loadGame(){
+    func loadGame(with id : Int){
         NetworkManager()
-            .requestResource(gameURL: .game, decodeType: Game.self)
-            .sink(receiveCompletion: { completion in
+            .requestResource(gameURL: .games, decodeType: Game.self, at: id)
+            .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error) : print(error.message)
-                case .finished : break
+                case .finished :
+                    DispatchQueue.main.async {
+                        self?.homeTeam.setTitle(self?.game?.homeTeam.name, for: .normal)
+                        self?.awayTeam.setTitle(self?.game?.awayTeam.name, for: .normal)
+                    }
                 }
             }, receiveValue: { [weak self] in
                 self?.game = $0
-                self?.homeTeam.setTitle(self?.game?.homeTeam.name, for: .normal)
-                self?.awayTeam.setTitle(self?.game?.awayTeam.name, for: .normal)
-            })
-                    
-        
+            }).store(in: &cancellables)
     }
     @IBAction func didSelectHome(_ sender: UIButton) {
     }

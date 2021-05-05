@@ -110,8 +110,10 @@
             </constraints>
             <size key="customSize" width="263" height="71"/>
             <connections>
+                <outlet property="awayTeam" destination="Z7d-nO-tpW" id="edd-By-iQU"/>
                 <outlet property="backView" destination="GBX-jl-Qha" id="zaJ-zf-DkN"/>
                 <outlet property="frontView" destination="aCJ-OM-RQU" id="ILR-9r-hkc"/>
+                <outlet property="homeTeam" destination="7IW-zv-bXX" id="bJM-4C-mZk"/>
             </connections>
             <point key="canvasLocation" x="-221.01449275362322" y="106.47321428571428"/>
         </collectionViewCell>
