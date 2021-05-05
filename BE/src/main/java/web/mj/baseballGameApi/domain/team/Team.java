@@ -10,7 +10,13 @@ public class Team {
     private boolean isOccupied;
     private Long gameId;
 
-    public Team(){}
+    public Team() {
+    }
+
+    public Team(Long id, Long gameId) {
+        this.id = id;
+        this.gameId = gameId;
+    }
 
     public Long getId() {
         return id;
@@ -26,5 +32,11 @@ public class Team {
 
     public Long getGameId() {
         return gameId;
+    }
+
+    public void occupy() {
+        if (!isOccupied) {
+            isOccupied = true;
+        }
     }
 }
