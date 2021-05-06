@@ -9,13 +9,13 @@ public class GameResponseDto {
     private static final int SECOND_TEAM = 1;
 
     private final Long gameId;
-    private final TeamResponseDto homeTeam;
     private final TeamResponseDto awayTeam;
+    private final TeamResponseDto homeTeam;
 
     public GameResponseDto(Game game, List<TeamResponseDto> teams){
         this.gameId = game.getId();
-        this.homeTeam = teams.get(FIRST_TEAM);
-        this.awayTeam = teams.get(SECOND_TEAM);
+        this.awayTeam = teams.get(FIRST_TEAM);
+        this.homeTeam = teams.get(SECOND_TEAM);
     }
 
     public static int getFirstTeam() {
