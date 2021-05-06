@@ -14,16 +14,17 @@ class GameCell: UICollectionViewCell {
     }
     
     static let nib: UINib = UINib(nibName: identifier, bundle: nil)
-    
-    @IBOutlet weak var frontView: UIStackView!
-    @IBOutlet weak var backView: UIStackView!
-    
-    
+        
     @IBOutlet weak var homeTeam: UILabel!
     @IBOutlet weak var awayTeam: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.layer.cornerRadius = 10
     }
     
+    func configure(game: Game) {
+        self.homeTeam.text = game.homeTeam.name
+        self.awayTeam.text = game.awayTeam.name
+    }
 }

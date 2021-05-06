@@ -15,6 +15,7 @@
 		BFC7BFAD2643987F00632037 /* PlayerHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC7BFAC2643987F00632037 /* PlayerHistoryCell.xib */; };
 		BFC7BFB226439ADE00632037 /* PlayHistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC7BFB126439ADE00632037 /* PlayHistoryHeaderView.swift */; };
 		BFC7BFB526439AEE00632037 /* PlayHistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC7BFB426439AEE00632037 /* PlayHistoryHeaderView.xib */; };
+		BFEB62842643D9AB0036A1DE /* GamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB62832643D9AB0036A1DE /* GamePlayViewController.swift */; };
 		BFFEB0B2263FDD09001E8842 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFEB0B1263FDD09001E8842 /* AppDelegate.swift */; };
 		BFFEB0B4263FDD09001E8842 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFEB0B3263FDD09001E8842 /* SceneDelegate.swift */; };
 		BFFEB0B6263FDD09001E8842 /* GameListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFEB0B5263FDD09001E8842 /* GameListController.swift */; };
@@ -39,6 +40,7 @@
 		BFC7BFAC2643987F00632037 /* PlayerHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerHistoryCell.xib; sourceTree = "<group>"; };
 		BFC7BFB126439ADE00632037 /* PlayHistoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHistoryHeaderView.swift; sourceTree = "<group>"; };
 		BFC7BFB426439AEE00632037 /* PlayHistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayHistoryHeaderView.xib; sourceTree = "<group>"; };
+		BFEB62832643D9AB0036A1DE /* GamePlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayViewController.swift; sourceTree = "<group>"; };
 		BFFEB0AE263FDD09001E8842 /* BaseBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaseBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFFEB0B1263FDD09001E8842 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFFEB0B3263FDD09001E8842 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,25 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		BFEB62872643E11F0036A1DE /* GamePlay */ = {
+			isa = PBXGroup;
+			children = (
+				BFC7BFA42643962200632037 /* GamePlay.storyboard */,
+				BFEB62832643D9AB0036A1DE /* GamePlayViewController.swift */,
+			);
+			path = GamePlay;
+			sourceTree = "<group>";
+		};
+		BFEB62892643E1310036A1DE /* GameList */ = {
+			isa = PBXGroup;
+			children = (
+				BFFEB0B5263FDD09001E8842 /* GameListController.swift */,
+				1061AF992641286700B29805 /* GameOptionController.swift */,
+				BFFEB0B7263FDD09001E8842 /* Main.storyboard */,
+			);
+			path = GameList;
+			sourceTree = "<group>";
+		};
 		BFFEB0A5263FDD09001E8842 = {
 			isa = PBXGroup;
 			children = (
@@ -99,15 +120,13 @@
 		BFFEB0B0263FDD09001E8842 /* BaseBall */ = {
 			isa = PBXGroup;
 			children = (
-				10301802263FEFB90003EC0C /* View */,
 				BFFEB0B1263FDD09001E8842 /* AppDelegate.swift */,
 				BFFEB0B3263FDD09001E8842 /* SceneDelegate.swift */,
 				BFFEB0DA26402F42001E8842 /* Model */,
 				BFFEB0C6263FE8A0001E8842 /* Network */,
-				BFFEB0B5263FDD09001E8842 /* GameListController.swift */,
-				BFC7BFA42643962200632037 /* GamePlay.storyboard */,
-				1061AF992641286700B29805 /* GameOptionController.swift */,
-				BFFEB0B7263FDD09001E8842 /* Main.storyboard */,
+				BFEB62892643E1310036A1DE /* GameList */,
+				BFEB62872643E11F0036A1DE /* GamePlay */,
+				10301802263FEFB90003EC0C /* View */,
 				BFFEB0BA263FDD0C001E8842 /* Assets.xcassets */,
 				BFFEB0BC263FDD0C001E8842 /* LaunchScreen.storyboard */,
 				BFFEB0BF263FDD0C001E8842 /* Info.plist */,
@@ -211,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFC7BFAA2643984500632037 /* PlayerHistoryCell.swift in Sources */,
+				BFEB62842643D9AB0036A1DE /* GamePlayViewController.swift in Sources */,
 				BFFEB0B6263FDD09001E8842 /* GameListController.swift in Sources */,
 				BFFEB0B2263FDD09001E8842 /* AppDelegate.swift in Sources */,
 				BFFEB0DD2640322D001E8842 /* GameInfo.swift in Sources */,

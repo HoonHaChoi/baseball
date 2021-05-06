@@ -140,7 +140,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WuN-BH-dwl"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="WuN-BH-dwl" firstAttribute="trailing" secondItem="1fc-Wj-gWj" secondAttribute="trailing" id="5mY-KY-z6b"/>
                             <constraint firstItem="1fc-Wj-gWj" firstAttribute="leading" secondItem="WuN-BH-dwl" secondAttribute="leading" id="743-TZ-5d6"/>
