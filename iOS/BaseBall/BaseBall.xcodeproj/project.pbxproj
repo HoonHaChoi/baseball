@@ -13,6 +13,8 @@
 		BFC7BFA52643962200632037 /* GamePlay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFC7BFA42643962200632037 /* GamePlay.storyboard */; };
 		BFC7BFAA2643984500632037 /* PlayerHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC7BFA92643984500632037 /* PlayerHistoryCell.swift */; };
 		BFC7BFAD2643987F00632037 /* PlayerHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC7BFAC2643987F00632037 /* PlayerHistoryCell.xib */; };
+		BFC7BFB226439ADE00632037 /* PlayHistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC7BFB126439ADE00632037 /* PlayHistoryHeaderView.swift */; };
+		BFC7BFB526439AEE00632037 /* PlayHistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC7BFB426439AEE00632037 /* PlayHistoryHeaderView.xib */; };
 		BFFEB0B2263FDD09001E8842 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFEB0B1263FDD09001E8842 /* AppDelegate.swift */; };
 		BFFEB0B4263FDD09001E8842 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFEB0B3263FDD09001E8842 /* SceneDelegate.swift */; };
 		BFFEB0B6263FDD09001E8842 /* GameListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFEB0B5263FDD09001E8842 /* GameListController.swift */; };
@@ -35,6 +37,8 @@
 		BFC7BFA42643962200632037 /* GamePlay.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GamePlay.storyboard; sourceTree = "<group>"; };
 		BFC7BFA92643984500632037 /* PlayerHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHistoryCell.swift; sourceTree = "<group>"; };
 		BFC7BFAC2643987F00632037 /* PlayerHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerHistoryCell.xib; sourceTree = "<group>"; };
+		BFC7BFB126439ADE00632037 /* PlayHistoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHistoryHeaderView.swift; sourceTree = "<group>"; };
+		BFC7BFB426439AEE00632037 /* PlayHistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayHistoryHeaderView.xib; sourceTree = "<group>"; };
 		BFFEB0AE263FDD09001E8842 /* BaseBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaseBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFFEB0B1263FDD09001E8842 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFFEB0B3263FDD09001E8842 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 				1061AF8C2640E19E00B29805 /* GameCell.xib */,
 				BFC7BFA92643984500632037 /* PlayerHistoryCell.swift */,
 				BFC7BFAC2643987F00632037 /* PlayerHistoryCell.xib */,
+				BFC7BFB126439ADE00632037 /* PlayHistoryHeaderView.swift */,
+				BFC7BFB426439AEE00632037 /* PlayHistoryHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -188,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFFEB0BE263FDD0C001E8842 /* LaunchScreen.storyboard in Resources */,
+				BFC7BFB526439AEE00632037 /* PlayHistoryHeaderView.xib in Resources */,
 				BFFEB0BB263FDD0C001E8842 /* Assets.xcassets in Resources */,
 				BFFEB0B9263FDD09001E8842 /* Main.storyboard in Resources */,
 				1061AF8E2640E19E00B29805 /* GameCell.xib in Resources */,
@@ -211,6 +218,7 @@
 				BFFEB0E126403D09001E8842 /* Pitch.swift in Sources */,
 				BFFEB0D726402F3B001E8842 /* Games.swift in Sources */,
 				BFFEB0D4263FEB2B001E8842 /* NetworkManager.swift in Sources */,
+				BFC7BFB226439ADE00632037 /* PlayHistoryHeaderView.swift in Sources */,
 				BFFEB0D1263FEA3B001E8842 /* NetworkError.swift in Sources */,
 				BFFEB0CE263FEA12001E8842 /* HTTPMethod.swift in Sources */,
 				BFFEB0B4263FDD09001E8842 /* SceneDelegate.swift in Sources */,
