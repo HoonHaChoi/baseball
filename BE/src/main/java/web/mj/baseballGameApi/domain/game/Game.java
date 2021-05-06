@@ -9,7 +9,8 @@ public class Game {
 
     @Id
     private Long id;
-
+    private Long selectedTeamId;
+    private boolean isTop;
 
     public Game() {
     }
@@ -22,6 +23,16 @@ public class Game {
         return id;
     }
 
+    public Long getSelectedTeamId() {
+        return selectedTeamId;
+    }
 
+    public boolean isTop() {
+        return isTop;
+    }
+
+    public void selectTeam(Long teamId) {
+        selectedTeamId = teamId;
+    }
 }
 
