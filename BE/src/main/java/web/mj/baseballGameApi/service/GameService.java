@@ -3,15 +3,14 @@ package web.mj.baseballGameApi.service;
 import org.springframework.stereotype.Service;
 import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.GameRepository;
+import web.mj.baseballGameApi.domain.inning.Inning;
+import web.mj.baseballGameApi.domain.inning.InningRepository;
 import web.mj.baseballGameApi.domain.team.Team;
 import web.mj.baseballGameApi.domain.team.TeamRepository;
 import web.mj.baseballGameApi.exception.EntityNotFoundException;
 import web.mj.baseballGameApi.exception.ErrorMessage;
 import web.mj.baseballGameApi.exception.OccupyFailedException;
-import web.mj.baseballGameApi.web.dto.GameResponseDto;
-import web.mj.baseballGameApi.web.dto.OccupyTeamRequestDto;
-import web.mj.baseballGameApi.web.dto.OccupyTeamResponseDto;
-import web.mj.baseballGameApi.web.dto.TeamResponseDto;
+import web.mj.baseballGameApi.web.dto.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,10 +20,12 @@ public class GameService {
 
     public final GameRepository gameRepository;
     public final TeamRepository teamRepository;
+    public final InningRepository inningRepository;
 
-    public GameService(GameRepository gameRepository, TeamRepository teamRepository) {
+    public GameService(GameRepository gameRepository, TeamRepository teamRepository, InningRepository inningRepository) {
         this.gameRepository = gameRepository;
         this.teamRepository = teamRepository;
+        this.inningRepository = inningRepository;
     }
 
     public List<GameResponseDto> findAllGames() {
@@ -54,6 +55,22 @@ public class GameService {
         return new OccupyTeamResponseDto(game, new TeamResponseDto(team));
     }
 
+    public GameStatusResponseDto findGameStatus(Long gameId) {
+        Game game = findGameById(gameId);
+
+        //TODO: 선택된 팀이 없는 경우 어떻게 처리할까?
+        Team selectedTeam = (game.getSelectedTeamId() != null)
+                                ? findTeamById(game.getSelectedTeamId())
+                                : findTeamById(1L);
+
+        GameResponseDto gameResponseDto = new GameResponseDto(game, getTeamResponseDtos(gameId));
+
+        Inning inning = inningRepository.findAllByGameId(gameId).get(game.getInning());
+        StatusBoardDto statusBoardDto = new StatusBoardDto(game, selectedTeam, inning);
+
+        return new GameStatusResponseDto(gameResponseDto, statusBoardDto);
+    }
+
     private List<TeamResponseDto> getTeamResponseDtos(Long id) {
         return teamRepository.findAllByGameId(id).stream()
                 .map(TeamResponseDto::new)
@@ -71,4 +88,5 @@ public class GameService {
                 () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
         );
     }
+
 }

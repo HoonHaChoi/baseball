@@ -11,6 +11,7 @@ public class Game {
     private Long id;
     private Long selectedTeamId;
     private boolean isTop;
+    private Integer inning;
 
     public Game() {
     }
@@ -29,6 +30,10 @@ public class Game {
 
     public boolean isTop() {
         return isTop;
+    }
+
+    public Integer getInning() {
+        return inning;
     }
 
     public void selectTeam(Long teamId) {
