@@ -17,21 +17,15 @@ class GameListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionViewConfiure()
-        registerNIB()
         loadGames()
         gameList.delegate = self
         gameList.dataSource = self
+        gameList.register(GameCell.nib, forCellWithReuseIdentifier: GameCell.identifier)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    func registerNIB() {
-        let nibName = UINib(nibName: "GameCell", bundle: nil)
-        gameList.register(nibName, forCellWithReuseIdentifier: "GameCell")
-        gameList.register(nibName, forCellWithReuseIdentifier: "GameOptionCell")
-    }
     func loadGames(){
         NetworkManager()
             .requestResource(gameURL: .games, decodeType: [Game].self)
@@ -58,7 +52,6 @@ extension GameListController : UICollectionViewDelegate {
 
 extension GameListController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("game count : \(gameData.count)")
         return gameData.count
     }
     
@@ -71,17 +64,8 @@ extension GameListController : UICollectionViewDataSource {
     }
 }
 extension GameListController: UICollectionViewDelegateFlowLayout {
-    func collectionViewConfiure() {
-        gameList.translatesAutoresizingMaskIntoConstraints = false
-        gameList.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 300).isActive = true
-        gameList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 80).isActive = true
-        gameList.widthAnchor.constraint(equalToConstant: 600).isActive = true
-        gameList.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: gameList.frame.width / 1.3, height: 80)
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return CGSize(width: gameList.frame.width, height: 80)
     }
 }
