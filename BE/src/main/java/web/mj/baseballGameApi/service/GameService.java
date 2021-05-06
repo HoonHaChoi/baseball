@@ -5,6 +5,7 @@ import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.GameRepository;
 import web.mj.baseballGameApi.domain.inning.Inning;
 import web.mj.baseballGameApi.domain.inning.InningRepository;
+import web.mj.baseballGameApi.domain.record.RecordRepository;
 import web.mj.baseballGameApi.domain.team.Team;
 import web.mj.baseballGameApi.domain.team.TeamRepository;
 import web.mj.baseballGameApi.exception.EntityNotFoundException;
@@ -21,11 +22,14 @@ public class GameService {
     public final GameRepository gameRepository;
     public final TeamRepository teamRepository;
     public final InningRepository inningRepository;
+    public final RecordRepository recordRepository;
 
-    public GameService(GameRepository gameRepository, TeamRepository teamRepository, InningRepository inningRepository) {
+    public GameService(GameRepository gameRepository, TeamRepository teamRepository,
+                       InningRepository inningRepository, RecordRepository recordRepository) {
         this.gameRepository = gameRepository;
         this.teamRepository = teamRepository;
         this.inningRepository = inningRepository;
+        this.recordRepository = recordRepository;
     }
 
     public List<GameResponseDto> findAllGames() {
@@ -68,7 +72,11 @@ public class GameService {
         Inning inning = inningRepository.findAllByGameId(gameId).get(game.getInning());
         StatusBoardDto statusBoardDto = new StatusBoardDto(game, selectedTeam, inning);
 
-        return new GameStatusResponseDto(gameResponseDto, statusBoardDto);
+        List<RecordDto> records = recordRepository.findAllByInningGameId(gameId).stream()
+                .map(RecordDto::new)
+                .collect(Collectors.toList());
+
+        return new GameStatusResponseDto(gameResponseDto, statusBoardDto, records);
     }
 
     private List<TeamResponseDto> getTeamResponseDtos(Long id) {

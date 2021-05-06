@@ -4,20 +4,23 @@ import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.inning.Inning;
 import web.mj.baseballGameApi.domain.team.Team;
 
+import java.util.List;
+
 public class GameStatusResponseDto {
     private final Long gameId;
     private final Long selectedTeamId;
     private final TeamResponseDto homeTeam;
     private final TeamResponseDto awayTeam;
     private final StatusBoardDto statusBoard;
+    private final List<RecordDto> recordOfPitching;
 
-    public GameStatusResponseDto(GameResponseDto game, StatusBoardDto statusBoard){
+    public GameStatusResponseDto(GameResponseDto game, StatusBoardDto statusBoard, List<RecordDto> records){
         this.gameId = game.getGameId();
         this.selectedTeamId = game.getSelectedTeamId();
         this.homeTeam = game.getHomeTeam();
         this.awayTeam = game.getAwayTeam();
-
         this.statusBoard = statusBoard;
+        this.recordOfPitching = records;
     }
 
     public Long getGameId() {
@@ -38,5 +41,9 @@ public class GameStatusResponseDto {
 
     public StatusBoardDto getStatusBoard() {
         return statusBoard;
+    }
+
+    public List<RecordDto> getRecordOfPitching() {
+        return recordOfPitching;
     }
 }
