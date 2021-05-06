@@ -20,20 +20,23 @@ USE `baseball_db` ;
 DROP TABLE IF EXISTS `baseball_db`.`game`;
 CREATE TABLE IF NOT EXISTS `baseball_db`.`game` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`))
+  `selected_team_id` INT NULL,
+  `is_top` TINYINT(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `baseball_db`.`team`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `baseball_db`.`team`;
 CREATE TABLE IF NOT EXISTS `baseball_db`.`team` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `is_occupied` TINYINT(1) NOT NULL DEFAULT 0,
   `is_hitting` TINYINT(1) NOT NULL DEFAULT 0,
   `game_id` INT NOT NULL,
+  `score` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`, `game_id`),
   INDEX `fk_team_game1_idx` (`game_id` ASC) VISIBLE,
   CONSTRAINT `fk_team_game1`
