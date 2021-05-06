@@ -30,6 +30,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `baseball_db`.`team`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `baseball_db`.`team`;
 CREATE TABLE IF NOT EXISTS `baseball_db`.`team` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
