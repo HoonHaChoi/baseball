@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Cjx-wz-vC6" customClass="PlayerHistoryCell" customModule="BaseBall" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="252" height="72"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9KK-ru-zYR">
+                <rect key="frame" x="0.0" y="0.0" width="252" height="72"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GsM-bb-pWd">
+                        <rect key="frame" x="25" y="23.5" width="137" height="25.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iuC-L8-aX3">
+                                <rect key="frame" x="0.0" y="0.0" width="13" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MfB-Ke-CgA">
+                                <rect key="frame" x="13" y="0.0" width="124" height="25.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="스트라이크" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Lo-gK-OFO">
+                                        <rect key="frame" x="16.5" y="0.0" width="91" height="25.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="MJP-uJ-COD">
+                        <rect key="frame" x="162" y="23.5" width="65" height="25.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="S0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVX-0P-ztU">
+                                <rect key="frame" x="0.0" y="0.0" width="26" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ky-uY-o66">
+                                <rect key="frame" x="39" y="0.0" width="26" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="MJP-uJ-COD" firstAttribute="centerY" secondItem="9KK-ru-zYR" secondAttribute="centerY" id="10h-y7-Utq"/>
+                    <constraint firstItem="GsM-bb-pWd" firstAttribute="leading" secondItem="9KK-ru-zYR" secondAttribute="leading" constant="25" id="QeW-dp-f4S"/>
+                    <constraint firstItem="GsM-bb-pWd" firstAttribute="centerY" secondItem="9KK-ru-zYR" secondAttribute="centerY" id="dcV-hh-vqL"/>
+                    <constraint firstAttribute="trailing" secondItem="MJP-uJ-COD" secondAttribute="trailing" constant="25" id="eDd-3T-eh7"/>
+                    <constraint firstItem="MJP-uJ-COD" firstAttribute="leading" secondItem="GsM-bb-pWd" secondAttribute="trailing" id="g3X-QD-6cf"/>
+                    <constraint firstItem="GsM-bb-pWd" firstAttribute="centerY" secondItem="9KK-ru-zYR" secondAttribute="centerY" id="nNp-pe-4Zs"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="252" height="72"/>
+            <point key="canvasLocation" x="-22" y="78"/>
+        </collectionViewCell>
+    </objects>
+</document>
