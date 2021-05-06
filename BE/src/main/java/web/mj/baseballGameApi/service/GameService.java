@@ -21,6 +21,9 @@ import web.mj.baseballGameApi.exception.EntityNotFoundException;
 import web.mj.baseballGameApi.exception.ErrorMessage;
 import web.mj.baseballGameApi.exception.OccupyFailedException;
 import web.mj.baseballGameApi.web.dto.*;
+import web.mj.baseballGameApi.exception.OccupyFailedException;
+import web.mj.baseballGameApi.web.dto.GameResponseDto;
+import web.mj.baseballGameApi.web.dto.TeamResponseDto;
 
 import java.util.Comparator;
 
@@ -137,7 +140,15 @@ public class GameService {
                 () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
         );
 
-        selectedTeam.occupy();
+        Game game = gameRepository.findById(requestDto.getGameId()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
+        );
+
+        if (!selectedTeam.occupy()) {
+            return new SocketResponseDto("fail");
+        }
+
+        game.selectTeam(selectedTeam.getId());
 
         teamRepository.save(selectedTeam);
 
