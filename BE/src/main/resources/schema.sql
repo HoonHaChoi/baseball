@@ -27,8 +27,6 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`game` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
-ALTER TABLE `baseball_db`.`game` AUTO_INCREMENT=0;
-
 
 -- -----------------------------------------------------
 -- Table `baseball_db`.`team`
@@ -49,8 +47,6 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`team` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-ALTER TABLE `baseball_db`.`team` AUTO_INCREMENT=0;
 
 -- -----------------------------------------------------
 -- Table `baseball_db`.`inning`
@@ -74,4 +70,54 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`inning` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-ALTER TABLE `baseball_db`.`inning` AUTO_INCREMENT=0;
+-- -----------------------------------------------------
+-- Table `baseball_db`.`player`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `baseball_db`.`player`;
+CREATE TABLE IF NOT EXISTS `baseball_db`.`player` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `num_of_throwing` INT NOT NULL DEFAULT 0,
+  `num_of_hitting` INT NOT NULL DEFAULT 0,
+  `num_of_batting` INT NOT NULL DEFAULT 0,
+  `num_of_out` INT NOT NULL DEFAULT 0,
+  `num_of_strike` VARCHAR(45) NOT NULL DEFAULT 0,
+  `num_of_ball` VARCHAR(45) NOT NULL DEFAULT 0,
+  `position` VARCHAR(45) NOT NULL DEFAULT 'batter',
+  `team_id` INT NOT NULL,
+  `team_game_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `team_id`, `team_game_id`),
+  INDEX `fk_player_team1_idx` (`team_id` ASC, `team_game_id` ASC) VISIBLE,
+  CONSTRAINT `fk_player_team1`
+    FOREIGN KEY (`team_id` , `team_game_id`)
+    REFERENCES `baseball_db`.`team` (`id` , `game_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `baseball_db`.`record`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `baseball_db`.`record`;
+CREATE TABLE IF NOT EXISTS `baseball_db`.`record` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `num_of_strike` INT NOT NULL DEFAULT 0,
+  `num_of_ball` INT NOT NULL DEFAULT 0,
+  `status` VARCHAR(45) NOT NULL DEFAULT 'doing',
+  `inning_id` INT NOT NULL,
+  `inning_game_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `inning_id`, `inning_game_id`),
+  INDEX `fk_record_inning1_idx` (`inning_id` ASC, `inning_game_id` ASC) VISIBLE,
+  CONSTRAINT `fk_record_inning1`
+    FOREIGN KEY (`inning_id` , `inning_game_id`)
+    REFERENCES `baseball_db`.`inning` (`id` , `game_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
