@@ -5,6 +5,8 @@ import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.GameRepository;
 import web.mj.baseballGameApi.domain.inning.Inning;
 import web.mj.baseballGameApi.domain.inning.InningRepository;
+import web.mj.baseballGameApi.domain.player.Player;
+import web.mj.baseballGameApi.domain.player.PlayerRepository;
 import web.mj.baseballGameApi.domain.record.RecordRepository;
 import web.mj.baseballGameApi.domain.team.Team;
 import web.mj.baseballGameApi.domain.team.TeamRepository;
@@ -23,13 +25,18 @@ public class GameService {
     public final TeamRepository teamRepository;
     public final InningRepository inningRepository;
     public final RecordRepository recordRepository;
+    public final PlayerRepository playerRepository;
+
+    private static final String PITCHER = "pitcher";
+    private static final String BATTER = "batter";
 
     public GameService(GameRepository gameRepository, TeamRepository teamRepository,
-                       InningRepository inningRepository, RecordRepository recordRepository) {
+                       InningRepository inningRepository, RecordRepository recordRepository, PlayerRepository playerRepository) {
         this.gameRepository = gameRepository;
         this.teamRepository = teamRepository;
         this.inningRepository = inningRepository;
         this.recordRepository = recordRepository;
+        this.playerRepository = playerRepository;
     }
 
     public List<GameResponseDto> findAllGames() {
@@ -64,19 +71,25 @@ public class GameService {
 
         //TODO: 선택된 팀이 없는 경우 어떻게 처리할까?
         Team selectedTeam = (game.getSelectedTeamId() != null)
-                                ? findTeamById(game.getSelectedTeamId())
-                                : findTeamById(1L);
+                ? findTeamById(game.getSelectedTeamId())
+                : findTeamById(1L);
 
         GameResponseDto gameResponseDto = new GameResponseDto(game, getTeamResponseDtos(gameId));
 
         Inning inning = inningRepository.findAllByGameId(gameId).get(game.getInning());
-        StatusBoardDto statusBoardDto = new StatusBoardDto(game, selectedTeam, inning);
+
+
+        PitcherDto pitcher = new PitcherDto(findPlayerByPosition(PITCHER, gameId));
+        BatterDto batter = new BatterDto(findPlayerByPosition(BATTER, gameId));
+        StatusBoardDto statusBoardDto = new StatusBoardDto(game, selectedTeam, inning, pitcher, batter);
 
         List<RecordDto> records = recordRepository.findAllByInningGameId(gameId).stream()
                 .map(RecordDto::new)
                 .collect(Collectors.toList());
 
-        return new GameStatusResponseDto(gameResponseDto, statusBoardDto, records);
+
+        return new GameStatusResponseDto(gameResponseDto, statusBoardDto,
+                records);
     }
 
     private List<TeamResponseDto> getTeamResponseDtos(Long id) {
@@ -94,6 +107,12 @@ public class GameService {
     private Team findTeamById(Long id) {
         return teamRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
+        );
+    }
+
+    private Player findPlayerByPosition(String position, Long gameId) {
+        return playerRepository.findByPositionAndTeamGameId(position, gameId).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.PLAYER_NOT_FOUND)
         );
     }
 

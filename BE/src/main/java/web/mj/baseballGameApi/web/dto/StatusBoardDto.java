@@ -14,8 +14,10 @@ public class StatusBoardDto {
     private final Integer inning;
     private final boolean isTop;
     private final boolean isHitting;
+    private final PitcherDto pitcher;
+    private final BatterDto batter;
 
-    public StatusBoardDto(Game game, Team team, Inning inning){
+    public StatusBoardDto(Game game, Team team, Inning inning, PitcherDto pitcher, BatterDto batter){
         this.isFirstBase = inning.isFirstBase();
         this.isSecondBase = inning.isSecondBase();
         this.isThirdBase = inning.isThirdBase();
@@ -27,6 +29,8 @@ public class StatusBoardDto {
         this.isTop = game.isTop();
 
         this.isHitting = team.isHitting();
+        this.pitcher = pitcher;
+        this.batter = batter;
     }
 
     public boolean isFirstBase() {
@@ -63,5 +67,13 @@ public class StatusBoardDto {
 
     public boolean isHitting() {
         return isHitting;
+    }
+
+    public PitcherDto getPitcher() {
+        return pitcher;
+    }
+
+    public BatterDto getBatter() {
+        return batter;
     }
 }

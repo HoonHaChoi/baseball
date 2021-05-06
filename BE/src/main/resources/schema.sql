@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`player` (
   `num_of_out` INT NOT NULL DEFAULT 0,
   `num_of_strike` VARCHAR(45) NOT NULL DEFAULT 0,
   `num_of_ball` VARCHAR(45) NOT NULL DEFAULT 0,
-  `position` VARCHAR(45) NOT NULL DEFAULT 'batter',
+  `position` VARCHAR(45) NOT NULL DEFAULT 'chair',
   `team_id` INT NOT NULL,
   `team_game_id` INT NOT NULL,
   PRIMARY KEY (`id`, `team_id`, `team_game_id`),

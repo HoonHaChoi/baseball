@@ -1,9 +1,5 @@
 package web.mj.baseballGameApi.web.dto;
 
-import web.mj.baseballGameApi.domain.game.Game;
-import web.mj.baseballGameApi.domain.inning.Inning;
-import web.mj.baseballGameApi.domain.team.Team;
-
 import java.util.List;
 
 public class GameStatusResponseDto {
@@ -14,7 +10,9 @@ public class GameStatusResponseDto {
     private final StatusBoardDto statusBoard;
     private final List<RecordDto> recordOfPitching;
 
-    public GameStatusResponseDto(GameResponseDto game, StatusBoardDto statusBoard, List<RecordDto> records){
+
+    public GameStatusResponseDto(GameResponseDto game, StatusBoardDto statusBoard,
+                                 List<RecordDto> records){
         this.gameId = game.getGameId();
         this.selectedTeamId = game.getSelectedTeamId();
         this.homeTeam = game.getHomeTeam();
@@ -46,4 +44,5 @@ public class GameStatusResponseDto {
     public List<RecordDto> getRecordOfPitching() {
         return recordOfPitching;
     }
+
 }

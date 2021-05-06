@@ -49,8 +49,8 @@ insert into inning(game_id) values (2);
 -- -----------------------------------------------------
 -- player, team 1, game 1
 -- -----------------------------------------------------
-insert into player(name, position, team_id, team_game_id) values ('kim1', 'pitcher', 1, 1);
-insert into player(name, team_id, team_game_id) values ('kim2', 1, 1);
+insert into player(name, team_id, team_game_id) values ('kim1', 1, 1);
+insert into player(name, position, team_id, team_game_id) values ('kim2', 'batter', 1, 1);
 insert into player(name, team_id, team_game_id) values ('kim3', 1, 1);
 insert into player(name, team_id, team_game_id) values ('kim4', 1, 1);
 insert into player(name, team_id, team_game_id) values ('kim5', 1, 1);
