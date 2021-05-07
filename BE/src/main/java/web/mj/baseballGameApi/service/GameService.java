@@ -7,6 +7,7 @@ import web.mj.baseballGameApi.domain.team.Team;
 import web.mj.baseballGameApi.domain.team.TeamRepository;
 import web.mj.baseballGameApi.exception.EntityNotFoundException;
 import web.mj.baseballGameApi.exception.ErrorMessage;
+import web.mj.baseballGameApi.exception.OccupyFailedException;
 import web.mj.baseballGameApi.web.dto.GameResponseDto;
 import web.mj.baseballGameApi.web.dto.OccupyTeamRequestDto;
 import web.mj.baseballGameApi.web.dto.OccupyTeamResponseDto;
@@ -42,7 +43,11 @@ public class GameService {
         Game game = findGameById(selectedTeam.getGameId());
         Team team = findTeamById(selectedTeam.getId());
 
-        team.occupy();
+        if (!team.occupy()) {
+            throw new OccupyFailedException(ErrorMessage.OCCUPY_FAILED);
+        }
+
+        game.selectTeam(team.getId());
 
         teamRepository.save(team);
 

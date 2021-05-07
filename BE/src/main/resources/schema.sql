@@ -20,7 +20,10 @@ USE `baseball_db` ;
 DROP TABLE IF EXISTS `baseball_db`.`game`;
 CREATE TABLE IF NOT EXISTS `baseball_db`.`game` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`))
+  `selected_team_id` INT NULL,
+  `is_top` TINYINT(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -33,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`team` (
   `name` VARCHAR(45) NOT NULL,
   `is_occupied` TINYINT(1) NOT NULL DEFAULT 0,
   `is_hitting` TINYINT(1) NOT NULL DEFAULT 0,
+  `score` INT NOT NULL DEFAULT 0,
   `game_id` INT NOT NULL,
   PRIMARY KEY (`id`, `game_id`),
   INDEX `fk_team_game1_idx` (`game_id` ASC) VISIBLE,
@@ -43,3 +47,28 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`team` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `baseball_db`.`inning`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `baseball_db`.`inning`;
+CREATE TABLE IF NOT EXISTS `baseball_db`.`inning` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `n_th` INT NOT NULL DEFAULT 1,
+  `1st_base` TINYINT(1) NOT NULL DEFAULT 0,
+  `2nd_base` TINYINT(1) NOT NULL DEFAULT 0,
+  `3rd_base` TINYINT(1) NOT NULL DEFAULT 0,
+  `strike` INT NOT NULL DEFAULT 0,
+  `ball` INT NOT NULL DEFAULT 0,
+  `out` INT NOT NULL DEFAULT 0,
+  `is_top` TINYINT(1) NOT NULL DEFAULT 0,
+  `is_hitting` TINYINT(1) NOT NULL DEFAULT 0,
+  `game_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `game_id`),
+  INDEX `fk_inning_game1_idx` (`game_id` ASC) VISIBLE,
+  CONSTRAINT `fk_inning_game1`
+    FOREIGN KEY (`game_id`)
+    REFERENCES `baseball_db`.`game` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
