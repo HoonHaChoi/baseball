@@ -1,7 +1,7 @@
 # 야구 게임 서비스
 ## 시연
 - 온라인 야구 게임 
-- ![ezgif com-video-to-gif-16](https://user-images.githubusercontent.com/33626693/117406652-4ed4b100-af48-11eb-8d84-2e06719f3ef1.gif)
+ ![ezgif com-video-to-gif-16](https://user-images.githubusercontent.com/33626693/117406652-4ed4b100-af48-11eb-8d84-2e06719f3ef1.gif)
 
 ## API
 - API Docs 내 API 변경이력 및 진행상황 실시간 반영
