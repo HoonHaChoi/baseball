@@ -14,4 +14,7 @@ class PlayHistoryHeaderView: UICollectionReusableView {
     
     static let nib: UINib = UINib(nibName: identifier, bundle: nil)
     
+    @IBOutlet weak var player: UILabel!
+    @IBOutlet weak var playerState: UILabel!
+
 }

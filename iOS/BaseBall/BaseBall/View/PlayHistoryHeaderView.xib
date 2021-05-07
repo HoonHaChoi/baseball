@@ -19,13 +19,13 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7번 타자 류현진" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XW7-93-24E">
                             <rect key="frame" x="0.0" y="0.0" width="142.5" height="27.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아웃" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9e-Q9-I9o">
                             <rect key="frame" x="162.5" y="0.0" width="40" height="27.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -36,6 +36,10 @@
                 <constraint firstItem="GRE-Sm-3DI" firstAttribute="leading" secondItem="qMU-QI-GoS" secondAttribute="leading" constant="24" id="S1M-Np-Ltz"/>
                 <constraint firstItem="qMU-QI-GoS" firstAttribute="bottom" secondItem="GRE-Sm-3DI" secondAttribute="bottom" id="inA-lV-fIM"/>
             </constraints>
+            <connections>
+                <outlet property="player" destination="XW7-93-24E" id="Tx2-XY-6qE"/>
+                <outlet property="playerState" destination="z9e-Q9-I9o" id="IgW-3y-FZt"/>
+            </connections>
             <point key="canvasLocation" x="-507" y="25"/>
         </collectionReusableView>
     </objects>
