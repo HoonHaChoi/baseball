@@ -7,7 +7,7 @@
 - API Docs 내 API 변경이력 및 진행상황 실시간 반영
 - [API 상세](https://github.com/HoonHaChoi/baseball/wiki/API-%EC%9E%91%EC%97%85-%ED%98%84%ED%99%A9)
 
-## 협업규칙
+## 협업 규칙
 ### 소통
 - 회의: 매일 오후 2시(or 오후 3시, 수업 있는 날)
 - 채널: 슬랙(일반), 줌(회의)
