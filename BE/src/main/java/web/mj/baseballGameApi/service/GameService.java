@@ -30,6 +30,7 @@ public class GameService {
 
     private static final String PITCHER = "pitcher";
     private static final String BATTER = "batter";
+    private static final String SUCCESS = "success";
 
     public GameService(GameRepository gameRepository, TeamRepository teamRepository,
                        InningRepository inningRepository, RecordRepository recordRepository, PlayerRepository playerRepository) {
@@ -50,7 +51,7 @@ public class GameService {
         return new GameResponseDto(findGameById(id), getTeamResponseDtos(id));
     }
 
-    public OccupyTeamResponseDto occupyTeam(OccupyTeamRequestDto requestDto) {
+    public OccupyResultDto occupyTeam(OccupyTeamRequestDto requestDto) {
         Team selectedTeam = requestDto.toEntity();
 
         Game game = findGameById(selectedTeam.getGameId());
@@ -64,7 +65,7 @@ public class GameService {
 
         teamRepository.save(team);
 
-        return new OccupyTeamResponseDto(game, new TeamResponseDto(team));
+        return new OccupyResultDto(SUCCESS);
     }
 
     public GameStatusResponseDto findGameStatus(Long gameId) {

@@ -36,7 +36,7 @@ public class GameController {
     }
 
     @PatchMapping("/occupy")
-    public OccupyTeamResponseDto occupyTeam(@RequestBody OccupyTeamRequestDto requestDto){
+    public OccupyResultDto occupyTeam(@RequestBody OccupyTeamRequestDto requestDto){
         logger.info("특정 팀 선정 요청");
 
         return gameService.occupyTeam(requestDto);
