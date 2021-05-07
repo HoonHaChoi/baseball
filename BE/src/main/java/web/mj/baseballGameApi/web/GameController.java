@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import web.mj.baseballGameApi.service.GameService;
-import web.mj.baseballGameApi.web.dto.GameResponseDto;
-import web.mj.baseballGameApi.web.dto.GameStatusResponseDto;
-import web.mj.baseballGameApi.web.dto.OccupyTeamRequestDto;
-import web.mj.baseballGameApi.web.dto.OccupyTeamResponseDto;
+import web.mj.baseballGameApi.web.dto.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +36,6 @@ public class GameController {
     }
 
     @PatchMapping("/occupy")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public OccupyTeamResponseDto occupyTeam(@RequestBody OccupyTeamRequestDto requestDto){
         logger.info("특정 팀 선정 요청");
 
@@ -51,5 +47,12 @@ public class GameController {
         logger.info("특정 게임 현황 조회");
 
        return gameService.findGameStatus(gameId);
+    }
+
+    @GetMapping("/pitch")
+    public PitchResultDto viewGameStatus(@RequestParam Long gameId, @RequestParam Long teamId){
+        logger.info("pitch");
+
+        return gameService.pitch(gameId, teamId);
     }
 }

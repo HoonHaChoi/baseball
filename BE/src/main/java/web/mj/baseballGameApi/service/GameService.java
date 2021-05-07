@@ -3,6 +3,7 @@ package web.mj.baseballGameApi.service;
 import org.springframework.stereotype.Service;
 import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.GameRepository;
+import web.mj.baseballGameApi.domain.game.Pitching;
 import web.mj.baseballGameApi.domain.inning.Inning;
 import web.mj.baseballGameApi.domain.inning.InningRepository;
 import web.mj.baseballGameApi.domain.player.Player;
@@ -116,4 +117,18 @@ public class GameService {
         );
     }
 
+    public PitchResultDto pitch(Long gameId, Long teamId) {
+        Pitching pitching = new Pitching();
+
+        // 수비팀
+        // Pitcher thrwoing +1
+        // Pitching result를 Player table에 반영
+
+        // Pitching result를 record에 반영
+
+        // 공격팀
+        // hit일 경우, batter의 base 상태 변경
+
+        return new PitchResultDto(pitching);
+    }
 }
