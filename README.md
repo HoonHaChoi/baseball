@@ -26,3 +26,6 @@
 ### 기획
 - [웹 기획서](https://docs.google.com/presentation/d/1KY4myrtBFlvr6eKvgl-CVv5Cbk1zQlo1GkTz4hNjXqE/edit?usp=sharing)
 - [모바일 기획서](https://docs.google.com/presentation/d/1ADabFHrj-BQwAmhYxU9KLKleRGSZRmJFdLo0R8bIYHA/edit?usp=sharing)
+### 팀원
+- BackEnd : [MJ](https://github.com/MJbae)
+- iOS : [Neo](https://github.com/HoonHaChoi), [Elly](https://github.com/ellyheetov)
