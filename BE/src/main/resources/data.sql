@@ -3,8 +3,8 @@
 -- -----------------------------------------------------
 -- game
 -- -----------------------------------------------------
-insert into game(id) values (null);
-insert into game(id) values (null);
+insert into game(id, home_team_id, away_team_id) values (null, 1, 2);
+insert into game(id, home_team_id, away_team_id) values (null, 3, 4);
 
 -- -----------------------------------------------------
 -- team

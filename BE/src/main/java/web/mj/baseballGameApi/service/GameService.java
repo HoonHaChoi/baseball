@@ -62,7 +62,9 @@ public class GameService {
         }
 
         game.selectTeam(team.getId());
+        team.select();
 
+        gameRepository.save(game);
         teamRepository.save(team);
 
         return new OccupyResultDto(SUCCESS);
@@ -119,7 +121,49 @@ public class GameService {
     }
 
     public PitchResultDto pitch(Long gameId, Long teamId) {
+        Game game = findGameById(gameId);
+        Team team = findTeamById(teamId);
+
         Pitching pitching = new Pitching();
+
+        // case0) 선수
+            // case0-1) 게임 시작
+            // 공통
+            // game_is_top = true
+            // homeTeam별로 is_hitting false, away = true
+
+            // 수비팀
+            // team = Game::selectedTeamId로 지
+            // Pitcher 지정, player 1
+
+            // 공격팀정
+            // team = List<Game>에서
+            // Batter 지정, player 2
+            // Batter는 순차적으로 변경됨
+            // nowBatter 변수 필요(List<Player>의 인덱스)
+
+            // case0-2) Batter 변경
+            // 공격팀: nowBatter의 다음 인데스의 선수로 변경, nowBatter ++1
+
+            // case0-3) 초->말 변경
+            // 공통: game_is_top = false
+
+        // case1) strike
+            // case1-1) no out
+            // 수비팀
+            // Pitcher numOfThrowing +1
+            // Pitcher numOfStrike +1
+
+            // Record numOfStrike +1
+
+
+            // case1-2) out
+
+        // case2) ball
+            // case2-1) no out
+            // case2-2) out
+
+        // case3) hit
 
         // 수비팀
         // Pitcher thrwoing +1

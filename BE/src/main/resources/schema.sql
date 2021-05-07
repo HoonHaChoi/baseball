@@ -21,6 +21,8 @@ DROP TABLE IF EXISTS `baseball_db`.`game`;
 CREATE TABLE IF NOT EXISTS `baseball_db`.`game` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `selected_team_id` INT NULL,
+  `home_team_id` INT NULL,
+  `away_team_id` INT NULL,
   `is_top` TINYINT(1) NOT NULL DEFAULT 1,
   `inning` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
@@ -39,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`team` (
   `is_hitting` TINYINT(1) NOT NULL DEFAULT 0,
   `score` INT NOT NULL DEFAULT 0,
   `game_id` INT NOT NULL,
+  `is_selected` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`, `game_id`),
   INDEX `fk_team_game1_idx` (`game_id` ASC) VISIBLE,
   CONSTRAINT `fk_team_game1`

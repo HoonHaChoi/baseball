@@ -8,19 +8,19 @@ import java.util.Random;
 public class Pitching {
     private Logger logger = LoggerFactory.getLogger(Pitching.class);
 
-    private final Double battingAverage;
+    private final Double hittingAverage;
     private final Double strikeAverage;
     private final Double ballAverage;
 
     public Pitching() {
-        this.battingAverage = 0.35;
+        this.hittingAverage = 0.35;
         this.strikeAverage = 0.35;
         this.ballAverage = 0.3;
     }
 
-    public Pitching(Double battingAverage, Double strikeAverage) {
-        this.battingAverage = battingAverage;
-        this.strikeAverage = 1 - battingAverage;
+    public Pitching(Double hittingAverage, Double strikeAverage) {
+        this.hittingAverage = hittingAverage;
+        this.strikeAverage = 1 - hittingAverage;
         this.ballAverage = 1 - strikeAverage;
     }
 
@@ -30,11 +30,11 @@ public class Pitching {
 
         logger.info("result {}: ", result);
 
-        if (result <= battingAverage) {
+        if (result <= hittingAverage) {
             return "hit";
         }
 
-        if (result > battingAverage && result <= strikeAverage + battingAverage) {
+        if (result > hittingAverage && result <= strikeAverage + hittingAverage) {
             return "strike";
         }
 

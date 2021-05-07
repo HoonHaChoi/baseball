@@ -9,8 +9,10 @@ public class Team {
     private String name;
     private boolean isOccupied;
     private boolean isHitting;
+    private boolean isSelected;
     private Integer score;
     private Long gameId;
+
 
     public Team() {
     }
@@ -40,6 +42,10 @@ public class Team {
         return score;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
     public Long getGameId() {
         return gameId;
     }
@@ -50,5 +56,9 @@ public class Team {
         }
 
         return isOccupied = true;
+    }
+
+    public boolean select() {
+        return isSelected = true;
     }
 }
