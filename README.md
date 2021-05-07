@@ -4,7 +4,7 @@
 - [GIF or PNG]()
 
 ## API
-- API 변경이력을 API Docs에 반영
+- API Docs 내 API 변경이력 및 진행상황 실시간 반영
 - [API 상세](https://github.com/HoonHaChoi/baseball/wiki/API-%EC%9E%91%EC%97%85-%ED%98%84%ED%99%A9)
 
 ## 협업규칙
@@ -13,7 +13,8 @@
 - 채널: 슬랙
 
 ### 브랜치 정책
-- [브랜치 전략](https://github.com/HoonHaChoi/baseball/wiki)
+- 개발 중에는 dev 브랜치에 기능별 브랜치를 병합하고 개발 완료 시 main 브랜치에 최종 병합
+- [브랜치 전략 상세](https://github.com/HoonHaChoi/baseball/wiki)
 
 ### 커밋 정책
 - 'Udacity Commit Style'을 기본으로 따르되 메시지 내용은 한글로 작성
