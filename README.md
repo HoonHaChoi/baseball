@@ -11,6 +11,7 @@
 ### 소통
 - 회의: 매일 오후 2시(or 오후 3시, 수업 있는 날)
 - 채널: 슬랙(일반), 줌(회의)
+- [회의록](https://github.com/HoonHaChoi/baseball/wiki/%ED%9A%8C%EC%9D%98%EB%A1%9D)
 
 ### 브랜치 정책
 - 개발 중 dev 브랜치에 기능별 브랜치 병합
