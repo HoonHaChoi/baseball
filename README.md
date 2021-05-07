@@ -1,5 +1,5 @@
 # 야구 게임 서비스
-## 시현
+## 시연
 - 온라인 야구 게임 
 - ![ezgif com-video-to-gif-16](https://user-images.githubusercontent.com/33626693/117406652-4ed4b100-af48-11eb-8d84-2e06719f3ef1.gif)
 
