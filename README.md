@@ -1,7 +1,7 @@
 # 야구 게임 서비스
 ## 시현
 - 간단한 설명
-- [GIF or PNG]()
+- GIF or PNG
 
 ## API
 - API Docs 내 API 변경이력 및 진행상황 실시간 반영
