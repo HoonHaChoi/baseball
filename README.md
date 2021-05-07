@@ -24,9 +24,10 @@
 - [Udacity Git Commit Message Style Guide](https://udacity.github.io/git-styleguide/)
 
 ## 기타
-### 기획
-- [웹 기획서](https://docs.google.com/presentation/d/1KY4myrtBFlvr6eKvgl-CVv5Cbk1zQlo1GkTz4hNjXqE/edit?usp=sharing)
-- [모바일 기획서](https://docs.google.com/presentation/d/1ADabFHrj-BQwAmhYxU9KLKleRGSZRmJFdLo0R8bIYHA/edit?usp=sharing)
 ### 팀원
 - iOS: [Neo](https://github.com/HoonHaChoi), [Elly](https://github.com/ellyheetov)
 - BE: [MJ](https://github.com/MJbae)
+
+### 기획
+- [웹 기획서](https://docs.google.com/presentation/d/1KY4myrtBFlvr6eKvgl-CVv5Cbk1zQlo1GkTz4hNjXqE/edit?usp=sharing)
+- [모바일 기획서](https://docs.google.com/presentation/d/1ADabFHrj-BQwAmhYxU9KLKleRGSZRmJFdLo0R8bIYHA/edit?usp=sharing)
