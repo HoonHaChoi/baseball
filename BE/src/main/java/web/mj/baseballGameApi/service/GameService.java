@@ -41,6 +41,7 @@ public class GameService {
     private Player batter;
     private Team defensingTeam;
     private Team hittingTeam;
+    private Integer numOfBatters;
 
     public GameService(GameRepository gameRepository, TeamRepository teamRepository,
                        InningRepository inningRepository, RecordRepository recordRepository, PlayerRepository playerRepository) {
@@ -101,8 +102,12 @@ public class GameService {
         pitcher = findPlayerByPosition(PITCHER, hittingTeam.getId(), gameId);
         PitcherDto pitcherDto = new PitcherDto(pitcher);
 
-        batter = getNowBatter(defensingTeam.getId(), gameId, defensingTeam.getNowBatter());
-        BatterDto batterDto = new BatterDto(getBatters(BATTER, defensingTeam.getId(), gameId).get(defensingTeam.getNowBatter()));
+        List<Player> batters = getBatters(BATTER, defensingTeam.getId(), gameId);
+        numOfBatters = batters.size();
+
+        batter = getNowBatter(defensingTeam.getId(), gameId, hittingTeam.getNowBatterIndex(numOfBatters));
+
+        BatterDto batterDto = new BatterDto(batters.get(hittingTeam.getNowBatterIndex(numOfBatters)));
 
         StatusBoardDto statusBoardDto = new StatusBoardDto(game, selectedTeam, inning, pitcherDto, batterDto);
 
@@ -229,7 +234,7 @@ public class GameService {
                 pitcher.increaseOut();
                 hittingTeam.increaseNowBatter();
 
-                batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatter());
+                batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
                 Record newRecord = new Record(batter.getName(), lastRecord);
 
                 recordRepository.save(newRecord);
@@ -250,18 +255,8 @@ public class GameService {
         // Record numOfBall +1
         // 공격팀
         // Batter numOfBatting +1
-
         // case2-1) no out
-        // case2-2-1) ball 4
-        // 기존 record 업데이트 및 새로운 record 생성
-        // 공격팀
-        // if thirdBase == true, score +1
-        // if secondBase == true, thirdBase = ture
-        // if firstBase == true, secondBase = true
-        // firstBase true
-        // Record status 변경 'doing' -> 'BB'
 
-        // case2-2-2) just ball
         if (pitching.getResult().equals("ball")) {
 //            Record foundRecord = recordRepository.findById(record.getId()).orElseThrow(
 //                    () -> new EntityNotFoundException(ErrorMessage.RECORD_NOT_FOUND)
@@ -272,6 +267,46 @@ public class GameService {
             batter.increaseBatting();
             lastRecord.increaseBall();
             inning.increaseBall();
+
+
+            // case2-2-1) ball 4
+            // Record status 변경 'doing' -> 'BB'
+            // 공격팀
+            // if thirdBase == true, score +1
+            // if secondBase == true, thirdBase = ture
+            // if firstBase == true, secondBase = true
+            // firstBase true
+            // 기존 record 업데이트 및 새로운 record 생성
+            if (inning.getBall() == 4) {
+                lastRecord.setStatus("BB");
+                pitcher.increaseThrowing();
+                batter.increaseBatting();
+                batter.increaseHitting();
+
+                if (inning.isThirdBase()) {
+                    hittingTeam.increaseScore();
+                    inning.setThirdBaseToFalse();
+                }
+
+                if (inning.isSecondBase()) {
+                    inning.setThirdBaseToTrue();
+                    inning.setSecondBaseToFalse();
+                }
+
+                if (inning.isFirstBase()) {
+                    inning.setSecondBaseToTrue();
+                    inning.setFirstBaseToFalse();
+                }
+
+                inning.setFirstBaseToTrue();
+
+                hittingTeam.increaseNowBatter();
+                batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
+                Record newRecord = new Record(batter.getName(), lastRecord);
+
+                recordRepository.save(newRecord);
+            }
+
 
             playerRepository.save(pitcher);
             playerRepository.save(batter);
@@ -324,7 +359,7 @@ public class GameService {
             recordRepository.save(lastRecord);
             teamRepository.save(hittingTeam);
 
-            batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatter());
+            batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
             Record newRecord = new Record(batter.getName(), lastRecord);
 
             recordRepository.save(newRecord);

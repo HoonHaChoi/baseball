@@ -51,8 +51,8 @@ public class Team {
         return gameId;
     }
 
-    public Integer getNowBatter() {
-        return nowBatter;
+    public Integer getNowBatterIndex(Integer size) {
+        return (nowBatter > size) ? nowBatter % size : nowBatter;
     }
 
     public void increaseNowBatter(){
