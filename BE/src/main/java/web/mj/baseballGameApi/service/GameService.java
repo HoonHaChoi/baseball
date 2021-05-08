@@ -19,6 +19,7 @@ import web.mj.baseballGameApi.exception.ErrorMessage;
 import web.mj.baseballGameApi.exception.OccupyFailedException;
 import web.mj.baseballGameApi.web.dto.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -106,6 +107,7 @@ public class GameService {
         StatusBoardDto statusBoardDto = new StatusBoardDto(game, selectedTeam, inning, pitcherDto, batterDto);
 
         List<RecordDto> records = recordRepository.findAllByInningGameId(gameId).stream()
+                .sorted(Comparator.comparingLong(Record::getId).reversed())
                 .map(RecordDto::new)
                 .collect(Collectors.toList());
 
