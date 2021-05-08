@@ -226,13 +226,14 @@ public class GameService {
             // 공격팀
             // batter 변경: hittingTeam, nowBatter ++1 V
             // out -> 공수전환 X
-            if (inning.getStrike() == 4) {
+            if (inning.getStrike() == 3) {
                 inning.increaseOut();
                 lastRecord.setStatus("out");
 
                 inning.increaseOut();
                 pitcher.increaseOut();
                 hittingTeam.increaseNowBatter();
+                inning.resetStrikeAndBall();
 
                 batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
                 Record newRecord = new Record(batter.getName(), lastRecord);
@@ -299,6 +300,7 @@ public class GameService {
                 }
 
                 inning.setFirstBaseToTrue();
+                inning.resetStrikeAndBall();
 
                 hittingTeam.increaseNowBatter();
                 batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
@@ -350,6 +352,7 @@ public class GameService {
             }
 
             inning.setFirstBaseToTrue();
+            inning.resetStrikeAndBall();
 
             hittingTeam.increaseNowBatter();
 

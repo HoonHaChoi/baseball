@@ -21,8 +21,8 @@ public class Record {
 
     public Record(String name, Record previous) {
         this.batterName = name;
-        this.numOfStrike = previous.getNumOfStrike();
-        this.numOfBall = previous.getNumOfBall();
+        this.numOfStrike = 0;
+        this.numOfBall = 0;
         this.status = "doing";
         this.inningId = previous.inningId;
         this.inningGameId = previous.getInningGameId();
@@ -83,6 +83,7 @@ public class Record {
     public void updateName(String name) {
         this.batterName = name;
     }
+
 }
 
 

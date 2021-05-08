@@ -78,14 +78,22 @@ public class Inning {
         isThirdBase = true;
     }
 
-    public void increaseStrike(){
+    public void increaseStrike() {
         strike++;
     }
 
-    public void increaseBall(){
+    public void increaseBall() {
         ball++;
     }
-    public void increaseOut(){
+
+    public void increaseOut() {
         out++;
     }
+
+
+    public void resetStrikeAndBall() {
+        strike = 0;
+        ball = 0;
+    }
+
 }

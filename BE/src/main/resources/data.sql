@@ -91,8 +91,6 @@ insert into player(name, team_id, team_game_id) values ('kim7', 3, 2);
 insert into player(name, team_id, team_game_id) values ('kim8', 3, 2);
 insert into player(name, team_id, team_game_id) values ('kim9', 3, 2);
 insert into player(name, team_id, team_game_id) values ('kim10', 3, 2);
-insert into player(name, team_id, team_game_id) values ('kim11', 3, 2);
-insert into player(name, team_id, team_game_id) values ('kim12', 3, 2);
 
 -- -----------------------------------------------------
 -- player, team 4, game 2
@@ -107,8 +105,6 @@ insert into player(name, team_id, team_game_id) values ('Lee7', 4, 2);
 insert into player(name, team_id, team_game_id) values ('Lee8', 4, 2);
 insert into player(name, team_id, team_game_id) values ('Lee9', 4, 2);
 insert into player(name, team_id, team_game_id) values ('Lee10', 4, 2);
-insert into player(name, team_id, team_game_id) values ('Lee11', 4, 2);
-insert into player(name, team_id, team_game_id) values ('Lee12', 4, 2);
 
 -- -----------------------------------------------------
 -- record, inning 1, game 1
