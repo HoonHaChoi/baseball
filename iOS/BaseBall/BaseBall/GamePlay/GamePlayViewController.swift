@@ -13,24 +13,24 @@ class GamePlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        playHistoryCollection.dataSource = self
-        playHistoryCollection.delegate = self
-        playHistoryCollection.register(PlayerHistoryCell.nib, forCellWithReuseIdentifier: PlayerHistoryCell.identifier)
-        playHistoryCollection.register(PlayHistoryHeaderView.nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PlayHistoryHeaderView.identifier)
+//        playHistoryCollection.dataSource = self
+//        playHistoryCollection.delegate = self
+//        playHistoryCollection.register(PlayerHistoryCell.nib, forCellWithReuseIdentifier: PlayerHistoryCell.identifier)
+//        playHistoryCollection.register(PlayHistoryHeaderView.nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PlayHistoryHeaderView.identifier)
         
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
            swipeUp.direction = UISwipeGestureRecognizer.Direction.down
-           self.view.addGestureRecognizer(swipeUp)
+           view.addGestureRecognizer(swipeUp)
     }
     
     @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
          if let swipeGesture = gesture as? UISwipeGestureRecognizer{
              switch swipeGesture.direction {
                  case UISwipeGestureRecognizer.Direction.down :
-                    let gamePlayViewController = UIViewController()
-                    gamePlayViewController.modalPresentationStyle = .automatic
-                    gamePlayViewController.view.backgroundColor = .white
+                    let gamePlayViewController = UIStoryboard(name: "DetailScore", bundle: nil).instantiateViewController(withIdentifier: "DetailScore")
+                    gamePlayViewController.modalPresentationStyle = .formSheet
+//                    gamePlayViewController.view.backgroundColor = .white
                     self.present(gamePlayViewController, animated: true, completion: nil)
                  default:
                      break
