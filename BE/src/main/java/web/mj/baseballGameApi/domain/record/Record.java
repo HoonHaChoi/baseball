@@ -15,10 +15,22 @@ public class Record {
     private Long inningId;
     private Long inningGameId;
 
-    public Record() {
+    public Record(){
+
+    }
+
+    public Record(Long id, String name, Record previous) {
+        this.id = id;
+        this.batterName = name;
+        this.numOfStrike = previous.getNumOfStrike();
+        this.numOfBall = previous.getNumOfBall();
+        this.status = previous.getStatus();
+        this.inningId = previous.inningId;
+        this.inningGameId = previous.getInningGameId();
     }
 
     public Record(String name, Long gameId) {
+        this.id = 1L;
         this.batterName = name;
         this.numOfStrike = 0;
         this.numOfBall = 0;
@@ -77,6 +89,10 @@ public class Record {
 
     public void increaseStrike() {
         this.numOfStrike++;
+    }
+
+    public void updateName(String name) {
+        this.batterName = name;
     }
 }
 

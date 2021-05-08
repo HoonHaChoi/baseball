@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface InningRepository extends CrudRepository<Inning, Long> {
 
     List<Inning> findAllByGameId(Long gameId);
+    Optional<Inning> findByGameId(Long gameId);
 }

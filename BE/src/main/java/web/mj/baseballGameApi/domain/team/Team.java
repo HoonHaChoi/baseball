@@ -55,6 +55,14 @@ public class Team {
         return nowBatter;
     }
 
+    public void increaseNowBatter(){
+        nowBatter++;
+    }
+
+    public void increaseScore(){
+        score++;
+    }
+
     public boolean occupy() {
         if (isOccupied) {
             return false;

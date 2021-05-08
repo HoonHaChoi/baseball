@@ -17,6 +17,10 @@ public class Inning {
 
     private Integer gameId;
 
+    public Inning() {
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -48,5 +52,29 @@ public class Inning {
 
     public Integer getGameId() {
         return gameId;
+    }
+
+    public void setFirstBaseToFalse() {
+        isFirstBase = false;
+    }
+
+    public void setSecondBaseToFalse() {
+        isSecondBase = false;
+    }
+
+    public void setThirdBaseToFalse() {
+        isThirdBase = false;
+    }
+
+    public void setFirstBaseToTrue() {
+        isFirstBase = true;
+    }
+
+    public void setSecondBaseToTrue() {
+        isSecondBase = true;
+    }
+
+    public void setThirdBaseToTrue() {
+        isThirdBase = true;
     }
 }
