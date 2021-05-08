@@ -145,17 +145,17 @@ public class GameService {
         return playerRepository.findALLByPositionAndTeamId(position, teamId, gameId);
     }
 
-    private Player getNowBatter(Long teamId, Long gameId, Integer nowBatter){
+    private Player getNowBatter(Long teamId, Long gameId, Integer nowBatter) {
         return getBatters(BATTER, teamId, gameId).get(nowBatter);
     }
 
-    private Team getDefensingTeam(Long gameId){
+    private Team getDefensingTeam(Long gameId) {
         return teamRepository.findByGameIdAndIsHittingFalse(gameId).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
         );
     }
 
-    private Inning getNowInning(Long gameId, int nTh){
+    private Inning getNowInning(Long gameId, int nTh) {
         return inningRepository.findAllByGameId(gameId).get(nTh - 1);
     }
 
@@ -172,7 +172,7 @@ public class GameService {
         List<Record> records = recordRepository.findAllByInningGameId(gameId);
         Record lastRecord = records.get(records.size() - 1);
 
-        if (!lastRecord.getBatterName().equals(batter.getName())){
+        if (!lastRecord.getBatterName().equals(batter.getName())) {
             lastRecord.updateName(batter.getName());
             recordRepository.save(lastRecord);
         }
@@ -212,24 +212,34 @@ public class GameService {
             inning.increaseStrike();
             lastRecord.increaseStrike();
 
+            // case1-2) out
+            // 공통
+            // Record status 변경 'doing' -> 'out' V
+            // Inning increase out v
+            // 수비팀
+            // Pitcher numOfOut +1 V
+            // 공격팀
+            // batter 변경: hittingTeam, nowBatter ++1 V
+            // out -> 공수전환 X
+            if (inning.getStrike() == 4) {
+                inning.increaseOut();
+                lastRecord.setStatus("out");
+
+                inning.increaseOut();
+                pitcher.increaseOut();
+                hittingTeam.increaseNowBatter();
+
+                batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatter());
+                Record newRecord = new Record(batter.getName(), lastRecord);
+
+                recordRepository.save(newRecord);
+            }
+
             playerRepository.save(pitcher);
             playerRepository.save(batter);
             recordRepository.save(lastRecord);
             inningRepository.save(inning);
         }
-        // case1-1) no out
-
-        // case1-2) out
-        // 공통
-        // Record status 변경 'doing' -> 'out'
-        // Inning increase out
-        // 수비팀
-        // Pitcher numOfOut +1
-        // 공격팀
-        // batter 변경: hittingTeam, nowBatter ++1
-
-        // out -> 공수전환
-
 
         // ------ 2차 목표
         // case2) ball
@@ -289,33 +299,32 @@ public class GameService {
             batter.increaseBatting();
             batter.increaseHitting();
 
-            if (inning.isThirdBase()){
+            if (inning.isThirdBase()) {
                 hittingTeam.increaseScore();
                 inning.setThirdBaseToFalse();
             }
 
-            if (inning.isSecondBase()){
+            if (inning.isSecondBase()) {
                 inning.setThirdBaseToTrue();
                 inning.setSecondBaseToFalse();
             }
 
-            if (inning.isFirstBase()){
+            if (inning.isFirstBase()) {
                 inning.setSecondBaseToTrue();
                 inning.setFirstBaseToFalse();
             }
 
             inning.setFirstBaseToTrue();
 
-            team.increaseNowBatter();
+            hittingTeam.increaseNowBatter();
 
             inningRepository.save(inning);
             playerRepository.save(batter);
             playerRepository.save(pitcher);
             recordRepository.save(lastRecord);
-            teamRepository.save(team);
+            teamRepository.save(hittingTeam);
 
-
-            batter = getNowBatter(teamId, gameId, team.getNowBatter());
+            batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatter());
             Record newRecord = new Record(batter.getName(), lastRecord);
 
             recordRepository.save(newRecord);

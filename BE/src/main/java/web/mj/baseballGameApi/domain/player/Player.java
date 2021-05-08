@@ -73,14 +73,21 @@ public class Player {
     public void increaseStrike() {
         this.numOfStrike++;
     }
+
     public void increaseBall() {
         this.numOfBall++;
     }
+
     public void increaseBatting() {
         this.numOfBatting++;
     }
+
     public void increaseHitting() {
         this.numOfHitting++;
+    }
+
+    public void increaseOut() {
+        this.numOfOut++;
     }
 
 
