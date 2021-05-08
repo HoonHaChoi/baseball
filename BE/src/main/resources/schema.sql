@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`team` (
   `score` INT NOT NULL DEFAULT 0,
   `game_id` INT NOT NULL,
   `is_selected` TINYINT(1) NOT NULL DEFAULT 0,
+  `now_batter` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`, `game_id`),
   INDEX `fk_team_game1_idx` (`game_id` ASC) VISIBLE,
   CONSTRAINT `fk_team_game1`
@@ -86,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`player` (
   `num_of_out` INT NOT NULL DEFAULT 0,
   `num_of_strike` VARCHAR(45) NOT NULL DEFAULT 0,
   `num_of_ball` VARCHAR(45) NOT NULL DEFAULT 0,
-  `position` VARCHAR(45) NOT NULL DEFAULT 'chair',
+  `position` VARCHAR(45) NOT NULL DEFAULT 'batter',
   `team_id` INT NOT NULL,
   `team_game_id` INT NOT NULL,
   PRIMARY KEY (`id`, `team_id`, `team_game_id`),
@@ -105,11 +106,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `baseball_db`.`record`;
 CREATE TABLE IF NOT EXISTS `baseball_db`.`record` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `batter_name` VARCHAR(45) NOT NULL,
   `num_of_strike` INT NOT NULL DEFAULT 0,
   `num_of_ball` INT NOT NULL DEFAULT 0,
   `status` VARCHAR(45) NOT NULL DEFAULT 'doing',
-  `inning_id` INT NOT NULL,
+  `inning_id` INT NOT NULL DEFAULT 1,
   `inning_game_id` INT NOT NULL,
   PRIMARY KEY (`id`, `inning_id`, `inning_game_id`),
   INDEX `fk_record_inning1_idx` (`inning_id` ASC, `inning_game_id` ASC) VISIBLE,

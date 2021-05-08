@@ -7,7 +7,7 @@ public class Record {
     @Id
     private Long id;
 
-    private String name;
+    private String batterName;
     private Integer numOfStrike;
     private Integer numOfBall;
 
@@ -18,12 +18,21 @@ public class Record {
     public Record() {
     }
 
+    public Record(String name, Long gameId) {
+        this.batterName = name;
+        this.numOfStrike = 0;
+        this.numOfBall = 0;
+        this.status = "doing";
+        this.inningId = 1L;
+        this.inningGameId = gameId;
+    }
+
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getBatterName() {
+        return batterName;
     }
 
     public Integer getNumOfStrike() {
@@ -45,4 +54,30 @@ public class Record {
     public Long getInningGameId() {
         return inningGameId;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setNumOfBall(Integer numOfBall) {
+        this.numOfBall = numOfBall;
+    }
+
+    public void setNumOfStrike(Integer numOfStrike) {
+        this.numOfStrike = numOfStrike;
+    }
+
+    public void setBatterName(String batterName) {
+        this.batterName = batterName;
+    }
+
+    public void increaseBall() {
+        this.numOfBall++;
+    }
+
+    public void increaseStrike() {
+        this.numOfStrike++;
+    }
 }
+
+

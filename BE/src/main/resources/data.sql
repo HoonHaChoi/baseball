@@ -3,15 +3,15 @@
 -- -----------------------------------------------------
 -- game
 -- -----------------------------------------------------
-insert into game(id, home_team_id, away_team_id) values (null, 1, 2);
-insert into game(id, home_team_id, away_team_id) values (null, 3, 4);
+insert into game(id, home_team_id, away_team_id, selected_team_id) values (null, 1, 2, 1);
+insert into game(id, home_team_id, away_team_id, selected_team_id) values (null, 3, 4, 3);
 
 -- -----------------------------------------------------
 -- team
 -- -----------------------------------------------------
-insert into team(name, is_occupied, game_id) values ('Captin', true, 1);
+insert into team(name, is_occupied, is_hitting, game_id) values ('Captin', true, true, 1);
 insert into team(name, is_occupied, game_id) values ('Iron Man', false, 1);
-insert into team(name, is_occupied, game_id) values ('Twins', false, 2);
+insert into team(name, is_occupied, is_hitting, game_id) values ('Twins', false, true, 2);
 insert into team(name, is_occupied, game_id) values ('Heros', false, 2);
 
 -- -----------------------------------------------------
@@ -49,8 +49,8 @@ insert into inning(game_id) values (2);
 -- -----------------------------------------------------
 -- player, team 1, game 1
 -- -----------------------------------------------------
-insert into player(name, team_id, team_game_id) values ('Park1', 1, 1);
-insert into player(name, position, team_id, team_game_id) values ('Park2', 'batter', 1, 1);
+insert into player(name, position, team_id, team_game_id) values ('Park1', 'pitcher', 1, 1);
+insert into player(name, team_id, team_game_id) values ('Park2', 1, 1);
 insert into player(name, team_id, team_game_id) values ('Park3', 1, 1);
 insert into player(name, team_id, team_game_id) values ('Park4', 1, 1);
 insert into player(name, team_id, team_game_id) values ('Park5', 1, 1);
@@ -81,8 +81,8 @@ insert into player(name, team_id, team_game_id) values ('Choi12', 2, 1);
 -- -----------------------------------------------------
 -- player, team 3, game 2
 -- -----------------------------------------------------
-insert into player(name, team_id, team_game_id) values ('kim1', 3, 2);
-insert into player(name, position, team_id, team_game_id) values ('kim2', 'batter', 3, 2);
+insert into player(name, position, team_id, team_game_id) values ('kim1', 'pitcher', 3, 2);
+insert into player(name, team_id, team_game_id) values ('kim2', 3, 2);
 insert into player(name, team_id, team_game_id) values ('kim3', 3, 2);
 insert into player(name, team_id, team_game_id) values ('kim4', 3, 2);
 insert into player(name, team_id, team_game_id) values ('kim5', 3, 2);
@@ -113,13 +113,13 @@ insert into player(name, team_id, team_game_id) values ('Lee12', 4, 2);
 -- -----------------------------------------------------
 -- record, inning 1, game 1
 -- -----------------------------------------------------
-insert into record(name, status, inning_id, inning_game_id) values ('Choi10', 'doing', 1, 1);
-insert into record(name, status, inning_id, inning_game_id) values ('Choi11', 'out', 1, 1);
-insert into record(name, status, inning_id, inning_game_id) values ('Choi12', 'hit', 1, 1);
+insert into record(batter_name, status, inning_id, inning_game_id) values ('Choi10', 'doing', 1, 1);
+insert into record(batter_name, status, inning_id, inning_game_id) values ('Choi11', 'out', 1, 1);
+insert into record(batter_name, status, inning_id, inning_game_id) values ('Choi12', 'hit', 1, 1);
 
 -- -----------------------------------------------------
 -- record, inning 1, game 2
 -- -----------------------------------------------------
-insert into record(name, status, inning_id, inning_game_id) values ('Lee10', 'doing', 13, 2);
-insert into record(name, status, inning_id, inning_game_id) values ('Lee11', 'out', 13, 2);
-insert into record(name, status, inning_id, inning_game_id) values ('Lee12', 'hit', 13, 2);
+insert into record(batter_name, status, inning_id, inning_game_id) values ('Lee10', 'doing', 13, 2);
+insert into record(batter_name, status, inning_id, inning_game_id) values ('Lee11', 'out', 13, 2);
+insert into record(batter_name, status, inning_id, inning_game_id) values ('Lee12', 'hit', 13, 2);

@@ -11,33 +11,44 @@ public class Pitching {
     private final Double hittingAverage;
     private final Double strikeAverage;
     private final Double ballAverage;
+    private String result = "strike";
 
     public Pitching() {
         this.hittingAverage = 0.35;
         this.strikeAverage = 0.35;
         this.ballAverage = 0.3;
+        this.result = calculateResult();
     }
 
     public Pitching(Double hittingAverage, Double strikeAverage) {
         this.hittingAverage = hittingAverage;
         this.strikeAverage = 1 - hittingAverage;
         this.ballAverage = 1 - strikeAverage;
+        this.result = calculateResult();
     }
 
-    public String result() {
+    public String calculateResult() {
         Random random = new Random();
         double result = random.nextDouble();
 
         logger.info("result {}: ", result);
 
         if (result <= hittingAverage) {
-            return "hit";
+            return this.result = "hit";
         }
 
         if (result > hittingAverage && result <= strikeAverage + hittingAverage) {
-            return "strike";
+            return this.result = "strike";
         }
 
-        return "ball";
+        return this.result = "ball";
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }

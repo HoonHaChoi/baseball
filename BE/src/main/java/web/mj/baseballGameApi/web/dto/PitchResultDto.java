@@ -7,7 +7,7 @@ public class PitchResultDto {
     private final String result;
 
     public PitchResultDto(Pitching pitching) {
-        this.result = pitching.result();
+        this.result = pitching.getResult();
     }
 
     public String getResult() {

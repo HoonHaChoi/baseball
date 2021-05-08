@@ -13,7 +13,7 @@ public class RecordDto {
 
     public RecordDto(Record record) {
         this.recordId = record.getId();
-        this.name = record.getName();
+        this.name = record.getBatterName();
         this.status = record.getStatus();
         this.numOfStrike = record.getNumOfStrike();
         this.numOfBall = record.getNumOfBall();

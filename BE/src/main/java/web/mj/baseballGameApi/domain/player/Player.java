@@ -65,4 +65,34 @@ public class Player {
     public Long getTeamGameId() {
         return teamGameId;
     }
+
+    public void increaseThrowing() {
+        this.numOfThrowing++;
+    }
+
+    public void increaseStrike() {
+        this.numOfStrike++;
+    }
+
+    public void increaseBatting() {
+        this.numOfBatting++;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", numOfThrowing=" + numOfThrowing +
+                ", numOfHitting=" + numOfHitting +
+                ", numOfBatting=" + numOfBatting +
+                ", numOfOut=" + numOfOut +
+                ", numOfStrike=" + numOfStrike +
+                ", numOfBall=" + numOfBall +
+                ", position='" + position + '\'' +
+                ", teamId=" + teamId +
+                ", teamGameId=" + teamGameId +
+                '}';
+    }
 }

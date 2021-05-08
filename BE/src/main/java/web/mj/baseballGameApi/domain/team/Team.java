@@ -13,6 +13,7 @@ public class Team {
     private Integer score;
     private Long gameId;
 
+    private Integer nowBatter;
 
     public Team() {
     }
@@ -50,6 +51,10 @@ public class Team {
         return gameId;
     }
 
+    public Integer getNowBatter() {
+        return nowBatter;
+    }
+
     public boolean occupy() {
         if (isOccupied) {
             return false;
@@ -60,5 +65,19 @@ public class Team {
 
     public boolean select() {
         return isSelected = true;
+    }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", isOccupied=" + isOccupied +
+                ", isHitting=" + isHitting +
+                ", isSelected=" + isSelected +
+                ", score=" + score +
+                ", gameId=" + gameId +
+                ", nowBatter=" + nowBatter +
+                '}';
     }
 }
