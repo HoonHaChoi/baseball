@@ -23,18 +23,9 @@ public class Record {
         this.batterName = name;
         this.numOfStrike = previous.getNumOfStrike();
         this.numOfBall = previous.getNumOfBall();
-        this.status = previous.getStatus();
+        this.status = "doing";
         this.inningId = previous.inningId;
         this.inningGameId = previous.getInningGameId();
-    }
-
-    public Record(String name, Long gameId) {
-        this.batterName = name;
-        this.numOfStrike = 0;
-        this.numOfBall = 0;
-        this.status = "doing";
-        this.inningId = 1L;
-        this.inningGameId = gameId;
     }
 
     public Long getId() {

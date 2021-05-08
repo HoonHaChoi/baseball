@@ -207,17 +207,20 @@ public class GameService {
             pitcher.increaseThrowing();
             pitcher.increaseStrike();
             batter.increaseBatting();
+            inning.increaseStrike();
             lastRecord.increaseStrike();
 
             playerRepository.save(pitcher);
             playerRepository.save(batter);
             recordRepository.save(lastRecord);
+            inningRepository.save(inning);
         }
         // case1-1) no out
 
         // case1-2) out
         // 공통
         // Record status 변경 'doing' -> 'out'
+        // Inning increase out
         // 수비팀
         // Pitcher numOfOut +1
         // 공격팀
@@ -256,10 +259,12 @@ public class GameService {
             pitcher.increaseBall();
             batter.increaseBatting();
             lastRecord.increaseBall();
+            inning.increaseBall();
 
             playerRepository.save(pitcher);
             playerRepository.save(batter);
             recordRepository.save(lastRecord);
+            inningRepository.save(inning);
         }
 
         // ------ 3차 목표
