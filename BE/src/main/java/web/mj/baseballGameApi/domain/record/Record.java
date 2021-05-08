@@ -19,8 +19,7 @@ public class Record {
 
     }
 
-    public Record(Long id, String name, Record previous) {
-        this.id = id;
+    public Record(String name, Record previous) {
         this.batterName = name;
         this.numOfStrike = previous.getNumOfStrike();
         this.numOfBall = previous.getNumOfBall();
@@ -30,7 +29,6 @@ public class Record {
     }
 
     public Record(String name, Long gameId) {
-        this.id = 1L;
         this.batterName = name;
         this.numOfStrike = 0;
         this.numOfBall = 0;

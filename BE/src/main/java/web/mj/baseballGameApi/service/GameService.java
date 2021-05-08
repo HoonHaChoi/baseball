@@ -294,7 +294,10 @@ public class GameService {
 
             if (inning.isFirstBase()){
                 inning.setSecondBaseToTrue();
+                inning.setFirstBaseToFalse();
             }
+
+            inning.setFirstBaseToTrue();
 
             team.increaseNowBatter();
 
@@ -305,10 +308,10 @@ public class GameService {
             teamRepository.save(team);
 
 
-//            batter = getNowBatter(teamId, gameId, team.getNowBatter());
-//            Record newRecord = new Record(lastRecord.getId() + 1, batter.getName(), lastRecord);
+            batter = getNowBatter(teamId, gameId, team.getNowBatter());
+            Record newRecord = new Record(batter.getName(), lastRecord);
 
-//            recordRepository.save(newRecord);
+            recordRepository.save(newRecord);
         }
 
         // ------ 4차 목표
