@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -924,9 +925,18 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnN-dr-9j6">
+                                        <rect key="frame" x="458.5" y="408" width="107" height="52"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <color key="tintColor" name="GameCellBackgroundColor"/>
+                                        <inset key="contentEdgeInsets" minX="15" minY="10" maxX="15" maxY="10"/>
+                                        <state key="normal" title="PITCH"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="WnN-dr-9j6" firstAttribute="centerY" secondItem="g5l-mN-nbZ" secondAttribute="centerY" constant="50" id="3lm-EK-ums"/>
                                     <constraint firstAttribute="bottom" secondItem="4xO-sv-IdA" secondAttribute="bottom" constant="50" id="89i-He-CR9"/>
                                     <constraint firstItem="f9h-ZV-1X8" firstAttribute="leading" secondItem="g5l-mN-nbZ" secondAttribute="leading" constant="50" id="8qi-qn-zG7"/>
                                     <constraint firstItem="97a-B2-fZy" firstAttribute="centerX" secondItem="g5l-mN-nbZ" secondAttribute="centerX" id="HkC-PD-aFV"/>
@@ -934,6 +944,7 @@
                                     <constraint firstItem="soi-KF-jEc" firstAttribute="leading" secondItem="g5l-mN-nbZ" secondAttribute="leading" constant="40" id="Lfz-6k-alo"/>
                                     <constraint firstItem="kxg-K4-Eys" firstAttribute="top" secondItem="dEr-Qg-YS9" secondAttribute="bottom" constant="40" id="OSO-DA-f6H"/>
                                     <constraint firstItem="S7Z-wQ-NtK" firstAttribute="leading" secondItem="7oz-d6-yhQ" secondAttribute="leading" id="QGh-Eg-0Sd"/>
+                                    <constraint firstItem="WnN-dr-9j6" firstAttribute="centerX" secondItem="g5l-mN-nbZ" secondAttribute="centerX" id="R6q-wt-Xzf"/>
                                     <constraint firstItem="dEr-Qg-YS9" firstAttribute="centerY" secondItem="97a-B2-fZy" secondAttribute="centerY" id="ZBr-Ox-fSL"/>
                                     <constraint firstAttribute="trailing" secondItem="4xO-sv-IdA" secondAttribute="trailing" constant="50" id="cPS-To-KWb"/>
                                     <constraint firstItem="97a-B2-fZy" firstAttribute="top" secondItem="g5l-mN-nbZ" secondAttribute="top" constant="30" id="eF4-Ge-0GJ"/>
@@ -962,6 +973,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="N6K-fC-oe9"/>
+                    <connections>
+                        <outlet property="pitchButton" destination="WnN-dr-9j6" id="gic-pK-5Un"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WfV-P9-0qM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -975,6 +989,9 @@
         <image name="nosehoon-removebg-preview" width="190" height="266"/>
         <image name="player1-removebg-preview" width="320" height="320"/>
         <image name="plus.circle" catalog="system" width="128" height="121"/>
+        <namedColor name="GameCellBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

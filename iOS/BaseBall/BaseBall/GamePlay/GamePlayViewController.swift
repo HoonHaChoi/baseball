@@ -7,9 +7,11 @@
 
 import UIKit
 
-class GamePlayViewController: UIViewController, SocketManagerDelegate {
+class GamePlayViewController: UIViewController {
 
     @IBOutlet weak var playHistoryCollection: UICollectionView!
+    @IBOutlet weak var pitchButton: UIButton!
+    
     var manager : PitchSocketManager?
     
     override func viewDidLoad() {
@@ -23,6 +25,8 @@ class GamePlayViewController: UIViewController, SocketManagerDelegate {
         let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(popViewControllerOnScreenEdgeSwipe(_:)))
         edgePan.edges = .right
         view.addGestureRecognizer(edgePan)
+        
+        configureButton()
     }
     
     @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
@@ -47,10 +51,12 @@ class GamePlayViewController: UIViewController, SocketManagerDelegate {
             present(vc, animated: true, completion: nil)
         }
     }
+}
+
+extension GamePlayViewController : SocketManagerDelegate{
     func didconnect() {
         print("connected")
     }
-    
     func didReceive(with data: Any) {
         guard let data = data as? Pitch else {
             return
@@ -59,3 +65,13 @@ class GamePlayViewController: UIViewController, SocketManagerDelegate {
     }
 }
 
+// MARK: - Configuration
+extension GamePlayViewController {
+    func configureButton() {
+        pitchButton.layer.cornerRadius = 10
+        pitchButton.layer.shadowColor = UIColor.gray.cgColor
+        pitchButton.layer.shadowOpacity = 1.0
+        pitchButton.layer.shadowOffset = CGSize.zero
+        pitchButton.layer.shadowRadius = 6
+    }
+}
