@@ -9,14 +9,10 @@ import UIKit
 
 class GameHistoryViewController: UIViewController {
     
-    lazy var backdropView: UIView = {
-        let bdView = UIView(frame: self.view.bounds)
-        bdView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-        return bdView
-    }()
-    
     let menuWidth = UIScreen.main.bounds.width * 0.3
     var isPresenting = false
+    
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var playHistoryCollection: UICollectionView!
     
     override func viewDidLoad() {
@@ -25,11 +21,11 @@ class GameHistoryViewController: UIViewController {
         view.backgroundColor = .clear
         view.layer.cornerRadius = 10
         playHistoryCollection.layer.cornerRadius = 10
-        view.addSubview(backdropView)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(GameHistoryViewController.handleTap(_:)))
-        backdropView.addGestureRecognizer(tapGesture)
         
+        view.addGestureRecognizer(tapGesture)
+
         playHistoryCollection.dataSource = self
         playHistoryCollection.delegate = self
         playHistoryCollection.register(PlayerHistoryCell.nib, forCellWithReuseIdentifier: PlayerHistoryCell.identifier)
@@ -63,18 +59,18 @@ extension GameHistoryViewController: UIViewControllerTransitioningDelegate, UIVi
         if isPresenting == true {
             containerView.addSubview(toVC.view)
             playHistoryCollection.frame.origin.x += menuWidth
-            backdropView.alpha = 0
+            backView.alpha = 0
 
             UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseOut], animations: {
                 self.playHistoryCollection.frame.origin.x -= self.menuWidth
-                self.backdropView.alpha = 1
+                self.backView.alpha = 1
             }, completion: { (finished) in
                 transitionContext.completeTransition(true)
             })
         } else {
             UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseOut], animations: {
                 self.playHistoryCollection.frame.origin.x += self.menuWidth
-                self.backdropView.alpha = 0
+                self.backView.alpha = 0
             }, completion: { (finished) in
                 transitionContext.completeTransition(true)
             })

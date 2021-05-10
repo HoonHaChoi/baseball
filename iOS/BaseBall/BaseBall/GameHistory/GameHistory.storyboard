@@ -16,7 +16,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lz5-dC-Vyz">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dwa-KK-h9w">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29361386330711919" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lz5-dC-Vyz">
                                 <rect key="frame" x="717" y="0.0" width="307" height="768"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80851452560000003" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -43,12 +47,17 @@
                         <viewLayoutGuide key="safeArea" id="d6B-Yw-RU6"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="dwa-KK-h9w" firstAttribute="top" secondItem="d6B-Yw-RU6" secondAttribute="top" id="3Jq-bv-x3K"/>
                             <constraint firstItem="d6B-Yw-RU6" firstAttribute="bottom" secondItem="lz5-dC-Vyz" secondAttribute="bottom" id="652-JC-a3j"/>
+                            <constraint firstItem="lz5-dC-Vyz" firstAttribute="trailing" secondItem="dwa-KK-h9w" secondAttribute="trailing" id="JF3-4E-TRE"/>
+                            <constraint firstItem="d6B-Yw-RU6" firstAttribute="bottom" secondItem="dwa-KK-h9w" secondAttribute="bottom" id="Rn5-PE-sIs"/>
                             <constraint firstItem="lz5-dC-Vyz" firstAttribute="trailing" secondItem="d6B-Yw-RU6" secondAttribute="trailing" id="UGv-cp-kkO"/>
                             <constraint firstItem="lz5-dC-Vyz" firstAttribute="top" secondItem="d6B-Yw-RU6" secondAttribute="top" id="Wk4-id-81S"/>
+                            <constraint firstItem="dwa-KK-h9w" firstAttribute="leading" secondItem="d6B-Yw-RU6" secondAttribute="leading" id="ZbN-0l-KYy"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backView" destination="dwa-KK-h9w" id="OrX-Wc-2FT"/>
                         <outlet property="playHistoryCollection" destination="lz5-dC-Vyz" id="u9r-mq-G6Q"/>
                     </connections>
                 </viewController>
