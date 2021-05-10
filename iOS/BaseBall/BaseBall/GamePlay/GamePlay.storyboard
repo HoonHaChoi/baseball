@@ -932,6 +932,9 @@
                                         <color key="tintColor" name="GameCellBackgroundColor"/>
                                         <inset key="contentEdgeInsets" minX="15" minY="10" maxX="15" maxY="10"/>
                                         <state key="normal" title="PITCH"/>
+                                        <connections>
+                                            <action selector="didTouchPitch:" destination="5GE-vl-qR2" eventType="touchUpInside" id="81n-oK-PnT"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

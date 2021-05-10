@@ -28,8 +28,11 @@ class GameOptionController: UIViewController {
     }
     
     private func moveGamePlayView() {
-        let gamePlayViewController = UIStoryboard(name: "GamePlay", bundle: nil).instantiateViewController(withIdentifier: "GamePlay")
+        let gamePlayViewController = UIStoryboard(name: "GamePlay", bundle: nil)
+            .instantiateViewController(withIdentifier: "GamePlay") as! GamePlayViewController
         gamePlayViewController.modalPresentationStyle = .fullScreen
+        gamePlayViewController.game = game
+        
         self.present(gamePlayViewController, animated: true, completion: nil)
     }
     

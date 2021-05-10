@@ -13,11 +13,11 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var pitchButton: UIButton!
     
     var manager : PitchSocketManager?
+    var game : Game?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         manager = PitchSocketManager(self)
-        
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
            swipeUp.direction = UISwipeGestureRecognizer.Direction.down
            view.addGestureRecognizer(swipeUp)
@@ -51,9 +51,14 @@ class GamePlayViewController: UIViewController {
             present(vc, animated: true, completion: nil)
         }
     }
+    @IBAction func didTouchPitch(_ sender: UIButton) {
+        guard let game = game else { return }
+        manager?.didRequest(gameId: game.gameId, teamId: 0)
+    }
 }
 
 extension GamePlayViewController : SocketManagerDelegate{
+    
     func didconnect() {
         print("connected")
     }

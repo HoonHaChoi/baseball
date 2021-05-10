@@ -46,7 +46,7 @@ class JoinSocketManager {
     }
     
     // MARK: - Socket Emits
-    func didRequestJoin(gameId: Int, teamId: Int){
+    func didRequest(gameId: Int, teamId : Int) {
         let info: [String : Any] = [
             "gameId": gameId,
             "teamId": teamId
