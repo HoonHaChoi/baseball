@@ -41,10 +41,14 @@ public class GameService {
     public final RecordRepository recordRepository;
     public final PlayerRepository playerRepository;
 
+    // TODO: ENUM으로 정리, result, position, status
     private static final String PITCHER = "pitcher";
     private static final String BATTER = "batter";
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
+    private static final String STRIKE = "strike";
+    private static final String BALL = "ball";
+    private static final String HIT = "hit";
 
     private final ObjectMapper objectMapper;
 
@@ -145,15 +149,15 @@ public class GameService {
         );
 
         if (!selectedTeam.occupy()) {
-            return new SocketResponseDto("fail");
+            return new SocketResponseDto(FAIL);
         }
 
         game.selectTeam(selectedTeam.getId());
 
         teamRepository.save(selectedTeam);
 
-        //TODO: Static으로 바꿀
-        return new SocketResponseDto("success");
+        //TODO: static 변수로 변경
+        return new SocketResponseDto(SUCCESS);
     }
 
 
@@ -200,14 +204,13 @@ public class GameService {
     }
 
     public SocketResponseDto pitch(Long gameId, Long teamId) {
+
+        // TODO: 진행팀 지정은 하드코딩으로 시작, 추후 사용자에 의해 변경
         Game game = findGameById(gameId);
         Team team = findTeamById(teamId);
         Inning inning = getNowInning(gameId, game.getInning());
 
         Pitching pitching = new Pitching();
-        // TODO: pitching 개발 완료 후 삭제
-        // TODO: 특정 게임 현황 조회 실행 후 pitch 결과 조회 실행되어야 함
-        // 그렇지 않으면 batter == null
 
         List<Record> records = recordRepository.findAllByInningGameId(gameId);
         Record lastRecord = records.get(records.size() - 1);
@@ -217,156 +220,65 @@ public class GameService {
             recordRepository.save(lastRecord);
         }
 
-//        Record record = new Record(batter.getName(), gameId);
-//        recordRepository.save(record);
-        // **홈팀(수비팀 시작)으로 시작하는 경우만 생각한다**
-
-        // ------ 1차 목표
-        // 사전 완료 작업
-        // TODO: 진행팀 지정은 하드코딩으로 시작, 추후 사용자에 의해 변경
-        // 진행팀 지정: game.selectedTeamId V
-        // Pitcher 지정: 수비팀 플레이어 중 position == 'pitcher' V
-        // batters 불러오기: 공격팀 플레이어 중 position == 'batter' V
-        // Batter 지정 V
-        // Batter는 순차적으로 변경됨, index는 리스트의 크기를 기준으로 반복되어야 함 V
-        // nowBatter 변수 필요(List<Player>의 인덱스) V
-        // record 생성 V
-
-        // ------ 2차 목표
-        // case1) strike
-        // 공통
-        // 수비팀
-        // Pitcher numOfThrowing +1
-        // Pitcher numOfStrike +1
-        // Record numOfStrike +1
-        // 공격팀
-        // Batter numOfBatting +1
-        if (pitching.getResult().equals("strike")) {
-//            Record foundRecord = recordRepository.findById(record.getId()).orElseThrow(
-//                    () -> new EntityNotFoundException(ErrorMessage.RECORD_NOT_FOUND)
-//            );
-
-            pitcher.increaseThrowing();
-            pitcher.increaseStrike();
-            batter.increaseBatting();
-            inning.increaseStrike();
-            lastRecord.increaseStrike();
-
-            // case1-2) out
-            // 공통
-            // Record status 변경 'doing' -> 'out' V
-            // Inning increase out v
-            // 수비팀
-            // Pitcher numOfOut +1 V
-            // 공격팀
-            // batter 변경: hittingTeam, nowBatter ++1 V
-            // out -> 공수전환 X
-            if (inning.getStrike() == 3) {
-                inning.increaseOut();
-                lastRecord.setStatus("out");
-
-                inning.increaseOut();
-                pitcher.increaseOut();
-                hittingTeam.increaseNowBatter();
-                inning.resetStrikeAndBall();
-
-                batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
-                Record newRecord = new Record(batter.getName(), lastRecord);
-
-                recordRepository.save(newRecord);
-            }
-
-            playerRepository.save(pitcher);
-            playerRepository.save(batter);
-            recordRepository.save(lastRecord);
-            inningRepository.save(inning);
+        if (pitching.getResult().equals(STRIKE)) {
+            handleStrike(gameId, teamId, inning, lastRecord);
         }
 
-        // ------ 2차 목표
-        // case2) ball
-        // 공통
-        // 수비팀
-        // Pitcher numOfThrowing +1
-        // Pitcher numOfBall +1
-        // Record numOfBall +1
-        // 공격팀
-        // Batter numOfBatting +1
-        // case2-1) no out
-
-        if (pitching.getResult().equals("ball")) {
-//            Record foundRecord = recordRepository.findById(record.getId()).orElseThrow(
-//                    () -> new EntityNotFoundException(ErrorMessage.RECORD_NOT_FOUND)
-//            );
-
-            pitcher.increaseThrowing();
-            pitcher.increaseBall();
-            batter.increaseBatting();
-            lastRecord.increaseBall();
-            inning.increaseBall();
-
-
-            // case2-2-1) ball 4
-            // Record status 변경 'doing' -> 'BB'
-            // 공격팀
-            // if thirdBase == true, score +1
-            // if secondBase == true, thirdBase = ture
-            // if firstBase == true, secondBase = true
-            // firstBase true
-            // 기존 record 업데이트 및 새로운 record 생성
-            if (inning.getBall() == 4) {
-                lastRecord.setStatus("BB");
-                pitcher.increaseThrowing();
-                batter.increaseBatting();
-                batter.increaseHitting();
-
-                if (inning.isThirdBase()) {
-                    hittingTeam.increaseScore();
-                    inning.setThirdBaseToFalse();
-                }
-
-                if (inning.isSecondBase()) {
-                    inning.setThirdBaseToTrue();
-                    inning.setSecondBaseToFalse();
-                }
-
-                if (inning.isFirstBase()) {
-                    inning.setSecondBaseToTrue();
-                    inning.setFirstBaseToFalse();
-                }
-
-                inning.setFirstBaseToTrue();
-                inning.resetStrikeAndBall();
-
-                hittingTeam.increaseNowBatter();
-                batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
-                Record newRecord = new Record(batter.getName(), lastRecord);
-
-                recordRepository.save(newRecord);
-            }
-
-
-            playerRepository.save(pitcher);
-            playerRepository.save(batter);
-            recordRepository.save(lastRecord);
-            inningRepository.save(inning);
+        if (pitching.getResult().equals(BALL)) {
+            handleBall(gameId, teamId, inning, lastRecord);
         }
 
-        // ------ 3차 목표
-        // case3) hit
-        // 공통
-        // 기존 record 업데이트 및 새로운 record 생성
-        // Record status 변경 'doing' -> 'hit'
-        // 수비팀
-        // Pitcher numOfThrowing +1
-        // 공격팀
-        // Batter numOfBatting +1
-        // Batter numOfHitting +1
-        // if thirdBase == true, score +1
-        // if secondBase == true, thirdBase = ture
-        // if firstBase == true, secondBase = true
-        // firstBase true
-        if (pitching.getResult().equals("hit")) {
-            lastRecord.setStatus("hit");
+        if (pitching.getResult().equals(HIT)) {
+            handleHit(gameId, teamId, inning, lastRecord);
+        }
+
+        // TODO: 초->말 변경 로직 추후 도입
+        // 공통: game_is_top = false
+        // 수비팀: isHitting = true
+        // 공격팀: isHitting = false
+
+        return new SocketResponseDto(pitching);
+    }
+
+    private void handleStrike(Long gameId, Long teamId, Inning inning, Record lastRecord) {
+
+        pitcher.increaseThrowing();
+        pitcher.increaseStrike();
+        batter.increaseBatting();
+        inning.increaseStrike();
+        lastRecord.increaseStrike();
+
+        if (inning.getStrike() == 3) {
+            inning.increaseOut();
+            lastRecord.setStatus("out");
+
+            inning.increaseOut();
+            pitcher.increaseOut();
+            hittingTeam.increaseNowBatter();
+            inning.resetStrikeAndBall();
+
+            batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
+            Record newRecord = new Record(batter.getName(), lastRecord);
+
+            recordRepository.save(newRecord);
+        }
+
+        playerRepository.save(pitcher);
+        playerRepository.save(batter);
+        recordRepository.save(lastRecord);
+        inningRepository.save(inning);
+    }
+
+    private void handleBall(Long gameId, Long teamId, Inning inning, Record lastRecord) {
+
+        pitcher.increaseThrowing();
+        pitcher.increaseBall();
+        batter.increaseBatting();
+        lastRecord.increaseBall();
+        inning.increaseBall();
+
+        if (inning.getBall() == 4) {
+            lastRecord.setStatus("BB");
             pitcher.increaseThrowing();
             batter.increaseBatting();
             batter.increaseHitting();
@@ -390,24 +302,53 @@ public class GameService {
             inning.resetStrikeAndBall();
 
             hittingTeam.increaseNowBatter();
-
-            inningRepository.save(inning);
-            playerRepository.save(batter);
-            playerRepository.save(pitcher);
-            recordRepository.save(lastRecord);
-            teamRepository.save(hittingTeam);
-
             batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
             Record newRecord = new Record(batter.getName(), lastRecord);
 
             recordRepository.save(newRecord);
         }
 
-        // ------ 4차 목표
-        // case4) 초->말 변경
-        // 공통: game_is_top = false
-        // 수비팀: isHitting = true
-        // 공격팀: isHitting = false
-        return new SocketResponseDto(pitching);
+        playerRepository.save(pitcher);
+        playerRepository.save(batter);
+        recordRepository.save(lastRecord);
+        inningRepository.save(inning);
+    }
+
+    private void handleHit(Long gameId, Long teamId, Inning inning, Record lastRecord) {
+        lastRecord.setStatus(HIT);
+        pitcher.increaseThrowing();
+        batter.increaseBatting();
+        batter.increaseHitting();
+
+        if (inning.isThirdBase()) {
+            hittingTeam.increaseScore();
+            inning.setThirdBaseToFalse();
+        }
+
+        if (inning.isSecondBase()) {
+            inning.setThirdBaseToTrue();
+            inning.setSecondBaseToFalse();
+        }
+
+        if (inning.isFirstBase()) {
+            inning.setSecondBaseToTrue();
+            inning.setFirstBaseToFalse();
+        }
+
+        inning.setFirstBaseToTrue();
+        inning.resetStrikeAndBall();
+
+        hittingTeam.increaseNowBatter();
+
+        inningRepository.save(inning);
+        playerRepository.save(batter);
+        playerRepository.save(pitcher);
+        recordRepository.save(lastRecord);
+        teamRepository.save(hittingTeam);
+
+        batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
+        Record newRecord = new Record(batter.getName(), lastRecord);
+
+        recordRepository.save(newRecord);
     }
 }

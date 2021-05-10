@@ -11,7 +11,6 @@ public class SocketRequestDto {
         this.teamId = teamId;
     }
 
-
     public Long getTeamId() {
         return teamId;
     }

@@ -11,7 +11,7 @@ import web.mj.baseballGameApi.web.dto.GameStatusResponseDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/games")
 public class GameController {
     private final Logger logger = LoggerFactory.getLogger(GameController.class);
 
@@ -21,26 +21,26 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    @GetMapping("/games")
+    @GetMapping
     public List<GameResponseDto> viewAllGames(){
         logger.info("모든 게임 요청");
 
         return gameService.findAllGames();
     }
 
-    @PostMapping("/games")
+    @PostMapping
     public Game createGame() {
         return gameService.createGame();
     }
 
-    @GetMapping("/games/{gameId}")
+    @GetMapping("/{gameId}")
     public GameResponseDto viewOneGame(@PathVariable Long gameId){
         logger.info("gameId: {} 게임 요청", gameId);
 
         return gameService.findOneGame(gameId);
     }
 
-    @GetMapping("/games/status")
+    @GetMapping("/status")
     public GameStatusResponseDto viewGameStatus(@RequestParam Long gameId){
         logger.info("특정 게임 현황 조회");
 
