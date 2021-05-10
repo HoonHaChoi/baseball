@@ -1,14 +1,8 @@
 package web.mj.baseballGameApi.web.dto;
 
-import org.springframework.web.socket.WebSocketSession;
-import web.mj.baseballGameApi.domain.chat.ChatMessage;
 import web.mj.baseballGameApi.domain.game.Game;
-import web.mj.baseballGameApi.service.ChatService;
-import web.mj.baseballGameApi.service.GameService;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GameResponseDto {
     private static final int FIRST_TEAM = 0;

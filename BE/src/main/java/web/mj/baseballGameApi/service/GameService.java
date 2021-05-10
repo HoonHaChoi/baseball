@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
-import web.mj.baseballGameApi.domain.chat.ChatRoom;
 import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.GameRepository;
 import web.mj.baseballGameApi.domain.game.Pitching;

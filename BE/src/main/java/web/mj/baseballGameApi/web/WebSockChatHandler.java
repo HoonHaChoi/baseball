@@ -8,7 +8,6 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import web.mj.baseballGameApi.domain.game.Pitching;
-import web.mj.baseballGameApi.service.ChatService;
 import web.mj.baseballGameApi.service.GameService;
 import web.mj.baseballGameApi.web.dto.SocketRequestDto;
 import web.mj.baseballGameApi.web.dto.PitchResultDto;
@@ -22,12 +21,10 @@ public class WebSockChatHandler extends TextWebSocketHandler {
     private Set<WebSocketSession> sessions = new HashSet<>();
 
     private final ObjectMapper objectMapper;
-    private final ChatService chatService;
     private final GameService gameService;
 
-    public WebSockChatHandler(ObjectMapper objectMapper, ChatService chatService, GameService gameService) {
+    public WebSockChatHandler(ObjectMapper objectMapper, GameService gameService) {
         this.objectMapper = objectMapper;
-        this.chatService = chatService;
         this.gameService = gameService;
     }
 

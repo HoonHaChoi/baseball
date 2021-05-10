@@ -1,6 +1,5 @@
 package web.mj.baseballGameApi.web.dto;
 
-import web.mj.baseballGameApi.domain.chat.ChatMessage;
 
 public class PitchResultDto {
     private String result;
