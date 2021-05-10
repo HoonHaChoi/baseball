@@ -49,7 +49,8 @@ public class WebSockChatHandler extends TextWebSocketHandler {
         }
 
         if (requestDto.getType().equals("pitch")){
-            SocketResponseDto pitchingResult = new SocketResponseDto(new Pitching().calculateResult());
+
+            SocketResponseDto pitchingResult = gameService.pitch(requestDto.getGameId(), requestDto.getTeamId());
 
             handlePitching(pitchingResult);
         }
