@@ -15,7 +15,7 @@ public class Record {
     private Long inningId;
     private Long inningGameId;
 
-    public Record(){
+    public Record() {
 
     }
 

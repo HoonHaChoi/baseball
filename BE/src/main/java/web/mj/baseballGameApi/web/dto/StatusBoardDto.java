@@ -17,7 +17,7 @@ public class StatusBoardDto {
     private final PitcherDto pitcher;
     private final BatterDto batter;
 
-    public StatusBoardDto(Game game, Team team, Inning inning, PitcherDto pitcher, BatterDto batter){
+    public StatusBoardDto(Game game, Team team, Inning inning, PitcherDto pitcher, BatterDto batter) {
         this.isFirstBase = inning.isFirstBase();
         this.isSecondBase = inning.isSecondBase();
         this.isThirdBase = inning.isThirdBase();

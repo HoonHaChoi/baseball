@@ -8,7 +8,7 @@ public class BatterDto {
     private final Integer numOfBatting;
     private final Integer numOfHitting;
 
-    public BatterDto(Player player){
+    public BatterDto(Player player) {
         this.name = player.getName();
         this.numOfBatting = player.getNumOfBatting();
         this.numOfHitting = player.getNumOfHitting();

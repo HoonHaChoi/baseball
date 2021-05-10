@@ -1,4 +1,5 @@
 package web.mj.baseballGameApi.web.dto;
+
 import web.mj.baseballGameApi.domain.team.Team;
 
 public class TeamStatusResponseDto {
@@ -8,7 +9,7 @@ public class TeamStatusResponseDto {
     private final boolean isHitting;
 
 
-    public TeamStatusResponseDto(Team team){
+    public TeamStatusResponseDto(Team team) {
         this.teamId = team.getId();
         this.name = team.getName();
         this.isOccupied = team.isOccupied();

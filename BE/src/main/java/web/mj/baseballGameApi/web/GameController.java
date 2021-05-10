@@ -17,33 +17,28 @@ public class GameController {
 
     public final GameService gameService;
 
-    public GameController(GameService gameService){
+    public GameController(GameService gameService) {
         this.gameService = gameService;
     }
 
     @GetMapping
-    public List<GameResponseDto> viewAllGames(){
+    public List<GameResponseDto> viewAllGames() {
         logger.info("모든 게임 요청");
 
         return gameService.findAllGames();
     }
 
-    @PostMapping
-    public Game createGame() {
-        return gameService.createGame();
-    }
-
     @GetMapping("/{gameId}")
-    public GameResponseDto viewOneGame(@PathVariable Long gameId){
+    public GameResponseDto viewOneGame(@PathVariable Long gameId) {
         logger.info("gameId: {} 게임 요청", gameId);
 
         return gameService.findOneGame(gameId);
     }
 
     @GetMapping("/status")
-    public GameStatusResponseDto viewGameStatus(@RequestParam Long gameId){
+    public GameStatusResponseDto viewGameStatus(@RequestParam Long gameId) {
         logger.info("특정 게임 현황 조회");
 
-       return gameService.findGameStatus(gameId);
+        return gameService.findGameStatus(gameId);
     }
 }

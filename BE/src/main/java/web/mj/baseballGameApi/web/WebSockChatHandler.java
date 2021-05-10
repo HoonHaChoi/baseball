@@ -48,14 +48,14 @@ public class WebSockChatHandler extends TextWebSocketHandler {
             handleJoining(session);
         }
 
-        if (requestDto.getType().equals("pitch")){
+        if (requestDto.getType().equals("pitch")) {
 
             SocketResponseDto pitchingResult = gameService.pitch(requestDto.getGameId(), requestDto.getTeamId());
 
             handlePitching(pitchingResult);
         }
 
-        if (requestDto.getType().equals("occupy")){
+        if (requestDto.getType().equals("occupy")) {
 
             SocketResponseDto responseDto = gameService.occupyTeam(requestDto);
 
@@ -98,7 +98,6 @@ public class WebSockChatHandler extends TextWebSocketHandler {
             sendMessage(response, gameService);
         }
     }
-
 
 
 }

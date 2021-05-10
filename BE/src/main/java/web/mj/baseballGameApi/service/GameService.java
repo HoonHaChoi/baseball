@@ -3,7 +3,6 @@ package web.mj.baseballGameApi.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -20,9 +19,7 @@ import web.mj.baseballGameApi.domain.team.Team;
 import web.mj.baseballGameApi.domain.team.TeamRepository;
 import web.mj.baseballGameApi.exception.EntityNotFoundException;
 import web.mj.baseballGameApi.exception.ErrorMessage;
-import web.mj.baseballGameApi.exception.OccupyFailedException;
 import web.mj.baseballGameApi.web.dto.*;
-import web.mj.baseballGameApi.exception.OccupyFailedException;
 import web.mj.baseballGameApi.web.dto.GameResponseDto;
 import web.mj.baseballGameApi.web.dto.TeamResponseDto;
 

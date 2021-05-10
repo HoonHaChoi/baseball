@@ -55,11 +55,11 @@ public class Team {
         return (nowBatter > size) ? nowBatter % size : nowBatter;
     }
 
-    public void increaseNowBatter(){
+    public void increaseNowBatter() {
         nowBatter++;
     }
 
-    public void increaseScore(){
+    public void increaseScore() {
         score++;
     }
 

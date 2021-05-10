@@ -7,7 +7,7 @@ public class PitcherDto {
     private final String name;
     private final Integer numOfThrowing;
 
-    public PitcherDto(Player player){
+    public PitcherDto(Player player) {
         this.name = player.getName();
         this.numOfThrowing = player.getNumOfThrowing();
     }

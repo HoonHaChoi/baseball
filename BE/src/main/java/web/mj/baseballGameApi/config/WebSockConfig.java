@@ -11,7 +11,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSockConfig implements WebSocketConfigurer {
     private final WebSocketHandler webSocketHandler;
 
-    public WebSockConfig(WebSocketHandler webSocketHandler){
+    public WebSockConfig(WebSocketHandler webSocketHandler) {
         this.webSocketHandler = webSocketHandler;
     }
 
