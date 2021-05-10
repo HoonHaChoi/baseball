@@ -3,6 +3,7 @@ package web.mj.baseballGameApi.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -81,11 +82,6 @@ public class GameService {
     public Game createGame() {
         Game game = new Game();
         return gameRepository.save(game);
-    }
-
-    public SocketResponseDto pitch(Pitching pitching) {
-
-        return new SocketResponseDto(pitching);
     }
 
     public List<GameResponseDto> findAllGames() {
@@ -263,10 +259,8 @@ public class GameService {
             recordRepository.save(newRecord);
         }
 
-        playerRepository.save(pitcher);
-        playerRepository.save(batter);
-        recordRepository.save(lastRecord);
-        inningRepository.save(inning);
+
+        saveGameStatus(inning, lastRecord, batter, pitcher);
     }
 
     private void handleBall(Long gameId, Long teamId, Inning inning, Record lastRecord) {
@@ -279,43 +273,36 @@ public class GameService {
 
         if (inning.getBall() == 4) {
             lastRecord.setStatus("BB");
-            pitcher.increaseThrowing();
-            batter.increaseBatting();
-            batter.increaseHitting();
 
-            if (inning.isThirdBase()) {
-                hittingTeam.increaseScore();
-                inning.setThirdBaseToFalse();
-            }
+            changeStatusRunningToFirstBase(inning);
 
-            if (inning.isSecondBase()) {
-                inning.setThirdBaseToTrue();
-                inning.setSecondBaseToFalse();
-            }
-
-            if (inning.isFirstBase()) {
-                inning.setSecondBaseToTrue();
-                inning.setFirstBaseToFalse();
-            }
-
-            inning.setFirstBaseToTrue();
-            inning.resetStrikeAndBall();
-
-            hittingTeam.increaseNowBatter();
             batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
             Record newRecord = new Record(batter.getName(), lastRecord);
 
             recordRepository.save(newRecord);
         }
 
-        playerRepository.save(pitcher);
-        playerRepository.save(batter);
-        recordRepository.save(lastRecord);
-        inningRepository.save(inning);
+
+        saveGameStatus(inning, lastRecord, batter, pitcher);
     }
 
     private void handleHit(Long gameId, Long teamId, Inning inning, Record lastRecord) {
+
         lastRecord.setStatus(HIT);
+
+        changeStatusRunningToFirstBase(inning);
+
+        saveGameStatus(inning, lastRecord, batter, pitcher);
+        teamRepository.save(hittingTeam);
+
+        batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
+        Record newRecord = new Record(batter.getName(), lastRecord);
+
+        recordRepository.save(newRecord);
+    }
+
+    private void changeStatusRunningToFirstBase(Inning inning) {
+
         pitcher.increaseThrowing();
         batter.increaseBatting();
         batter.increaseHitting();
@@ -339,16 +326,12 @@ public class GameService {
         inning.resetStrikeAndBall();
 
         hittingTeam.increaseNowBatter();
+    }
 
+    private void saveGameStatus(Inning inning, Record lastRecord, Player batter, Player pitcher) {
         inningRepository.save(inning);
         playerRepository.save(batter);
         playerRepository.save(pitcher);
         recordRepository.save(lastRecord);
-        teamRepository.save(hittingTeam);
-
-        batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
-        Record newRecord = new Record(batter.getName(), lastRecord);
-
-        recordRepository.save(newRecord);
     }
 }
