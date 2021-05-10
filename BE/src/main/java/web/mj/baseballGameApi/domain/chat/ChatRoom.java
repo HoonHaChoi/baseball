@@ -12,7 +12,6 @@ public class ChatRoom {
     private Set<WebSocketSession> sessions = new HashSet<>();
 
     public ChatRoom() {
-
     }
 
     public ChatRoom(String roomId, String name) {
