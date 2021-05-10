@@ -91,6 +91,17 @@ public class GameService {
         return new GameResponseDto(findGameById(id), getTeamResponseDtos(id));
     }
 
+    public Game findGameById(Long id) {
+        return gameRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
+        );
+    }
+
+    public Team findTeamById(Long id) {
+        return teamRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
+        );
+    }
 
     public GameStatusResponseDto findGameStatus(Long gameId) {
         Game game = findGameById(gameId);
@@ -151,49 +162,6 @@ public class GameService {
 
         //TODO: static 변수로 변경
         return new SocketResponseDto(SUCCESS);
-    }
-
-
-    private List<TeamResponseDto> getTeamResponseDtos(Long id) {
-        return teamRepository.findAllByGameId(id).stream()
-                .map(TeamResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
-    public Game findGameById(Long id) {
-        return gameRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
-        );
-    }
-
-    public Team findTeamById(Long id) {
-        return teamRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
-        );
-    }
-
-    private Player findPlayerByPosition(String position, Long teamId, Long gameId) {
-        return playerRepository.findByPositionAndTeamIdAndTeamGameId(position, teamId, gameId).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.PLAYER_NOT_FOUND)
-        );
-    }
-
-    private List<Player> getBatters(String position, Long teamId, Long gameId) {
-        return playerRepository.findALLByPositionAndTeamId(position, teamId, gameId);
-    }
-
-    private Player getNowBatter(Long teamId, Long gameId, Integer nowBatter) {
-        return getBatters(BATTER, teamId, gameId).get(nowBatter);
-    }
-
-    private Team getDefensingTeam(Long gameId) {
-        return teamRepository.findByGameIdAndIsHittingFalse(gameId).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
-        );
-    }
-
-    private Inning getNowInning(Long gameId, int nTh) {
-        return inningRepository.findAllByGameId(gameId).get(nTh - 1);
     }
 
     public SocketResponseDto pitch(Long gameId, Long teamId) {
@@ -330,5 +298,37 @@ public class GameService {
         playerRepository.save(batter);
         playerRepository.save(pitcher);
         recordRepository.save(lastRecord);
+    }
+
+
+    private List<TeamResponseDto> getTeamResponseDtos(Long id) {
+        return teamRepository.findAllByGameId(id).stream()
+                .map(TeamResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+
+    private Player findPlayerByPosition(String position, Long teamId, Long gameId) {
+        return playerRepository.findByPositionAndTeamIdAndTeamGameId(position, teamId, gameId).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.PLAYER_NOT_FOUND)
+        );
+    }
+
+    private List<Player> getBatters(String position, Long teamId, Long gameId) {
+        return playerRepository.findALLByPositionAndTeamId(position, teamId, gameId);
+    }
+
+    private Player getNowBatter(Long teamId, Long gameId, Integer nowBatter) {
+        return getBatters(BATTER, teamId, gameId).get(nowBatter);
+    }
+
+    private Team getDefensingTeam(Long gameId) {
+        return teamRepository.findByGameIdAndIsHittingFalse(gameId).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
+        );
+    }
+
+    private Inning getNowInning(Long gameId, int nTh) {
+        return inningRepository.findAllByGameId(gameId).get(nTh - 1);
     }
 }
