@@ -44,6 +44,7 @@ extension GameListController: UICollectionViewDelegate {
             return
         }
         viewController.game = gameData[indexPath.row]
+        viewController.modalPresentationStyle = .formSheet
         present(viewController, animated: true, completion: nil)
     }
 }

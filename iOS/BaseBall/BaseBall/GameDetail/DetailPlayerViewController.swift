@@ -14,7 +14,7 @@ class DetailPlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.layer.cornerRadius = 10
         homePlayerCollectionView.register(PlayerScoreCell.nib, forCellWithReuseIdentifier: PlayerScoreCell.identifier)
         homePlayerCollectionView.register(PlayerListHeaderView.nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PlayerListHeaderView.identifier)
         awayPlayerCollectionView.register(PlayerScoreCell.nib, forCellWithReuseIdentifier: PlayerScoreCell.identifier)
@@ -52,7 +52,7 @@ extension DetailPlayerViewController: UICollectionViewDataSource {
 
 extension DetailPlayerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height / 10)
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height / 8)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

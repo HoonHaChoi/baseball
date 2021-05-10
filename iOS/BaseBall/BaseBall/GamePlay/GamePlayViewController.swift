@@ -13,63 +13,37 @@ class GamePlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        playHistoryCollection.dataSource = self
-//        playHistoryCollection.delegate = self
-//        playHistoryCollection.register(PlayerHistoryCell.nib, forCellWithReuseIdentifier: PlayerHistoryCell.identifier)
-//        playHistoryCollection.register(PlayHistoryHeaderView.nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PlayHistoryHeaderView.identifier)
-        
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
            swipeUp.direction = UISwipeGestureRecognizer.Direction.down
            view.addGestureRecognizer(swipeUp)
+        
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(popViewControllerOnScreenEdgeSwipe(_:)))
+        edgePan.edges = .right
+        view.addGestureRecognizer(edgePan)
     }
     
     @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
          if let swipeGesture = gesture as? UISwipeGestureRecognizer{
              switch swipeGesture.direction {
                  case UISwipeGestureRecognizer.Direction.down :
-                    let gamePlayViewController = UIStoryboard(name: "DetailScore", bundle: nil).instantiateViewController(withIdentifier: "DetailScore")
-                    gamePlayViewController.modalPresentationStyle = .formSheet
-//                    gamePlayViewController.view.backgroundColor = .white
+                    let gamePlayViewController = UIStoryboard(name: "DetailScore", bundle: nil).instantiateViewController(withIdentifier: "DetailView")
+                    gamePlayViewController.modalPresentationStyle = .pageSheet
                     self.present(gamePlayViewController, animated: true, completion: nil)
                  default:
                      break
              }
          }
      }
+    
+    @objc func popViewControllerOnScreenEdgeSwipe(_ recognizer:
+                                                    UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .began {
+            let vc = UIStoryboard(name: "GameHistory", bundle: nil).instantiateViewController(withIdentifier: "GameHistory") as! GameHistoryViewController
+            vc.modalPresentationStyle = .custom
+            vc.transitioningDelegate = vc
+            present(vc, animated: true, completion: nil)
+        }
+    }
 }
 
-extension GamePlayViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlayerHistoryCell.identifier, for: indexPath) as? PlayerHistoryCell else {
-            return UICollectionViewCell()
-        }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PlayHistoryHeaderView.identifier, for: indexPath) as? PlayHistoryHeaderView else {
-            return UICollectionReusableView()
-        }
-        return headerView
-    }
-    
-}
-
-extension GamePlayViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 35)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 35)
-    }
-}
