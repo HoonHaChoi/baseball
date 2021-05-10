@@ -28,18 +28,11 @@ public class GameService {
     private final ObjectMapper objectMapper;
     public final GameRepository gameRepository;
     public final TeamRepository teamRepository;
-    private Map<Long, Game> games;
 
     public GameService(GameRepository gameRepository, TeamRepository teamRepository, ObjectMapper objectMapper, Map<Long, Game> games){
         this.gameRepository = gameRepository;
         this.teamRepository = teamRepository;
         this.objectMapper = objectMapper;
-        this.games = games;
-    }
-
-    @PostConstruct
-    private void init() {
-        games = new LinkedHashMap<>();
     }
 
 //    public List<GameResponseDto> findAllGames(){
@@ -49,7 +42,7 @@ public class GameService {
 //    }
 
     public List<Game> findAllGames(){
-        return new ArrayList<>(games.values());
+        return gameRepository.findAll();
     }
 
     public GameResponseDto findOneGame(Long id) {
@@ -67,13 +60,14 @@ public class GameService {
 //    }
 
     public Game findGameById(Long id) {
-        return games.get(id);
+        return gameRepository.findById(id).orElseThrow(
+                () -> new NoSuchElementException()
+        );
     }
 
     public Game createGame() {
-        Game game = new Game(5L);
-        games.put(game.getId(), game);
-        return game;
+        Game game = new Game();
+        return gameRepository.save(game);
     }
 
     public PitchResultDto pitch(Long gameId, Long teamId) {

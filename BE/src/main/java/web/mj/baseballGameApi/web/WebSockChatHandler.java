@@ -15,9 +15,13 @@ import web.mj.baseballGameApi.service.GameService;
 import web.mj.baseballGameApi.web.dto.GameResponseDto;
 import web.mj.baseballGameApi.web.dto.PitchResultDto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Component
 public class WebSockChatHandler extends TextWebSocketHandler {
     private Logger logger = LoggerFactory.getLogger(WebSockChatHandler.class);
+    private Set<WebSocketSession> sessions = new HashSet<>();
 
     private final ObjectMapper objectMapper;
     private final ChatService chatService;
@@ -33,13 +37,20 @@ public class WebSockChatHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
         logger.info("payload: {}", payload);
-        // GameResponseDto는 ChatMessage와 같은 방식으로 변경
-        // GameResponseDto의 형식을 통해 Json 형태로 클라이언트에게 입력 받음
-        PitchResultDto pitchResult = objectMapper.readValue(payload, PitchResultDto.class);
-//        ChatRoom room = chatService.findRoomById(chatMessage.getRoomId());
-//        room.handleActions(session, chatMessage, chatService);
-        Game game = gameService.findGameById(pitchResult.getGameId());
 
-        game.handleActions(session, pitchResult, gameService);
+        PitchResultDto pitchResult = objectMapper.readValue(payload, PitchResultDto.class);
+
+        handleActions(session, pitchResult, gameService);
+    }
+
+    public void handleActions(WebSocketSession session, PitchResultDto pitch, GameService gameService) {
+        if (pitch.getResult().equals("strike")) {
+            sessions.add(session);
+        }
+        sendMessage("game join", gameService);
+    }
+
+    public <T> void sendMessage(T message, GameService gameService) {
+        sessions.parallelStream().forEach(session -> gameService.sendMessage(session, message));
     }
 }
