@@ -1,8 +1,11 @@
 package web.mj.baseballGameApi.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.GameRepository;
 import web.mj.baseballGameApi.domain.game.Pitching;
@@ -20,6 +23,8 @@ import web.mj.baseballGameApi.exception.OccupyFailedException;
 import web.mj.baseballGameApi.web.dto.*;
 
 import java.util.Comparator;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +41,9 @@ public class GameService {
     private static final String PITCHER = "pitcher";
     private static final String BATTER = "batter";
     private static final String SUCCESS = "success";
+    private static final String FAIL = "fail";
+
+    private final ObjectMapper objectMapper;
 
     private Player pitcher;
     private Player batter;
@@ -44,12 +52,33 @@ public class GameService {
     private Integer numOfBatters;
 
     public GameService(GameRepository gameRepository, TeamRepository teamRepository,
-                       InningRepository inningRepository, RecordRepository recordRepository, PlayerRepository playerRepository) {
+                       InningRepository inningRepository, RecordRepository recordRepository,
+                       PlayerRepository playerRepository, ObjectMapper objectMapper) {
         this.gameRepository = gameRepository;
         this.teamRepository = teamRepository;
         this.inningRepository = inningRepository;
         this.recordRepository = recordRepository;
         this.playerRepository = playerRepository;
+        this.objectMapper = objectMapper;
+    }
+
+
+    public <T> void sendMessage(WebSocketSession session, T message) {
+        try {
+            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    public Game createGame() {
+        Game game = new Game();
+        return gameRepository.save(game);
+    }
+
+    public SocketResponseDto pitch(Pitching pitching) {
+
+        return new SocketResponseDto(pitching);
     }
 
     public List<GameResponseDto> findAllGames() {
@@ -62,24 +91,6 @@ public class GameService {
         return new GameResponseDto(findGameById(id), getTeamResponseDtos(id));
     }
 
-    public OccupyResultDto occupyTeam(OccupyTeamRequestDto requestDto) {
-        Team selectedTeam = requestDto.toEntity();
-
-        Game game = findGameById(selectedTeam.getGameId());
-        Team team = findTeamById(selectedTeam.getId());
-
-        if (!team.occupy()) {
-            throw new OccupyFailedException(ErrorMessage.OCCUPY_FAILED);
-        }
-
-        game.selectTeam(team.getId());
-        team.select();
-
-        gameRepository.save(game);
-        teamRepository.save(team);
-
-        return new OccupyResultDto(SUCCESS);
-    }
 
     public GameStatusResponseDto findGameStatus(Long gameId) {
         Game game = findGameById(gameId);
@@ -121,6 +132,19 @@ public class GameService {
                 records);
     }
 
+    public SocketResponseDto occupyTeam(SocketRequestDto requestDto) {
+        Team selectedTeam = teamRepository.findById(requestDto.getTeamId()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
+        );
+
+        selectedTeam.occupy();
+
+        teamRepository.save(selectedTeam);
+
+        //TODO: Static으로 바꿀
+        return new SocketResponseDto("success");
+    }
+
 
     private List<TeamResponseDto> getTeamResponseDtos(Long id) {
         return teamRepository.findAllByGameId(id).stream()
@@ -128,13 +152,13 @@ public class GameService {
                 .collect(Collectors.toList());
     }
 
-    private Game findGameById(Long id) {
+    public Game findGameById(Long id) {
         return gameRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
         );
     }
 
-    private Team findTeamById(Long id) {
+    public Team findTeamById(Long id) {
         return teamRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
         );
@@ -164,7 +188,7 @@ public class GameService {
         return inningRepository.findAllByGameId(gameId).get(nTh - 1);
     }
 
-    public PitchResultDto pitch(Long gameId, Long teamId) {
+    public SocketResponseDto pitch(Long gameId, Long teamId) {
         Game game = findGameById(gameId);
         Team team = findTeamById(teamId);
         Inning inning = getNowInning(gameId, game.getInning());
@@ -373,6 +397,6 @@ public class GameService {
         // 공통: game_is_top = false
         // 수비팀: isHitting = true
         // 공격팀: isHitting = false
-        return new PitchResultDto(pitching);
+        return new SocketResponseDto(pitching);
     }
 }

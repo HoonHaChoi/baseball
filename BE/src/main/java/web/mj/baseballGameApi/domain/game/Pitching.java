@@ -32,7 +32,6 @@ public class Pitching {
         double result = random.nextDouble();
 
         logger.info("result {}: ", result);
-
         if (result <= hittingAverage) {
             return this.result = "hit";
         }
