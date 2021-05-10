@@ -39,12 +39,12 @@ public class GameController {
         return gameService.createGame();
     }
 
-    @GetMapping("/pitch")
-    public PitchResultDto viewPitchResult(@RequestParam Long gameId, @RequestParam Long teamId){
-        logger.info("pitch");
-
-        return gameService.pitch(gameId, teamId);
-    }
+//    @GetMapping("/pitch")
+//    public PitchResultDto viewPitchResult(@RequestParam Long gameId, @RequestParam Long teamId){
+//        logger.info("pitch");
+//
+//        return gameService.pitch();
+//    }
 
 
 }

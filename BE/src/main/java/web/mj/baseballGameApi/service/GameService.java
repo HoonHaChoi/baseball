@@ -9,6 +9,7 @@ import org.springframework.web.socket.WebSocketSession;
 import web.mj.baseballGameApi.domain.chat.ChatRoom;
 import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.GameRepository;
+import web.mj.baseballGameApi.domain.game.Pitching;
 import web.mj.baseballGameApi.domain.team.TeamRepository;
 import web.mj.baseballGameApi.web.WebSockChatHandler;
 import web.mj.baseballGameApi.web.dto.GameResponseDto;
@@ -70,9 +71,9 @@ public class GameService {
         return gameRepository.save(game);
     }
 
-    public PitchResultDto pitch(Long gameId, Long teamId) {
+    public PitchResultDto pitch(Pitching pitching) {
 
-        return new PitchResultDto("strike", gameId, teamId);
+        return new PitchResultDto(pitching.result());
     }
 
     public <T> void sendMessage(WebSocketSession session, T message) {
