@@ -3,13 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1035682126491273003E535D /* PitchSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1035682026491273003E535D /* PitchSocketManager.swift */; };
+		1035682526491366003E535D /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 1035682426491366003E535D /* SocketIO */; };
 		1061AF8D2640E19E00B29805 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1061AF8B2640E19E00B29805 /* GameCell.swift */; };
 		1061AF8E2640E19E00B29805 /* GameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1061AF8C2640E19E00B29805 /* GameCell.xib */; };
 		1061AF9A2641286700B29805 /* GameOptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1061AF992641286700B29805 /* GameOptionController.swift */; };
+		10FA6712264922180038CFE2 /* SocketParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA6711264922180038CFE2 /* SocketParser.swift */; };
+		10FA6714264925A40038CFE2 /* JoinSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA6713264925A40038CFE2 /* JoinSocketManager.swift */; };
+		10FA6716264927940038CFE2 /* SocketManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA6715264927940038CFE2 /* SocketManagerDelegate.swift */; };
 		BFAED2562645E85500492CB9 /* PlayerScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFAED2552645E85500492CB9 /* PlayerScoreCell.xib */; };
 		BFAED2592645E8D200492CB9 /* PlayerListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFAED2582645E8D200492CB9 /* PlayerListHeaderView.xib */; };
 		BFAED25C2645E9CB00492CB9 /* DetailPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAED25B2645E9CB00492CB9 /* DetailPlayerViewController.swift */; };
@@ -41,9 +46,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1035682026491273003E535D /* PitchSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchSocketManager.swift; sourceTree = "<group>"; };
 		1061AF8B2640E19E00B29805 /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		1061AF8C2640E19E00B29805 /* GameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameCell.xib; sourceTree = "<group>"; };
 		1061AF992641286700B29805 /* GameOptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOptionController.swift; sourceTree = "<group>"; };
+		10FA6711264922180038CFE2 /* SocketParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketParser.swift; sourceTree = "<group>"; };
+		10FA6713264925A40038CFE2 /* JoinSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSocketManager.swift; sourceTree = "<group>"; };
+		10FA6715264927940038CFE2 /* SocketManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManagerDelegate.swift; sourceTree = "<group>"; };
 		BFAED2552645E85500492CB9 /* PlayerScoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerScoreCell.xib; sourceTree = "<group>"; };
 		BFAED2582645E8D200492CB9 /* PlayerListHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerListHeaderView.xib; sourceTree = "<group>"; };
 		BFAED25B2645E9CB00492CB9 /* DetailPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlayerViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1035682526491366003E535D /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +194,10 @@
 				BFFEB0CD263FEA12001E8842 /* HTTPMethod.swift */,
 				BFFEB0D0263FEA3B001E8842 /* NetworkError.swift */,
 				BFFEB0D3263FEB2B001E8842 /* NetworkManager.swift */,
+				10FA6711264922180038CFE2 /* SocketParser.swift */,
+				10FA6715264927940038CFE2 /* SocketManagerDelegate.swift */,
+				1035682026491273003E535D /* PitchSocketManager.swift */,
+				10FA6713264925A40038CFE2 /* JoinSocketManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -214,6 +228,9 @@
 			dependencies = (
 			);
 			name = BaseBall;
+			packageProductDependencies = (
+				1035682426491366003E535D /* SocketIO */,
+			);
 			productName = BaseBall;
 			productReference = BFFEB0AE263FDD09001E8842 /* BaseBall.app */;
 			productType = "com.apple.product-type.application";
@@ -241,6 +258,9 @@
 				Base,
 			);
 			mainGroup = BFFEB0A5263FDD09001E8842;
+			packageReferences = (
+				1035682326491366003E535D /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+			);
 			productRefGroup = BFFEB0AF263FDD09001E8842 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -281,17 +301,21 @@
 				BFC7BFAA2643984500632037 /* PlayerHistoryCell.swift in Sources */,
 				BFEB62842643D9AB0036A1DE /* GamePlayViewController.swift in Sources */,
 				BFAED25C2645E9CB00492CB9 /* DetailPlayerViewController.swift in Sources */,
+				10FA6716264927940038CFE2 /* SocketManagerDelegate.swift in Sources */,
 				BFFEB0B6263FDD09001E8842 /* GameListController.swift in Sources */,
 				BFFEB0B2263FDD09001E8842 /* AppDelegate.swift in Sources */,
 				BFFEB0DD2640322D001E8842 /* GameInfo.swift in Sources */,
 				BFEB62B4264429030036A1DE /* GroundView.swift in Sources */,
 				BFFEB0C9263FE8CC001E8842 /* EndPoint.swift in Sources */,
+				10FA6714264925A40038CFE2 /* JoinSocketManager.swift in Sources */,
 				BFAED2632645EA1300492CB9 /* PlayerListHeaderView.swift in Sources */,
+				10FA6712264922180038CFE2 /* SocketParser.swift in Sources */,
 				BFFEB0E126403D09001E8842 /* Pitch.swift in Sources */,
 				BFFEB0D726402F3B001E8842 /* Games.swift in Sources */,
 				BFFEB0D4263FEB2B001E8842 /* NetworkManager.swift in Sources */,
 				BFC7BFB226439ADE00632037 /* PlayHistoryHeaderView.swift in Sources */,
 				BFFEB0D1263FEA3B001E8842 /* NetworkError.swift in Sources */,
+				1035682126491273003E535D /* PitchSocketManager.swift in Sources */,
 				BFFEB0CE263FEA12001E8842 /* HTTPMethod.swift in Sources */,
 				BFFEB0B4263FDD09001E8842 /* SceneDelegate.swift in Sources */,
 				1061AF8D2640E19E00B29805 /* GameCell.swift in Sources */,
@@ -497,6 +521,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1035682326491366003E535D /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 16.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1035682426491366003E535D /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1035682326491366003E535D /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			productName = SocketIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BFFEB0A6263FDD09001E8842 /* Project object */;
 }

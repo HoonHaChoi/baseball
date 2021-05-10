@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Pitch {
+struct Pitch : Decodable {
     let result: String
 }

@@ -7,12 +7,14 @@
 
 import UIKit
 
-class GamePlayViewController: UIViewController {
+class GamePlayViewController: UIViewController, SocketManagerDelegate {
 
     @IBOutlet weak var playHistoryCollection: UICollectionView!
+    var manager : PitchSocketManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        manager = PitchSocketManager(self)
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
            swipeUp.direction = UISwipeGestureRecognizer.Direction.down
@@ -44,6 +46,16 @@ class GamePlayViewController: UIViewController {
             vc.transitioningDelegate = vc
             present(vc, animated: true, completion: nil)
         }
+    }
+    func didconnect() {
+        print("connected")
+    }
+    
+    func didReceive(with data: Any) {
+        guard let data = data as? Pitch else {
+            return
+        }
+        print(data.result)
     }
 }
 
