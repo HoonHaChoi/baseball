@@ -1,9 +1,9 @@
 package web.mj.baseballGameApi.web.dto;
 
-public class PitchResultDto {
+public class SocketResponseDto {
     private String result;
 
-    public PitchResultDto(String result) {
+    public SocketResponseDto(String result) {
         this.result = result;
     }
 

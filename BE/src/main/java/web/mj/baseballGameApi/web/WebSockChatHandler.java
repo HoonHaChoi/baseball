@@ -7,10 +7,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.Pitching;
+import web.mj.baseballGameApi.domain.team.Team;
 import web.mj.baseballGameApi.service.GameService;
 import web.mj.baseballGameApi.web.dto.SocketRequestDto;
-import web.mj.baseballGameApi.web.dto.PitchResultDto;
+import web.mj.baseballGameApi.web.dto.SocketResponseDto;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -47,9 +49,16 @@ public class WebSockChatHandler extends TextWebSocketHandler {
         }
 
         if (requestDto.getType().equals("pitch")){
-            PitchResultDto pitchingResult = new PitchResultDto(new Pitching().result());
+            SocketResponseDto pitchingResult = new SocketResponseDto(new Pitching().result());
 
             handlePitching(pitchingResult);
+        }
+
+        if (requestDto.getType().equals("occupy")){
+
+            SocketResponseDto responseDto = gameService.occupyTeam(requestDto);
+
+            handleOccupying(responseDto);
         }
     }
 
@@ -63,7 +72,7 @@ public class WebSockChatHandler extends TextWebSocketHandler {
         sendMessage("join game", gameService);
     }
 
-    public void handlePitching(PitchResultDto pitch) {
+    public void handlePitching(SocketResponseDto pitch) {
 
         if (pitch.getResult().equals("strike")) {
             sendMessage(pitch, gameService);
@@ -77,6 +86,18 @@ public class WebSockChatHandler extends TextWebSocketHandler {
             sendMessage(pitch, gameService);
         }
     }
+
+    public void handleOccupying(SocketResponseDto response) {
+
+        if (response.getResult().equals("success")) {
+            sendMessage(response, gameService);
+        }
+
+        if (response.getResult().equals("fail")) {
+            sendMessage(response, gameService);
+        }
+    }
+
 
 
 }

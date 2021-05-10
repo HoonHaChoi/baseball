@@ -47,9 +47,9 @@ public class GameService {
         return gameRepository.save(game);
     }
 
-    public PitchResultDto pitch(Pitching pitching) {
+    public SocketResponseDto pitch(Pitching pitching) {
 
-        return new PitchResultDto(pitching.result());
+        return new SocketResponseDto(pitching.result());
     }
 
     public List<GameResponseDto> findAllGames() {
@@ -62,17 +62,17 @@ public class GameService {
         return new GameResponseDto(findGameById(id), getTeamResponseDtos(id));
     }
 
-    public OccupyTeamResponseDto occupyTeam(OccupyTeamRequestDto requestDto) {
-        Team selectedTeam = requestDto.toEntity();
+    public SocketResponseDto occupyTeam(SocketRequestDto requestDto) {
+        Team selectedTeam = teamRepository.findById(requestDto.getTeamId()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
+        );
 
-        Game game = findGameById(selectedTeam.getGameId());
-        Team team = findTeamById(selectedTeam.getId());
+        selectedTeam.occupy();
 
-        team.occupy();
+        teamRepository.save(selectedTeam);
 
-        teamRepository.save(team);
-
-        return new OccupyTeamResponseDto(game, new TeamResponseDto(team));
+        //TODO: Static으로 바꿀
+        return new SocketResponseDto("success");
     }
 
     private List<TeamResponseDto> getTeamResponseDtos(Long id) {
@@ -81,13 +81,13 @@ public class GameService {
                 .collect(Collectors.toList());
     }
 
-    private Game findGameById(Long id) {
+    public Game findGameById(Long id) {
         return gameRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
         );
     }
 
-    private Team findTeamById(Long id) {
+    public Team findTeamById(Long id) {
         return teamRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
         );

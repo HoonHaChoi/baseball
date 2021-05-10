@@ -6,11 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.service.GameService;
 import web.mj.baseballGameApi.web.dto.GameResponseDto;
-import web.mj.baseballGameApi.web.dto.OccupyTeamRequestDto;
-import web.mj.baseballGameApi.web.dto.OccupyTeamResponseDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -40,10 +37,5 @@ public class GameController {
         logger.info("gameId: {} 게임 요청", gameId);
 
         return gameService.findOneGame(gameId);
-    }
-
-    @PatchMapping("/occupy")
-    public OccupyTeamResponseDto occupyTeam(@RequestBody OccupyTeamRequestDto requestDto){
-        return gameService.occupyTeam(requestDto);
     }
 }
