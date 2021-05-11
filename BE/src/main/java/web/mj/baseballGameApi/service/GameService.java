@@ -284,6 +284,7 @@ public class GameService {
 
         if (inning.isThirdBase()) {
             hittingTeam.increaseScore();
+            inning.setHomeBaseToTrue();
             inning.setThirdBaseToFalse();
         }
 

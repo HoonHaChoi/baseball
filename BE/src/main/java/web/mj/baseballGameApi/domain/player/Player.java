@@ -14,6 +14,7 @@ public class Player {
     private Integer numOfOut;
     private Integer numOfStrike;
     private Integer numOfBall;
+    private String imageUrl;
 
     private String position;
     private Long teamId;
@@ -64,6 +65,10 @@ public class Player {
 
     public Long getTeamGameId() {
         return teamGameId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public void increaseThrowing() {

@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`inning` (
   `is_first_base` TINYINT(1) NOT NULL DEFAULT 0,
   `is_second_base` TINYINT(1) NOT NULL DEFAULT 0,
   `is_third_base` TINYINT(1) NOT NULL DEFAULT 0,
+  `is_home_base` TINYINT(1) NOT NULL DEFAULT 0,
   `strike` INT NOT NULL DEFAULT 0,
   `ball` INT NOT NULL DEFAULT 0,
   `out` INT NOT NULL DEFAULT 0,
@@ -81,6 +82,7 @@ DROP TABLE IF EXISTS `baseball_db`.`player`;
 CREATE TABLE IF NOT EXISTS `baseball_db`.`player` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
+  `image_url` VARCHAR(255) NOT NULL DEFAULT '',
   `num_of_throwing` INT NOT NULL DEFAULT 0,
   `num_of_hitting` INT NOT NULL DEFAULT 0,
   `num_of_batting` INT NOT NULL DEFAULT 0,
