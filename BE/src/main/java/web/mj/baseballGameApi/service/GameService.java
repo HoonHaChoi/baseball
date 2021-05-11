@@ -50,11 +50,14 @@ public class GameService {
 
     private final ObjectMapper objectMapper;
 
+    // TODO: 지역변수로 변환
     private Player pitcher;
     private Player batter;
     private Team defensingTeam;
     private Team hittingTeam;
     private Integer numOfBatters;
+    private Inning inning;
+    private Record lastRecord;
 
     public GameService(GameRepository gameRepository, TeamRepository teamRepository,
                        InningRepository inningRepository, RecordRepository recordRepository,
@@ -113,7 +116,7 @@ public class GameService {
 
         GameResponseDto gameResponseDto = new GameResponseDto(game, getTeamResponseDtos(gameId));
 
-        Inning inning = getNowInning(gameId, game.getInning());
+        inning = getNowInning(gameId, game.getInning());
 
         hittingTeam = teamRepository.findByGameIdAndIsHittingTrue(gameId).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
@@ -169,12 +172,12 @@ public class GameService {
         // TODO: 진행팀 지정은 하드코딩으로 시작, 추후 사용자에 의해 변경
         Game game = findGameById(gameId);
         Team team = findTeamById(teamId);
-        Inning inning = getNowInning(gameId, game.getInning());
+        inning = getNowInning(gameId, game.getInning());
 
         Pitching pitching = new Pitching();
 
         List<Record> records = recordRepository.findAllByInningGameId(gameId);
-        Record lastRecord = records.get(records.size() - 1);
+        lastRecord = records.get(records.size() - 1);
 
         if (!lastRecord.getBatterName().equals(batter.getName())) {
             lastRecord.updateName(batter.getName());
@@ -182,15 +185,15 @@ public class GameService {
         }
 
         if (pitching.getResult().equals(STRIKE)) {
-            handleStrike(gameId, teamId, inning, lastRecord);
+            handleStrike(gameId, teamId);
         }
 
         if (pitching.getResult().equals(BALL)) {
-            handleBall(gameId, teamId, inning, lastRecord);
+            handleBall(gameId, teamId);
         }
 
         if (pitching.getResult().equals(HIT)) {
-            handleHit(gameId, teamId, inning, lastRecord);
+            handleHit(gameId, teamId);
         }
 
         // TODO: 초->말 변경 로직 추후 도입
@@ -201,7 +204,7 @@ public class GameService {
         return new SocketResponseDto(pitching);
     }
 
-    private void handleStrike(Long gameId, Long teamId, Inning inning, Record lastRecord) {
+    private void handleStrike(Long gameId, Long teamId) {
 
         pitcher.increaseThrowing();
         pitcher.increaseStrike();
@@ -225,10 +228,10 @@ public class GameService {
         }
 
 
-        saveGameStatus(inning, lastRecord, batter, pitcher);
+        saveGameStatus();
     }
 
-    private void handleBall(Long gameId, Long teamId, Inning inning, Record lastRecord) {
+    private void handleBall(Long gameId, Long teamId) {
 
         pitcher.increaseThrowing();
         pitcher.increaseBall();
@@ -239,7 +242,7 @@ public class GameService {
         if (inning.getBall() == 4) {
             lastRecord.setStatus("BB");
 
-            changeStatusRunningToFirstBase(inning);
+            changeStatusRunningToFirstBase();
 
             batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
             Record newRecord = new Record(batter.getName(), lastRecord);
@@ -248,16 +251,16 @@ public class GameService {
         }
 
 
-        saveGameStatus(inning, lastRecord, batter, pitcher);
+        saveGameStatus();
     }
 
-    private void handleHit(Long gameId, Long teamId, Inning inning, Record lastRecord) {
+    private void handleHit(Long gameId, Long teamId) {
 
         lastRecord.setStatus(HIT);
 
-        changeStatusRunningToFirstBase(inning);
+        changeStatusRunningToFirstBase();
 
-        saveGameStatus(inning, lastRecord, batter, pitcher);
+        saveGameStatus();
         teamRepository.save(hittingTeam);
 
         batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
@@ -266,7 +269,7 @@ public class GameService {
         recordRepository.save(newRecord);
     }
 
-    private void changeStatusRunningToFirstBase(Inning inning) {
+    private void changeStatusRunningToFirstBase() {
 
         pitcher.increaseThrowing();
         batter.increaseBatting();
@@ -293,7 +296,7 @@ public class GameService {
         hittingTeam.increaseNowBatter();
     }
 
-    private void saveGameStatus(Inning inning, Record lastRecord, Player batter, Player pitcher) {
+    private void saveGameStatus() {
         inningRepository.save(inning);
         playerRepository.save(batter);
         playerRepository.save(pitcher);
@@ -314,6 +317,7 @@ public class GameService {
         );
     }
 
+    // TODO: index가 11이 넘어가면 indexOutOfBounds 예외 발생
     private List<Player> getBatters(String position, Long teamId, Long gameId) {
         return playerRepository.findALLByPositionAndTeamId(position, teamId, gameId);
     }
