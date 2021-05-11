@@ -18,8 +18,7 @@ public class Record {
     private Long inningId;
     private Long inningGameId;
 
-    private Integer preNumOfStrike;
-    private Integer preNumOfBall;
+    private String resultOfCharacters;
 
     public Record() {
 
@@ -32,8 +31,7 @@ public class Record {
         this.status = "doing";
         this.inningId = previous.inningId;
         this.inningGameId = previous.getInningGameId();
-        this.preNumOfStrike = previous.getNumOfStrike();
-        this.preNumOfBall = previous.getNumOfBall();
+        this.resultOfCharacters = "";
     }
 
     public Long getId() {
@@ -92,12 +90,12 @@ public class Record {
         this.batterName = name;
     }
 
-    public Integer getPreNumOfStrike() {
-        return preNumOfStrike;
+    public String getResultOfCharacters() {
+        return resultOfCharacters;
     }
 
-    public Integer getPriNumOfBall() {
-        return preNumOfBall;
+    public void addChar(String string){
+        resultOfCharacters += string;
     }
 }
 

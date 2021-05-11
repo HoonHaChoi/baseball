@@ -141,19 +141,8 @@ public class GameService {
 
         for (Record record : recordRepository.findAllByInningGameId(gameId)) {
 
-            List<String> charactersOfPitchings = new ArrayList<>();
             RecordDto recordDto = new RecordDto(record);
 
-            charactersOfPitchings.sort(Comparator.reverseOrder());
-
-            recordDto.setCharactersOfPitchings(charactersOfPitchings);
-
-            if (record.getNumOfStrike() > record.getPreNumOfStrike()){
-                recordDto.addCharacter("s");
-            }
-            if (record.getNumOfBall() > record.getPriNumOfBall()){
-                recordDto.addCharacter("b");
-            }
             records.add(recordDto);
         }
         records.sort(Comparator.comparingLong(RecordDto::getRecordId).reversed());
@@ -227,6 +216,7 @@ public class GameService {
         batter.increaseBatting();
         inning.increaseStrike();
         lastRecord.increaseStrike();
+        lastRecord.addChar("s");
 
         if (inning.getStrike() == 3) {
             inning.increaseOut();
@@ -254,6 +244,7 @@ public class GameService {
         batter.increaseBatting();
         lastRecord.increaseBall();
         inning.increaseBall();
+        lastRecord.addChar("b");
 
         if (inning.getBall() == 4) {
             lastRecord.setStatus("BB");
