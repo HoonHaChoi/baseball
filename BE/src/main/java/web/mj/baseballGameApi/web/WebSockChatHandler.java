@@ -48,6 +48,10 @@ public class WebSockChatHandler extends TextWebSocketHandler {
             handleJoining(session);
         }
 
+        if (requestDto.getType().equals("out")) {
+            handleOut();
+        }
+
         if (requestDto.getType().equals("pitch")) {
 
             SocketResponseDto pitchingResult = gameService.pitch(requestDto.getGameId(), requestDto.getTeamId());
@@ -71,6 +75,11 @@ public class WebSockChatHandler extends TextWebSocketHandler {
         // TODO: join은 occpy 대체하는 것, occupy 응답형태로 구현할 것
         sessions.add(session);
         sendMessage("join game", gameService);
+    }
+
+    public void handleOut() {
+        sendMessage("out game", gameService);
+        sessions.clear();
     }
 
     public void handlePitching(SocketResponseDto pitch) {
