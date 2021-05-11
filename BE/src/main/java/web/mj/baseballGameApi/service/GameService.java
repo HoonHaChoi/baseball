@@ -172,6 +172,27 @@ public class GameService {
         return new SocketResponseDto(SUCCESS);
     }
 
+    public ResultResponseDto occupyTeamForHttp(OccupyTeamRequestDto requestDto) {
+        Team selectedTeam = teamRepository.findById(requestDto.getTeamId()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
+        );
+
+        Game game = gameRepository.findById(requestDto.getGameId()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
+        );
+
+        if (!selectedTeam.occupy()) {
+            return new ResultResponseDto(FAIL);
+        }
+
+        game.selectTeam(selectedTeam.getId());
+
+        teamRepository.save(selectedTeam);
+
+        //TODO: static 변수로 변경
+        return new ResultResponseDto(SUCCESS);
+    }
+
     public SocketResponseDto pitch(Long gameId, Long teamId) {
 
         // TODO: 진행팀 지정은 하드코딩으로 시작, 추후 사용자에 의해 변경
@@ -207,6 +228,43 @@ public class GameService {
         // 공격팀: isHitting = false
 
         return new SocketResponseDto(pitching);
+    }
+
+    public ResultResponseDto pitchForHttp(Long gameId, Long teamId) {
+
+        // TODO: 진행팀 지정은 하드코딩으로 시작, 추후 사용자에 의해 변경
+        Game game = findGameById(gameId);
+        Team team = findTeamById(teamId);
+        inning = getNowInning(gameId, game.getInning());
+
+        Pitching pitching = new Pitching();
+
+        List<Record> records = recordRepository.findAllByInningGameId(gameId);
+        lastRecord = records.get(records.size() - 1);
+
+        if (!lastRecord.getBatterName().equals(batter.getName())) {
+            lastRecord.updateName(batter.getName());
+            recordRepository.save(lastRecord);
+        }
+
+        if (pitching.getResult().equals(STRIKE)) {
+            handleStrike(gameId, teamId);
+        }
+
+        if (pitching.getResult().equals(BALL)) {
+            handleBall(gameId, teamId);
+        }
+
+        if (pitching.getResult().equals(HIT)) {
+            handleHit(gameId, teamId);
+        }
+
+        // TODO: 초->말 변경 로직 추후 도입
+        // 공통: game_is_top = false
+        // 수비팀: isHitting = true
+        // 공격팀: isHitting = false
+
+        return new ResultResponseDto(pitching);
     }
 
     private void handleStrike(Long gameId, Long teamId) {

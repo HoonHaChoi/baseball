@@ -16,6 +16,8 @@ public class Game {
     private Long awayTeamId;
 
     public Game() {
+        this.isTop = true;
+        this.inning = 1;
     }
 
     public Game(Long id) {
