@@ -20,20 +20,14 @@ class GameOptionController: UIViewController {
     }
     
     @IBAction func didSelectHome(_ sender: UIButton) {
-        moveGamePlayView()
+        let gameMatchingViewController = self.storyboard?.instantiateViewController(identifier: "GameMatching")as! MatchingViewController
+        gameMatchingViewController.transitioningDelegate = self
+        gameMatchingViewController.game = game
+        self.present(gameMatchingViewController, animated: true, completion: nil)
     }
     
     @IBAction func didSelectAway(_ sender: UIButton) {
-        moveGamePlayView()
-    }
-    
-    private func moveGamePlayView() {
-        let gamePlayViewController = UIStoryboard(name: "GamePlay", bundle: nil)
-            .instantiateViewController(withIdentifier: "GamePlay") as! GamePlayViewController
-        gamePlayViewController.modalPresentationStyle = .fullScreen
-        gamePlayViewController.game = game
         
-        self.present(gamePlayViewController, animated: true, completion: nil)
     }
     
     func configureButton(){
@@ -47,5 +41,10 @@ class GameOptionController: UIViewController {
         if game?.awayTeam.occupied == true  {
             awayTeam.isEnabled = false
         }
+    }
+}
+extension GameOptionController : UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return MatchingTransitioner(duration: 0.2, animationType: .present)
     }
 }
