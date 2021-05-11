@@ -14,9 +14,9 @@ public class Pitching {
     private String result = "strike";
 
     public Pitching() {
-        this.hittingAverage = 0.35;
+        this.hittingAverage = 0.2;
         this.strikeAverage = 0.35;
-        this.ballAverage = 0.3;
+        this.ballAverage = 0.45;
         this.result = calculateResult();
     }
 
