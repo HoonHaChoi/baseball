@@ -1,6 +1,10 @@
 package web.mj.baseballGameApi.domain.record;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Record {
 
@@ -10,10 +14,12 @@ public class Record {
     private String batterName;
     private Integer numOfStrike;
     private Integer numOfBall;
-
     private String status;
     private Long inningId;
     private Long inningGameId;
+
+    private Integer preNumOfStrike;
+    private Integer preNumOfBall;
 
     public Record() {
 
@@ -26,6 +32,8 @@ public class Record {
         this.status = "doing";
         this.inningId = previous.inningId;
         this.inningGameId = previous.getInningGameId();
+        this.preNumOfStrike = previous.getNumOfStrike();
+        this.preNumOfBall = previous.getNumOfBall();
     }
 
     public Long getId() {
@@ -84,6 +92,13 @@ public class Record {
         this.batterName = name;
     }
 
+    public Integer getPreNumOfStrike() {
+        return preNumOfStrike;
+    }
+
+    public Integer getPriNumOfBall() {
+        return preNumOfBall;
+    }
 }
 
 

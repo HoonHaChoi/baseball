@@ -109,6 +109,8 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`record` (
   `batter_name` VARCHAR(45) NOT NULL,
   `num_of_strike` INT NOT NULL DEFAULT 0,
   `num_of_ball` INT NOT NULL DEFAULT 0,
+  `pre_num_of_strike` INT NOT NULL DEFAULT 0,
+  `pre_num_of_ball` INT NOT NULL DEFAULT 0,
   `status` VARCHAR(45) NOT NULL DEFAULT 'doing',
   `inning_id` INT NOT NULL DEFAULT 1,
   `inning_game_id` INT NOT NULL,

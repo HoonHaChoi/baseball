@@ -23,6 +23,7 @@ import web.mj.baseballGameApi.web.dto.*;
 import web.mj.baseballGameApi.web.dto.GameResponseDto;
 import web.mj.baseballGameApi.web.dto.TeamResponseDto;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 import java.io.IOException;
@@ -136,11 +137,26 @@ public class GameService {
 
         StatusBoardDto statusBoardDto = new StatusBoardDto(game, selectedTeam, inning, pitcherDto, batterDto);
 
-        List<RecordDto> records = recordRepository.findAllByInningGameId(gameId).stream()
-                .sorted(Comparator.comparingLong(Record::getId).reversed())
-                .map(RecordDto::new)
-                .collect(Collectors.toList());
+        List<RecordDto> records = new ArrayList<>();
 
+        for (Record record : recordRepository.findAllByInningGameId(gameId)) {
+
+            List<String> charactersOfPitchings = new ArrayList<>();
+            RecordDto recordDto = new RecordDto(record);
+
+            charactersOfPitchings.sort(Comparator.reverseOrder());
+
+            recordDto.setCharactersOfPitchings(charactersOfPitchings);
+
+            if (record.getNumOfStrike() > record.getPreNumOfStrike()){
+                recordDto.addCharacter("s");
+            }
+            if (record.getNumOfBall() > record.getPriNumOfBall()){
+                recordDto.addCharacter("b");
+            }
+            records.add(recordDto);
+        }
+        records.sort(Comparator.comparingLong(RecordDto::getRecordId).reversed());
 
         return new GameStatusResponseDto(gameResponseDto, statusBoardDto,
                 records);
