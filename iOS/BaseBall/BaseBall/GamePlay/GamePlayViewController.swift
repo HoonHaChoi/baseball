@@ -10,6 +10,7 @@ import UIKit
 class GamePlayViewController: UIViewController {
 
     @IBOutlet weak var playHistoryCollection: UICollectionView!
+    @IBOutlet weak var groundView: GroundView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,9 @@ class GamePlayViewController: UIViewController {
             vc.transitioningDelegate = vc
             present(vc, animated: true, completion: nil)
         }
+    }
+    @IBAction func updateView(_ sender: UIButton) {
+        groundView.setNeedsDisplay()
     }
 }
 
