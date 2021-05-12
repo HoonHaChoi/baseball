@@ -8,46 +8,41 @@
 import Foundation
 
 struct GameInfo: Decodable {
-    let id: Int
+    let gameId, selectedTeamId: Int
     let homeTeam, awayTeam: TeamInfo
     let statusBoard: StatusBoard
-    let pitcherOnMound: PitcherOnMound
-    let batterInBox: BatterInBox
     let recordOfPitching: [RecordOfPitching]
 }
 
 struct TeamInfo: Decodable {
+    let teamId: Int
     let name: String
     let score: Int
-    let isHitting: Bool
+    let occupied: Bool
 }
 
 struct StatusBoard: Decodable {
-    let base1st, base2nd, base3rd: Bool
+    let thirdBase, secondBase, firstBase, top: Bool
     let strike, ball, out, inning: Int
-    let isTop, isHitting: Bool
-    
-    enum CodingKeys: String, CodingKey {
-        case base1st = "1stBase"
-        case base2nd = "2ndBase"
-        case base3rd = "3rdBase"
-        case strike, ball, out, inning, isTop, isHitting
-    }
+    let homeBase, hitting: Bool
+    let pitcher: Pitcher
+    let batter: Batter
 }
 
-struct PitcherOnMound: Decodable {
+struct Batter: Codable {
+    let name: String
+    let numOfBatting, numOfHitting: Int
+}
+
+struct Pitcher: Codable {
     let name: String
     let numOfThrowing: Int
+    let imageUrl: String
 }
 
-struct BatterInBox: Decodable {
-    let name: String
-    let numOfBatting: Int
-    let numOfHitting: Int
-}
-
-struct RecordOfPitching: Decodable {
-    let isStrike: Bool
-    let numOfStrike: Int
-    let numOfBall: Int
+struct RecordOfPitching: Codable {
+    let recordId: Int
+    let name, status: String
+    let numOfStrike, numOfBall: Int
+    let charactersOfPitchings: String
 }

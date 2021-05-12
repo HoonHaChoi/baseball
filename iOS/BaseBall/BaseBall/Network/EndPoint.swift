@@ -12,7 +12,7 @@ enum EndPoint {
     private static let host = "15.164.68.136"
     private static let port = 80
     private static let path = "/api/"
-    
+    //http://15.164.68.136:80/api/games/status?gameId=
     static func URL<T>(type: T, at index: Int? = nil) -> URL? {
         var componets = URLComponents()
         componets.scheme = EndPoint.scheme
@@ -20,14 +20,14 @@ enum EndPoint {
         componets.port = EndPoint.port
         componets.path = EndPoint.path + "\(type)"
         if let index = index {
-            let indexString = String(index)
-            componets.path += "/\(indexString)"
+            componets.path += "/status"
         }
+        componets.queryItems = addQueryItem(at: index)
         return componets.url
     }
     
     private static func addQueryItem(at index: Int?) -> [URLQueryItem]? {
-        index != nil ? [URLQueryItem(name: "id", value: "\(index ?? 0)")] : nil
+        index != nil ? [URLQueryItem(name: "gameId", value: "\(index ?? 0)")] : nil
     }
     
 }

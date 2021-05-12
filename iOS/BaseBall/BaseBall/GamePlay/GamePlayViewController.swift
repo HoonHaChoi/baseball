@@ -6,15 +6,43 @@
 //
 
 import UIKit
+import Combine
 
 class GamePlayViewController: UIViewController {
     
-    @IBOutlet weak var playHistoryCollection: UICollectionView!
+    @IBOutlet weak var homeTeamNameLabel: UILabel!
+    @IBOutlet weak var homeTeamScoreLabel: UILabel!
+    @IBOutlet weak var awayTeamNameLabel: UILabel!
+    @IBOutlet weak var awayTeamScoreLabel: UILabel!
+    
     @IBOutlet weak var groundView: GroundView!
+    
+    private var gameStatusView: GameSBOStackView = {
+        let stackView = GameSBOStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private lazy var edgePanGesture: UIScreenEdgePanGestureRecognizer = {
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(moveGameHistoryView(_:)))
+        edgePan.edges = .right
+        return edgePan
+    }()
+    
+    private lazy var panGesture: UIPanGestureRecognizer = {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.dragBall))
+        return panGesture
+    }()
     
     private let baseBallImageView : UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "baseball") ?? UIImage())
         imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
+    private let baseBallBatImageView : UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "bat1") ?? UIImage())
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -23,20 +51,12 @@ class GamePlayViewController: UIViewController {
     private lazy var limitAreaTop = groundView.bounds.midY - 100
     private lazy var limitAreaBottom = groundView.bounds.midY + 10
     
+    private var cancellable = Set<AnyCancellable>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
-        swipeUp.direction = UISwipeGestureRecognizer.Direction.down
-        view.addGestureRecognizer(swipeUp)
-        
-        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(popViewControllerOnScreenEdgeSwipe(_:)))
-        edgePan.edges = .right
-        view.addGestureRecognizer(edgePan)
-        
-        groundView.addSubview(baseBallImageView)
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.drag))
-        baseBallImageView.addGestureRecognizer(panGesture)
+        bind()
+        configure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,9 +64,37 @@ class GamePlayViewController: UIViewController {
         makeBall()
     }
     
+    private func bind() {
+        NetworkManager().requestResource(gameURL: .games, decodeType: GameInfo.self, at: 1)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                
+            }
+            receiveValue: { (info) in
+                self.gameStatusView.configure(strike: 1, ball: 2, out: 3)
+            }.store(in: &cancellable)
+    }
+    
+    
+    private func configure() {
+        view.addSubview(gameStatusView)
+        view.addGestureRecognizer(edgePanGesture)
+        groundView.addSubview(baseBallImageView)
+        groundView.addSubview(baseBallBatImageView)
+
+        gameStatusView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+        gameStatusView.topAnchor.constraint(equalTo: homeTeamNameLabel.bottomAnchor, constant: 30).isActive = true
+        
+        baseBallImageView.addGestureRecognizer(panGesture)
+    }
+    
     private func makeBall() {
         baseBallImageView.frame = CGRect.moveBall(x: groundView.bounds.midX - 20,
                                                   y: groundView.bounds.midY - 20)
+        
+        baseBallBatImageView.frame = CGRect(origin: CGPoint(x: groundView.bounds.midX - 60,
+                                                            y: groundView.bounds.maxY - 60),size: CGSize(width: 35, height: 90))
+        baseBallBatImageView.transform = CGAffineTransform(rotationAngle: .pi / 2)
     }
     
     private func animateBaseBall() {
@@ -56,43 +104,37 @@ class GamePlayViewController: UIViewController {
                        options: [.repeat]) {
             self.baseBallImageView.transform = CGAffineTransform(rotationAngle: .pi)
         }
-        UIView.animate(withDuration: 1.5,
-                       delay: 0.0) {
+        UIView.animate(withDuration: 0.5, delay: 0.8) {
+            self.baseBallBatImageView.transform = CGAffineTransform(rotationAngle: 0)
+        }
+        UIView.animate(withDuration: 0.8,
+                       delay: 0.0, options: [.curveEaseIn]) {
             self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.midX - 20,
                                                            y: self.groundView.bounds.maxY - 40)
-            
         } completion: { _ in
-            self.baseBallImageView.layer.removeAllAnimations()
-            self.baseBallImageView.transform = .identity
-        }
-    }
-    
-    
-    
-    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer{
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizer.Direction.down :
-                let gamePlayViewController = UIStoryboard(name: "DetailScore", bundle: nil).instantiateViewController(withIdentifier: "DetailView")
-                gamePlayViewController.modalPresentationStyle = .pageSheet
-                self.present(gamePlayViewController, animated: true, completion: nil)
-            default:
-                break
+            UIView.animate(withDuration: 0.5) {
+                self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.midX + CGFloat(Int.random(in: 0...600)), y: CGFloat(Int.random(in: 0...400)))
+            } completion: { (_) in
+                self.baseBallImageView.layer.removeAllAnimations()
+                self.baseBallImageView.transform = .identity
             }
+            
         }
     }
     
-    @objc func popViewControllerOnScreenEdgeSwipe(_ recognizer:
+    @objc func moveGameHistoryView(_ recognizer:
                                                     UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .began {
-            let vc = UIStoryboard(name: "GameHistory", bundle: nil).instantiateViewController(withIdentifier: "GameHistory") as! GameHistoryViewController
-            vc.modalPresentationStyle = .custom
-            vc.transitioningDelegate = vc
-            present(vc, animated: true, completion: nil)
+            guard let gameHistoryViewController = UIStoryboard(name: "GameHistory", bundle: nil).instantiateViewController(withIdentifier: "GameHistory") as? GameHistoryViewController else {
+                return
+            }
+            gameHistoryViewController.modalPresentationStyle = .custom
+            gameHistoryViewController.transitioningDelegate = gameHistoryViewController
+            present(gameHistoryViewController, animated: true, completion: nil)
         }
     }
     
-    @objc func drag(_ gesture: UIPanGestureRecognizer) {
+    @objc func dragBall(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self.view)
         if gesture.state == .changed {
             gesture.view?.center = CGPoint(x: baseBallImageView.center.x + translation.x,
@@ -101,29 +143,26 @@ class GamePlayViewController: UIViewController {
         }
         
         if limitAreaRight <= self.baseBallImageView.frame.origin.x {
-            baseBallImageView.frame = CGRect.movePlayer(x: limitAreaRight,
-                                                        y: self.baseBallImageView.frame.origin.y)
+            baseBallImageView.frame = CGRect.moveBall(x: limitAreaRight,
+                                                      y: self.baseBallImageView.frame.origin.y)
         }
         
         if self.baseBallImageView.frame.origin.x <= limitAreaLeft  {
-            baseBallImageView.frame = CGRect.movePlayer(x: limitAreaLeft,
-                                                        y: self.baseBallImageView.frame.origin.y)
-                                             
+            baseBallImageView.frame = CGRect.moveBall(x: limitAreaLeft,
+                                                      y: self.baseBallImageView.frame.origin.y)
         }
         
         if self.baseBallImageView.frame.origin.y < limitAreaTop  {
-            baseBallImageView.frame = CGRect.movePlayer(x: self.baseBallImageView.frame.origin.x,
-                                                        y: limitAreaTop)
+            baseBallImageView.frame = CGRect.moveBall(x: self.baseBallImageView.frame.origin.x,
+                                                      y: limitAreaTop)
         }
         
         if self.baseBallImageView.frame.origin.y > limitAreaBottom {
-            baseBallImageView.frame = CGRect.movePlayer(x: self.baseBallImageView.frame.origin.x,
-                                                        y: limitAreaBottom)
-                                             
+            baseBallImageView.frame = CGRect.moveBall(x: self.baseBallImageView.frame.origin.x,
+                                                      y: limitAreaBottom)
             gesture.isEnabled = false
             gesture.isEnabled = true
             self.animateBaseBall()
-            
         }
     }
     
@@ -131,5 +170,12 @@ class GamePlayViewController: UIViewController {
         groundView.setNeedsDisplay()
         makeBall()
     }
+    
+    @IBAction func moveDetailScoreView(_ sender: Any) {
+        let gamePlayViewController = UIStoryboard(name: "DetailScore", bundle: nil).instantiateViewController(withIdentifier: "DetailView")
+        gamePlayViewController.modalPresentationStyle = .pageSheet
+        self.present(gamePlayViewController, animated: true, completion: nil)
+    }
+    
 }
 
