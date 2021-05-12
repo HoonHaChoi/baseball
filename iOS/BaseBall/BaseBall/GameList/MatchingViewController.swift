@@ -11,7 +11,6 @@ class MatchingViewController: UIViewController {
     
     @IBOutlet weak var watingLabel: UILabel!
 
-    var manager : JoinSocketManager?
     var game: Game?
     
     override func viewDidLoad() {
@@ -41,3 +40,4 @@ class MatchingViewController: UIViewController {
         self.present(gamePlayViewController, animated: true, completion: nil)
     }
 }
+
