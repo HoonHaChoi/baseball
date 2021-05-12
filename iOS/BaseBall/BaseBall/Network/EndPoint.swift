@@ -10,7 +10,7 @@ import Foundation
 enum EndPoint {
     private static let scheme = "http"
     private static let host = "15.164.68.136"
-    private static let port = 8080
+    private static let port = 80
     private static let path = "/api/"
     
     static func URL<T>(type: T, at index: Int? = nil) -> URL? {

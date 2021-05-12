@@ -31,19 +31,6 @@ class GroundView: UIView {
         line.fill()
         line.close()
         line.stroke()
-            
-        
-        var transform = CGAffineTransform.identity
-              transform = transform.translatedBy(x: center.x, y: center.y)
-        transform = transform.rotated(by: .pi / 2)
-              transform = transform.translatedBy(x: -center.x, y: -center.y)
-        let base2 = UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: bounds.midX, y: bounds.midY), size: CGSize(width: 40, height: 40)), cornerRadius: 10)
-        
-        UIColor.black.setFill()
-        base2.fill()
-        base2.close()
-        base2.apply(transform)
-        
         
         let base = UIBezierPath()
         base.move(to: CGPoint(x: bounds.minX + 40, y: bounds.midY - 40))
@@ -93,10 +80,6 @@ class GroundView: UIView {
         baseState[1] ? baseSecond() : hidePlayer(a: twoplayer)
         baseState[2] ? basethrid() : hidePlayer(a: threeplayer)
         baseState[3] ? basehome() : hidePlayer(a: homeplayer)
-    }
-    
-    func abc(count: Int) -> [UIImageView] {
-        return Array(repeating: UIImageView(image: UIImage(named: "hitter") ?? UIImage()), count: count)
     }
     
     func basefitst() {
