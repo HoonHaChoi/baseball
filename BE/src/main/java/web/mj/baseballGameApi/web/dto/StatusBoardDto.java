@@ -8,6 +8,7 @@ public class StatusBoardDto {
     private final boolean isFirstBase;
     private final boolean isSecondBase;
     private final boolean isThirdBase;
+    private final boolean isHomeBase;
     private final Integer strike;
     private final Integer ball;
     private final Integer out;
@@ -17,10 +18,11 @@ public class StatusBoardDto {
     private final PitcherDto pitcher;
     private final BatterDto batter;
 
-    public StatusBoardDto(Game game, Team team, Inning inning, PitcherDto pitcher, BatterDto batter){
+    public StatusBoardDto(Game game, Team team, Inning inning, PitcherDto pitcher, BatterDto batter) {
         this.isFirstBase = inning.isFirstBase();
         this.isSecondBase = inning.isSecondBase();
         this.isThirdBase = inning.isThirdBase();
+        this.isHomeBase = inning.isHomeBase();
         this.strike = inning.getStrike();
         this.ball = inning.getBall();
         this.out = inning.getOut();
@@ -43,6 +45,10 @@ public class StatusBoardDto {
 
     public boolean isThirdBase() {
         return isThirdBase;
+    }
+
+    public boolean isHomeBase() {
+        return isHomeBase;
     }
 
     public Integer getStrike() {

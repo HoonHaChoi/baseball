@@ -12,7 +12,7 @@ public class GameStatusResponseDto {
 
 
     public GameStatusResponseDto(GameResponseDto game, StatusBoardDto statusBoard,
-                                 List<RecordDto> records){
+                                 List<RecordDto> records) {
         this.gameId = game.getGameId();
         this.selectedTeamId = game.getSelectedTeamId();
         this.homeTeam = game.getHomeTeam();

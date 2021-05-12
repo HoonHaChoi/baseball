@@ -1,12 +1,16 @@
 package web.mj.baseballGameApi.web.dto;
 
+
 import web.mj.baseballGameApi.domain.game.Pitching;
 
-public class PitchResultDto {
+public class SocketResponseDto {
+    private String result;
 
-    private final String result;
+    public SocketResponseDto(String result) {
+        this.result = result;
+    }
 
-    public PitchResultDto(Pitching pitching) {
+    public SocketResponseDto(Pitching pitching) {
         this.result = pitching.getResult();
     }
 

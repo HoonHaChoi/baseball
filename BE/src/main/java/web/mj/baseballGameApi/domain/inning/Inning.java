@@ -10,6 +10,7 @@ public class Inning {
     private boolean isFirstBase;
     private boolean isSecondBase;
     private boolean isThirdBase;
+    private boolean isHomeBase;
 
     private Integer strike;
     private Integer ball;
@@ -36,6 +37,10 @@ public class Inning {
 
     public boolean isThirdBase() {
         return isThirdBase;
+    }
+
+    public boolean isHomeBase() {
+        return isHomeBase;
     }
 
     public Integer getStrike() {
@@ -78,6 +83,14 @@ public class Inning {
         isThirdBase = true;
     }
 
+    public void setHomeBaseToFalse() {
+        isHomeBase = false;
+    }
+
+    public void setHomeBaseToTrue() {
+        isHomeBase = true;
+    }
+
     public void increaseStrike() {
         strike++;
     }
@@ -89,7 +102,6 @@ public class Inning {
     public void increaseOut() {
         out++;
     }
-
 
     public void resetStrikeAndBall() {
         strike = 0;

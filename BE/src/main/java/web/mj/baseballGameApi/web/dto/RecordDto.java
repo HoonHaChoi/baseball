@@ -1,7 +1,9 @@
 package web.mj.baseballGameApi.web.dto;
 
-import org.springframework.data.annotation.Id;
 import web.mj.baseballGameApi.domain.record.Record;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecordDto {
 
@@ -11,12 +13,15 @@ public class RecordDto {
     private final Integer numOfStrike;
     private final Integer numOfBall;
 
+    private final String charactersOfPitchings;
+
     public RecordDto(Record record) {
         this.recordId = record.getId();
         this.name = record.getBatterName();
         this.status = record.getStatus();
         this.numOfStrike = record.getNumOfStrike();
         this.numOfBall = record.getNumOfBall();
+        this.charactersOfPitchings = record.getResultOfCharacters();
     }
 
     public Long getRecordId() {
@@ -38,4 +43,9 @@ public class RecordDto {
     public Integer getNumOfBall() {
         return numOfBall;
     }
+
+    public String getCharactersOfPitchings() {
+        return charactersOfPitchings;
+    }
+
 }

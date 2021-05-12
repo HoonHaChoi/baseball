@@ -9,7 +9,7 @@ public class TeamResponseDto {
 
     private final boolean isOccupied;
 
-    public TeamResponseDto(Team team){
+    public TeamResponseDto(Team team) {
         this.teamId = team.getId();
         this.name = team.getName();
         this.score = team.getScore();

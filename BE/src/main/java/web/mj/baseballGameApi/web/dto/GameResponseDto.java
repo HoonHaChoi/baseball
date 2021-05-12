@@ -13,7 +13,7 @@ public class GameResponseDto {
     private final TeamResponseDto awayTeam;
     private final TeamResponseDto homeTeam;
 
-    public GameResponseDto(Game game, List<TeamResponseDto> teams){
+    public GameResponseDto(Game game, List<TeamResponseDto> teams) {
         this.gameId = game.getId();
         this.selectedTeamId = game.getSelectedTeamId();
         this.awayTeam = teams.get(FIRST_TEAM);
