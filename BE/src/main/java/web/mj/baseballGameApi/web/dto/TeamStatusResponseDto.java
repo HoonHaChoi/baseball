@@ -1,19 +1,18 @@
 package web.mj.baseballGameApi.web.dto;
-
 import web.mj.baseballGameApi.domain.team.Team;
 
-public class TeamResponseDto {
+public class TeamStatusResponseDto {
     private final Long teamId;
     private final String name;
-    private final Integer score;
-
     private final boolean isOccupied;
+    private final boolean isHitting;
 
-    public TeamResponseDto(Team team){
+
+    public TeamStatusResponseDto(Team team){
         this.teamId = team.getId();
         this.name = team.getName();
-        this.score = team.getScore();
         this.isOccupied = team.isOccupied();
+        this.isHitting = team.isHitting();
     }
 
     public Long getTeamId() {
@@ -28,7 +27,7 @@ public class TeamResponseDto {
         return isOccupied;
     }
 
-    public Integer getScore() {
-        return score;
+    public boolean isHitting() {
+        return isHitting;
     }
 }
