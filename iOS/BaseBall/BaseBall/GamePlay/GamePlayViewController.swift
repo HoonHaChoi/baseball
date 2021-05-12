@@ -45,9 +45,8 @@ class GamePlayViewController: UIViewController {
     }
     
     private func makeBall() {
-        baseBallImageView.frame = CGRect(origin: CGPoint(x: groundView.bounds.midX - 20,
-                                                         y: groundView.bounds.midY - 20),
-                                         size: CGSize(width: 50, height: 50))
+        baseBallImageView.frame = CGRect.moveBall(x: groundView.bounds.midX - 20,
+                                                  y: groundView.bounds.midY - 20)
     }
     
     private func animateBaseBall() {
@@ -57,11 +56,10 @@ class GamePlayViewController: UIViewController {
                        options: [.repeat]) {
             self.baseBallImageView.transform = CGAffineTransform(rotationAngle: .pi)
         }
-        UIView.animate(withDuration: 2.0,
+        UIView.animate(withDuration: 1.5,
                        delay: 0.0) {
-            self.baseBallImageView.frame = CGRect(origin: CGPoint(x: self.groundView.bounds.midX - 20,
-                                                                  y: self.groundView.bounds.maxY - 40),
-                                                  size: CGSize(width: 50, height: 50))
+            self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.midX - 20,
+                                                           y: self.groundView.bounds.maxY - 40)
             
         } completion: { _ in
             self.baseBallImageView.layer.removeAllAnimations()
@@ -97,35 +95,31 @@ class GamePlayViewController: UIViewController {
     @objc func drag(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self.view)
         if gesture.state == .changed {
-            gesture.view?.center = CGPoint(x: baseBallImageView.center.x + translation.x, y: baseBallImageView.center.y + translation.y)
+            gesture.view?.center = CGPoint(x: baseBallImageView.center.x + translation.x,
+                                           y: baseBallImageView.center.y + translation.y)
             gesture.setTranslation(.zero, in: self.view)
         }
         
         if limitAreaRight <= self.baseBallImageView.frame.origin.x {
-            baseBallImageView.frame = CGRect(x: limitAreaRight,
-                                             y: self.baseBallImageView.frame.origin.y,
-                                             width: 50,
-                                             height: 50)
+            baseBallImageView.frame = CGRect.movePlayer(x: limitAreaRight,
+                                                        y: self.baseBallImageView.frame.origin.y)
         }
         
         if self.baseBallImageView.frame.origin.x <= limitAreaLeft  {
-            baseBallImageView.frame = CGRect(x: limitAreaLeft,
-                                             y: self.baseBallImageView.frame.origin.y,
-                                             width: 50,
-                                             height: 50)
+            baseBallImageView.frame = CGRect.movePlayer(x: limitAreaLeft,
+                                                        y: self.baseBallImageView.frame.origin.y)
+                                             
         }
         
         if self.baseBallImageView.frame.origin.y < limitAreaTop  {
-            baseBallImageView.frame = CGRect(x: self.baseBallImageView.frame.origin.x,
-                                             y: limitAreaTop,
-                                             width: 50,
-                                             height: 50)
+            baseBallImageView.frame = CGRect.movePlayer(x: self.baseBallImageView.frame.origin.x,
+                                                        y: limitAreaTop)
         }
+        
         if self.baseBallImageView.frame.origin.y > limitAreaBottom {
-            baseBallImageView.frame = CGRect(x: self.baseBallImageView.frame.origin.x,
-                                             y: limitAreaBottom,
-                                             width: 50,
-                                             height: 50)
+            baseBallImageView.frame = CGRect.movePlayer(x: self.baseBallImageView.frame.origin.x,
+                                                        y: limitAreaBottom)
+                                             
             gesture.isEnabled = false
             gesture.isEnabled = true
             self.animateBaseBall()

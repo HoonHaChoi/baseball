@@ -653,7 +653,7 @@
                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zK5-EI-ARP">
                                                 <rect key="frame" x="603" y="288" width="40" height="56"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="player1-removebg-preview" translatesAutoresizingMaskIntoConstraints="NO" id="GKc-ad-171">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HyunjinRyu" translatesAutoresizingMaskIntoConstraints="NO" id="GKc-ad-171">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="OTp-aL-zRb"/>
@@ -705,7 +705,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="f9h-ZV-1X8">
                                         <rect key="frame" x="50" y="648" width="195" height="70"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="player1-removebg-preview" translatesAutoresizingMaskIntoConstraints="NO" id="7W6-Wy-Cgc">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HyunjinRyu" translatesAutoresizingMaskIntoConstraints="NO" id="7W6-Wy-Cgc">
                                                 <rect key="frame" x="0.0" y="0.0" width="60" height="70"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="60" id="AnP-TG-azq"/>
@@ -756,11 +756,11 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4xO-sv-IdA">
                                         <rect key="frame" x="788.5" y="647.5" width="185.5" height="70.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nosehoon-removebg-preview" translatesAutoresizingMaskIntoConstraints="NO" id="NGz-LJ-iJd">
-                                                <rect key="frame" x="0.0" y="10.5" width="60" height="60"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onseungHwan" translatesAutoresizingMaskIntoConstraints="NO" id="NGz-LJ-iJd">
+                                                <rect key="frame" x="0.0" y="0.5" width="60" height="70"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="60" id="tDY-oO-udV"/>
-                                                    <constraint firstAttribute="height" constant="60" id="vWJ-8n-Cz0"/>
+                                                    <constraint firstAttribute="height" constant="70" id="vWJ-8n-Cz0"/>
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vzF-XM-kEv">
@@ -857,10 +857,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="HyunjinRyu" width="60" height="75"/>
         <image name="baseBackgroundBlack" width="640" height="360"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
-        <image name="nosehoon-removebg-preview" width="190" height="266"/>
-        <image name="player1-removebg-preview" width="320" height="320"/>
+        <image name="onseungHwan" width="60" height="75"/>
         <image name="plus.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

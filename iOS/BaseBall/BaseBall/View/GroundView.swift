@@ -74,7 +74,6 @@ class GroundView: UIView {
         movePlayer(baseState: [true,true,true,true])
     }
     
-    
     func movePlayer(baseState: [Bool]) {
         baseState[0] ? basefitst() : hidePlayer(a: oneplayer)
         baseState[1] ? baseSecond() : hidePlayer(a: twoplayer)
@@ -83,31 +82,38 @@ class GroundView: UIView {
     }
     
     func basefitst() {
-        oneplayer.frame = CGRect(origin: CGPoint(x: self.bounds.midX, y: self.bounds.maxY - 40), size: CGSize(width: 40, height: 40))
+        oneplayer.frame = CGRect.movePlayer(x: self.bounds.midX,
+                                            y: self.bounds.maxY - 40)
         UIView.animate(withDuration: 2.0) {
-            self.oneplayer.frame = CGRect(origin: CGPoint(x: self.bounds.maxX - 60, y: self.bounds.midY - 20), size: CGSize(width: 40, height: 40))
+            self.oneplayer.frame = CGRect.movePlayer(x: self.bounds.maxX - 60,
+                                                     y: self.bounds.midY - 20)
         }
     }
     
     func baseSecond() {
-        twoplayer.frame = CGRect(origin: CGPoint(x: self.bounds.maxX - 60, y: self.bounds.midY - 20), size: CGSize(width: 40, height: 40))
+        twoplayer.frame = CGRect.movePlayer(x: self.bounds.maxX - 60, y: self.bounds.midY - 20)
         UIView.animate(withDuration: 2.0) {
-            self.twoplayer.frame = CGRect(origin: CGPoint(x: self.bounds.midX - 20, y: self.bounds.minY + 20), size: CGSize(width: 40, height: 40))
+            self.twoplayer.frame = CGRect.movePlayer(x: self.bounds.midX - 20,
+                                                     y: self.bounds.minY + 20)
         }
     }
     
     func basethrid() {
-        threeplayer.frame = CGRect(origin: CGPoint(x: self.bounds.midX - 20, y: self.bounds.minY + 20), size: CGSize(width: 40, height: 40))
+        threeplayer.frame = CGRect.movePlayer(x: self.bounds.midX - 20,
+                                              y: self.bounds.minY + 20)
         UIView.animate(withDuration: 2.0) {
-            self.threeplayer.frame = CGRect(origin: CGPoint(x: self.bounds.minX + 20 , y: self.bounds.midY - 20), size: CGSize(width: 40, height: 40))
+            self.threeplayer.frame = CGRect.movePlayer(x: self.bounds.minX + 20,
+                                                       y: self.bounds.midY - 20)
         }
     }
     
     func basehome() {
         homeplayer.isHidden = false
-        homeplayer.frame = CGRect(origin: CGPoint(x: self.bounds.minX + 20 , y: self.bounds.midY - 20), size: CGSize(width: 40, height: 40))
+        homeplayer.frame = CGRect.movePlayer(x: self.bounds.minX + 20,
+                                             y: self.bounds.midY - 20)
         UIView.animate(withDuration: 2.0) {
-            self.homeplayer.frame = CGRect(origin: CGPoint(x: self.bounds.midX - 20 , y: self.bounds.maxY - 40), size: CGSize(width: 40, height: 40))
+            self.homeplayer.frame = CGRect.movePlayer(x: self.bounds.midX - 20,
+                                                      y: self.bounds.maxY - 40)
         } completion: { _ in
             self.homeplayer.isHidden = true
         }
