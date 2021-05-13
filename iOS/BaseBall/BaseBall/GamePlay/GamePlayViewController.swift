@@ -23,6 +23,18 @@ class GamePlayViewController: UIViewController {
         return stackView
     }()
     
+    private var gameBatterView: PlayerView = {
+        let batterView = PlayerView()
+        batterView.translatesAutoresizingMaskIntoConstraints = false
+        return batterView
+    }()
+    
+    private var gamePitcherView: PlayerView = {
+        let PitcherView = PlayerView()
+        PitcherView.translatesAutoresizingMaskIntoConstraints = false
+        return PitcherView
+    }()
+    
     private lazy var edgePanGesture: UIScreenEdgePanGestureRecognizer = {
         let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(moveGameHistoryView(_:)))
         edgePan.edges = .right
@@ -70,20 +82,33 @@ class GamePlayViewController: UIViewController {
             .sink { _ in
                 
             }
-            receiveValue: { (info) in
-                self.gameStatusView.configure(strike: 1, ball: 2, out: 3)
+            receiveValue: { [weak self] (status) in
+                self?.gameStatusView.configure(strike: 1, ball: 2, out: 3)
+                self?.updateView(status: status)
+                self?.gameBatterView.configureBatter(by: status.statusBoard.batter)
+                self?.gamePitcherView.configurePitcher(by: status.statusBoard.pitcher)
             }.store(in: &cancellable)
     }
     
     
     private func configure() {
         view.addSubview(gameStatusView)
+        view.addSubview(gameBatterView)
+        view.addSubview(gamePitcherView)
         view.addGestureRecognizer(edgePanGesture)
         groundView.addSubview(baseBallImageView)
         groundView.addSubview(baseBallBatImageView)
 
         gameStatusView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         gameStatusView.topAnchor.constraint(equalTo: homeTeamNameLabel.bottomAnchor, constant: 30).isActive = true
+        
+        gameBatterView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50).isActive = true
+        gameBatterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
+        gameBatterView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        
+        gamePitcherView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -250).isActive = true
+        gamePitcherView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
+        gamePitcherView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         baseBallImageView.addGestureRecognizer(panGesture)
     }
@@ -92,8 +117,8 @@ class GamePlayViewController: UIViewController {
         baseBallImageView.frame = CGRect.moveBall(x: groundView.bounds.midX - 20,
                                                   y: groundView.bounds.midY - 20)
         
-        baseBallBatImageView.frame = CGRect(origin: CGPoint(x: groundView.bounds.midX - 60,
-                                                            y: groundView.bounds.maxY - 60),size: CGSize(width: 35, height: 90))
+        baseBallBatImageView.frame = CGRect(origin: CGPoint(x: groundView.bounds.midX - 40,
+                                                            y: groundView.bounds.maxY - 60),size: CGSize(width: 25, height: 80))
         baseBallBatImageView.transform = CGAffineTransform(rotationAngle: .pi / 2)
     }
     
@@ -104,7 +129,7 @@ class GamePlayViewController: UIViewController {
                        options: [.repeat]) {
             self.baseBallImageView.transform = CGAffineTransform(rotationAngle: .pi)
         }
-        UIView.animate(withDuration: 0.5, delay: 0.8) {
+        UIView.animate(withDuration: 0.5, delay: 0.55) {
             self.baseBallBatImageView.transform = CGAffineTransform(rotationAngle: 0)
         }
         UIView.animate(withDuration: 0.8,
@@ -120,6 +145,13 @@ class GamePlayViewController: UIViewController {
             }
             
         }
+    }
+    
+    private func updateView(status: GameInfo) {
+        self.homeTeamNameLabel.text = status.homeTeam.name
+        self.homeTeamScoreLabel.text = String(status.homeTeam.score)
+        self.awayTeamNameLabel.text = status.awayTeam.name
+        self.awayTeamScoreLabel.text = String(3)
     }
     
     @objc func moveGameHistoryView(_ recognizer:
