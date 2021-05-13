@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`team` (
   `name` VARCHAR(45) NOT NULL,
   `is_occupied` TINYINT(1) NOT NULL DEFAULT 0,
   `is_hitting` TINYINT(1) NOT NULL DEFAULT 0,
-  `score_of_characters` VARCHAR(45) NOT NULL DEFAULT '',
+  `score_of_characters` VARCHAR(45) NOT NULL DEFAULT '0',
   `score` INT NOT NULL DEFAULT 0,
   `game_id` INT NOT NULL,
   `is_selected` TINYINT(1) NOT NULL DEFAULT 0,
