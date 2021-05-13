@@ -12,7 +12,7 @@ insert into game(id, home_team_id, away_team_id, selected_team_id) values (null,
 insert into team(name, is_occupied, is_hitting, game_id) values ('Captin', true, true, 1);
 insert into team(name, is_occupied, game_id) values ('Iron Man', false, 1);
 insert into team(name, is_occupied, is_hitting, game_id) values ('Twins', false, true, 2);
-insert into team(name, is_occupied, game_id) values ('Heros', false, 2);
+insert into team(name, is_occupied, game_id) values ('Heros', true, 2);
 
 -- -----------------------------------------------------
 -- 1st inning, game 1

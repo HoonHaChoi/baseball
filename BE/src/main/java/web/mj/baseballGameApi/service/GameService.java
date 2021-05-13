@@ -45,6 +45,7 @@ public class GameService {
     private static final String BATTER = "batter";
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
+    private static final String WAIT = "wait";
     private static final String STRIKE = "strike";
     private static final String BALL = "ball";
     private static final String HIT = "hit";
@@ -160,11 +161,48 @@ public class GameService {
                 () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
         );
 
-        if (!selectedTeam.occupy()) {
+        // 이미 선점된 팀이라면 fail 반환
+        // 선점되지 않은 팀이라면 isOccupied = true
+        if (selectedTeam.isOccupied()) {
             return new SocketResponseDto(FAIL);
         }
 
+        // 이미 선점된 팀이 아니라면
+        // 본 게임에서 해당 팀을 선택함
         game.selectTeam(selectedTeam.getId());
+        selectedTeam.select();
+        selectedTeam.occupy();
+        logger.info("selectedTeam: {}", selectedTeam);
+        gameRepository.save(game);
+        teamRepository.save(selectedTeam);
+
+
+        List<Team> teams = teamRepository.findAllByGameIdAndIsOccupiedFalse(game.getId());
+        logger.info("teams: {}", teams);
+
+        int leftTeamSize = teamRepository.findAllByGameIdAndIsOccupiedFalse(game.getId()).size();
+
+        logger.info("leftTeamSize: {}", leftTeamSize);
+        if (leftTeamSize == 1) {
+            return new SocketResponseDto(WAIT);
+        }
+
+        // 선점된 팀도 아니고 모든 팀이 다 선택되었다면 success 반환
+        return new SocketResponseDto(SUCCESS);
+    }
+
+    public SocketResponseDto leaveTeam(SocketRequestDto requestDto) {
+        Team selectedTeam = teamRepository.findById(requestDto.getTeamId()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
+        );
+
+        Game game = gameRepository.findById(requestDto.getGameId()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
+        );
+
+        selectedTeam.leave();
+
+        game.selectTeam(null);
 
         teamRepository.save(selectedTeam);
 
@@ -401,4 +439,5 @@ public class GameService {
     private Inning getNowInning(Long gameId, int nTh) {
         return inningRepository.findAllByGameId(gameId).get(nTh - 1);
     }
+
 }

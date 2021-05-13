@@ -65,6 +65,13 @@ public class WebSockChatHandler extends TextWebSocketHandler {
 
             handleOccupying(responseDto);
         }
+
+        if (requestDto.getType().equals("leave")) {
+
+            SocketResponseDto responseDto = gameService.leaveTeam(requestDto);
+
+            handleOccupying(responseDto);
+        }
     }
 
     public <T> void sendMessage(T message, GameService gameService) {
@@ -101,6 +108,10 @@ public class WebSockChatHandler extends TextWebSocketHandler {
 
         if (response.getResult().equals("success")) {
             sendMessage("success", gameService);
+        }
+
+        if (response.getResult().equals("wait")) {
+            sendMessage("wait", gameService);
         }
 
         if (response.getResult().equals("fail")) {

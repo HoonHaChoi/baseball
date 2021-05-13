@@ -64,11 +64,7 @@ public class Team {
     }
 
     public boolean occupy() {
-        if (isOccupied) {
-            return false;
-        }
-
-        return isOccupied = true;
+        return this.isOccupied = true;
     }
 
     public boolean select() {
@@ -87,5 +83,9 @@ public class Team {
                 ", gameId=" + gameId +
                 ", nowBatter=" + nowBatter +
                 '}';
+    }
+
+    public void leave() {
+        this.isOccupied = false;
     }
 }
