@@ -71,14 +71,13 @@ class GroundView: UIView {
         base.fill()
         base.close()
         
-        movePlayer(baseState: [true,true,true,true])
     }
     
-    func movePlayer(baseState: [Bool]) {
-        baseState[0] ? basefitst() : hidePlayer(a: oneplayer)
-        baseState[1] ? baseSecond() : hidePlayer(a: twoplayer)
-        baseState[2] ? basethrid() : hidePlayer(a: threeplayer)
-        baseState[3] ? basehome() : hidePlayer(a: homeplayer)
+    func movePlayer(firstBase: Bool, secondBase: Bool, thridBase: Bool, homeBase: Bool) {
+        firstBase ? basefitst() : hidePlayer(image: oneplayer)
+        secondBase ? baseSecond() : hidePlayer(image: twoplayer)
+        thridBase ? basethrid() : hidePlayer(image: threeplayer)
+        homeBase ? basehome() : hidePlayer(image: homeplayer)
     }
     
     func basefitst() {
@@ -119,8 +118,8 @@ class GroundView: UIView {
         }
     }
     
-    func hidePlayer<T: UIView>(a: T) {
-        a.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+    func hidePlayer<T: UIView>(image: T) {
+        image.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
     }
      
     override init(frame: CGRect) {
@@ -129,6 +128,11 @@ class GroundView: UIView {
         addSubview(twoplayer)
         addSubview(threeplayer)
         addSubview(homeplayer)
+        
+        hidePlayer(image: oneplayer)
+        hidePlayer(image: twoplayer)
+        hidePlayer(image: threeplayer)
+        hidePlayer(image: homeplayer)
     }
     
     required init?(coder: NSCoder) {
@@ -137,5 +141,10 @@ class GroundView: UIView {
         addSubview(twoplayer)
         addSubview(threeplayer)
         addSubview(homeplayer)
+        
+        hidePlayer(image: oneplayer)
+        hidePlayer(image: twoplayer)
+        hidePlayer(image: threeplayer)
+        hidePlayer(image: homeplayer)
     }
 }

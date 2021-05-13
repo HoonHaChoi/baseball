@@ -87,6 +87,10 @@ class GamePlayViewController: UIViewController {
                 self?.updateView(status: status)
                 self?.gameBatterView.configureBatter(by: status.statusBoard.batter)
                 self?.gamePitcherView.configurePitcher(by: status.statusBoard.pitcher)
+                self?.UpdateGroundBasePlayer(first: status.statusBoard.firstBase,
+                                             second: status.statusBoard.secondBase,
+                                             thrid: status.statusBoard.thirdBase,
+                                             home: status.statusBoard.homeBase)
             }.store(in: &cancellable)
     }
     
@@ -138,7 +142,7 @@ class GamePlayViewController: UIViewController {
                                                            y: self.groundView.bounds.maxY - 40)
         } completion: { _ in
             UIView.animate(withDuration: 0.5) {
-                self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.midX + CGFloat(Int.random(in: 0...600)), y: CGFloat(Int.random(in: 0...400)))
+                self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.minX + CGFloat(Int.random(in: 100...600)), y: CGFloat(Int.random(in: 0...400)))
             } completion: { (_) in
                 self.baseBallImageView.layer.removeAllAnimations()
                 self.baseBallImageView.transform = .identity
@@ -152,6 +156,11 @@ class GamePlayViewController: UIViewController {
         self.homeTeamScoreLabel.text = String(status.homeTeam.score)
         self.awayTeamNameLabel.text = status.awayTeam.name
         self.awayTeamScoreLabel.text = String(3)
+    }
+    
+    private func UpdateGroundBasePlayer(first: Bool,second: Bool,thrid: Bool,home: Bool) {
+        self.groundView.movePlayer(firstBase: first, secondBase: second, thridBase: thrid, homeBase: home)
+        self.groundView.setNeedsDisplay()
     }
     
     @objc func moveGameHistoryView(_ recognizer:

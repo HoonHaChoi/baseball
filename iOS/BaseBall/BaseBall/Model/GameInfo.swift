@@ -32,6 +32,7 @@ struct StatusBoard: Decodable {
 struct Batter: Codable {
     let name: String
     let numOfBatting, numOfHitting: Int
+    let imageUrl: String
 }
 
 struct Pitcher: Codable {
