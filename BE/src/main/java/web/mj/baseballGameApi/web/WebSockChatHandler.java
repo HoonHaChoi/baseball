@@ -74,37 +74,37 @@ public class WebSockChatHandler extends TextWebSocketHandler {
     public void handleJoining(WebSocketSession session) {
         // TODO: join은 occpy 대체하는 것, occupy 응답형태로 구현할 것
         sessions.add(session);
-        sendMessage("join game", gameService);
+        sendMessage("join", gameService);
     }
 
     public void handleOut() {
-        sendMessage("out game", gameService);
+        sendMessage("out", gameService);
         sessions.clear();
     }
 
     public void handlePitching(SocketResponseDto pitch) {
 
         if (pitch.getResult().equals("strike")) {
-            sendMessage(pitch, gameService);
+            sendMessage("strike", gameService);
         }
 
         if (pitch.getResult().equals("hit")) {
-            sendMessage(pitch, gameService);
+            sendMessage("hit", gameService);
         }
 
         if (pitch.getResult().equals("ball")) {
-            sendMessage(pitch, gameService);
+            sendMessage("ball", gameService);
         }
     }
 
     public void handleOccupying(SocketResponseDto response) {
 
         if (response.getResult().equals("success")) {
-            sendMessage(response, gameService);
+            sendMessage("success", gameService);
         }
 
         if (response.getResult().equals("fail")) {
-            sendMessage(response, gameService);
+            sendMessage("fail", gameService);
         }
     }
 
