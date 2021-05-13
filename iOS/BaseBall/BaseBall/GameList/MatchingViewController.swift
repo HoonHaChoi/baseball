@@ -12,6 +12,7 @@ class MatchingViewController: UIViewController {
     @IBOutlet weak var watingLabel: UILabel!
 
     var game: Game?
+    var socket : WebSocketTaskConnection?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,3 +42,31 @@ class MatchingViewController: UIViewController {
     }
 }
 
+extension MatchingViewController : WebSocketConnectionDelegate {
+    
+    func onConnected(connection: WebSocketConnection) {
+        print("connected")
+    }
+    
+    func onDisconnected(connection: WebSocketConnection, error: Error?) {
+        print("disconnected")
+    }
+    
+    func onError(connection: WebSocketConnection, error: Error) {
+        print(error.localizedDescription)
+        let code = (error as NSError).code
+        print(code)
+    }
+    
+    func onMessage(connection: WebSocketConnection, data: Data) {
+        print(data)
+    }
+    func onMessage(connection: WebSocketConnection, string: String) {
+        print(string)
+        if game?.homeTeam.occupied == true && game?.awayTeam.occupied == true {
+            DispatchQueue.main.sync {
+                moveGamePlayView()
+            }
+        }
+    }
+}

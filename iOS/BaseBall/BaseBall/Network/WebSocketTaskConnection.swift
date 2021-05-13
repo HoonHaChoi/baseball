@@ -91,6 +91,7 @@ class WebSocketTaskConnection : NSObject, WebSocketConnection, URLSessionWebSock
         webSocketTask.send(URLSessionWebSocketTask.Message.string(text)) { error in
             if let error = error {
                 self.delegate?.onError(connection: self, error: error)
+                self.disConnect()
             }
         }
     }
