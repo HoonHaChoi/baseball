@@ -13,7 +13,7 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var pitchButton: UIButton!
     
     var socket : WebSocketTaskConnection?
-    var game : Game?
+    var game : Game!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,11 @@ class GamePlayViewController: UIViewController {
         let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(popViewControllerOnScreenEdgeSwipe(_:)))
         edgePan.edges = .right
         view.addGestureRecognizer(edgePan)
+        
+        let leaveMessage = SocketMessage(type: SocketRequest.leave, gameId: game.gameId, teamId: game.homeTeam.teamId)
+        socket?.send(with: leaveMessage)
+        let outMessage = SocketMessage(type: SocketRequest.out, gameId: game.gameId, teamId: game.homeTeam.teamId)
+        socket?.send(with: outMessage)
         
         configureButton()
     }

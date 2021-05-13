@@ -16,6 +16,7 @@ class GameOptionController: UIViewController {
     var socket : WebSocketTaskConnection?
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureButton()
@@ -31,7 +32,7 @@ class GameOptionController: UIViewController {
         super.viewWillDisappear(true)
         
         guard let game = game  else { return }
-        let outMessage = SocketMessage(type: "out", gameId: game.gameId, teamId: game.homeTeam.teamId)
+        let outMessage = SocketMessage(type: SocketRequest.out, gameId: game.gameId, teamId: game.homeTeam.teamId)
         socket?.send(with: outMessage)
         socket?.disConnect()
     }
@@ -41,23 +42,24 @@ class GameOptionController: UIViewController {
     }
     
     // MARK: - User Action Handler
+    
     @IBAction func didSelectHome(_ sender: UIButton) {
         guard let game = game  else { return }
-//        let joinMessage = SocketMessage(type: "join", gameId: game.gameId, teamId: game.homeTeam.teamId)
-//        let occupyMessage = SocketMessage(type: "occupy", gameId: game.gameId, teamId: game.homeTeam.teamId)
-//        socket?.send(with: joinMessage)
-//        socket?.send(with: occupyMessage)
+        let joinMessage = SocketMessage(type: SocketRequest.join, gameId: game.gameId, teamId: game.homeTeam.teamId)
+        let occupyMessage = SocketMessage(type: SocketRequest.occupy, gameId: game.gameId, teamId: game.homeTeam.teamId)
+        socket?.send(with: joinMessage)
+        socket?.send(with: occupyMessage)
         
         moveGameMatchingView()
     }
     
     @IBAction func didSelectAway(_ sender: UIButton) {
         guard let game = game  else { return }
-//        let joinMessage = SocketMessage(type: "join", gameId: game.gameId, teamId: game.awayTeam.teamId)
-//        let occupyMessage = SocketMessage(type: "occupy", gameId: game.gameId, teamId: game.awayTeam.teamId)
-//        socket?.send(with: joinMessage)
-//        socket?.send(with: occupyMessage)
-//
+        let joinMessage = SocketMessage(type: SocketRequest.join, gameId: game.gameId, teamId: game.awayTeam.teamId)
+        let occupyMessage = SocketMessage(type: SocketRequest.occupy, gameId: game.gameId, teamId: game.awayTeam.teamId)
+        socket?.send(with: joinMessage)
+        socket?.send(with: occupyMessage)
+        
         moveGameMatchingView()
     }
 }

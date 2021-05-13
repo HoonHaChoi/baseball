@@ -17,6 +17,7 @@ class MatchingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setGradiendBackground()
+        socket?.delegate = self
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(close))
         self.view.addGestureRecognizer(tap)
@@ -29,7 +30,7 @@ class MatchingViewController: UIViewController {
         super.viewWillDisappear(true)
         
         guard let game = game  else { return }
-        let outMessage = SocketMessage(type: "leave", gameId: game.gameId, teamId: game.homeTeam.teamId)
+        let outMessage = SocketMessage(type: SocketRequest.leave, gameId: game.gameId, teamId: game.homeTeam.teamId)
         socket?.send(with: outMessage)
     }
     func setGradiendBackground(){
@@ -47,6 +48,7 @@ class MatchingViewController: UIViewController {
             .instantiateViewController(withIdentifier: "GamePlay") as! GamePlayViewController
         gamePlayViewController.modalPresentationStyle = .fullScreen
         gamePlayViewController.game = game
+        gamePlayViewController.socket = socket
         
         self.present(gamePlayViewController, animated: true, completion: nil)
     }
@@ -67,8 +69,6 @@ extension MatchingViewController : WebSocketConnectionDelegate {
     
     func onError(connection: WebSocketConnection, error: Error) {
         print(error.localizedDescription)
-        let code = (error as NSError).code
-        print(code)
     }
     
     func onMessage(connection: WebSocketConnection, data: Data) {
@@ -76,7 +76,7 @@ extension MatchingViewController : WebSocketConnectionDelegate {
     }
     func onMessage(connection: WebSocketConnection, string: String) {
         print(string)
-        if string ==  "\"success\"" {
+        if string ==  SocketResponse.success{
             DispatchQueue.main.sync {
                 moveGamePlayView()
             }
