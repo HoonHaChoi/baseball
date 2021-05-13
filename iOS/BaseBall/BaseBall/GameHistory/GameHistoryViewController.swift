@@ -11,6 +11,7 @@ class GameHistoryViewController: UIViewController {
     
     let menuWidth = UIScreen.main.bounds.width * 0.3
     var isPresenting = false
+    var recordOfPitching: [RecordOfPitching]?
     
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var playHistoryCollection: UICollectionView!
@@ -80,17 +81,23 @@ extension GameHistoryViewController: UIViewControllerTransitioningDelegate, UIVi
 
 extension GameHistoryViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return recordOfPitching?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return recordOfPitching?[section].charactersOfPitchings.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlayerHistoryCell.identifier, for: indexPath) as? PlayerHistoryCell else {
             return UICollectionViewCell()
         }
+        
+        let pitchingResults = Array(recordOfPitching?[indexPath.section].charactersOfPitchings ?? "")
+        cell.configure(number: indexPath.row,
+                       pitching: String(pitchingResults[indexPath.row]),
+                       strike: pitchingResults.filter { $0 == "s"}.count,
+                       ball: pitchingResults.filter { $0 == "b"}.count)
         return cell
     }
     
@@ -98,6 +105,9 @@ extension GameHistoryViewController: UICollectionViewDataSource {
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PlayHistoryHeaderView.identifier, for: indexPath) as? PlayHistoryHeaderView else {
             return UICollectionReusableView()
         }
+        let player = recordOfPitching?[indexPath.section]
+        headerView.configure(id: player?.recordId, name: player?.name, status: player?.status)
+        
         return headerView
     }
     

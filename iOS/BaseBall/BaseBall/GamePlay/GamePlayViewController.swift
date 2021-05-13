@@ -65,6 +65,8 @@ class GamePlayViewController: UIViewController {
     
     private var cancellable = Set<AnyCancellable>()
     
+    private var recordOfPitching: [RecordOfPitching] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
@@ -83,6 +85,7 @@ class GamePlayViewController: UIViewController {
                 
             }
             receiveValue: { [weak self] (status) in
+                print(status)
                 self?.gameStatusView.configure(strike: 1, ball: 2, out: 3)
                 self?.updateView(status: status)
                 self?.gameBatterView.configureBatter(by: status.statusBoard.batter)
@@ -91,9 +94,9 @@ class GamePlayViewController: UIViewController {
                                              second: status.statusBoard.secondBase,
                                              thrid: status.statusBoard.thirdBase,
                                              home: status.statusBoard.homeBase)
+                self?.recordOfPitching = status.recordOfPitching
             }.store(in: &cancellable)
     }
-    
     
     private func configure() {
         view.addSubview(gameStatusView)
@@ -142,11 +145,11 @@ class GamePlayViewController: UIViewController {
                                                            y: self.groundView.bounds.maxY - 40)
         } completion: { _ in
             
-//            NetworkManager().requestPitchResource(gameURL: .pitch, decodeType: Pitch.self, gameIndex: 1, teamIndex: 1)
-//                .sink { (_) in
-//                } receiveValue: { (pitch) in
-//                    print(pitch)
-//                }.store(in: &self.cancellable)
+            NetworkManager().requestPitchResource(gameURL: .pitch, decodeType: Pitch.self, gameIndex: 1, teamIndex: 1)
+                .sink { (_) in
+                } receiveValue: { (pitch) in
+                    print(pitch)
+                }.store(in: &self.cancellable)
             
             UIView.animate(withDuration: 0.5) {
                 self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.minX + CGFloat(Int.random(in: 100...600)), y: CGFloat(Int.random(in: 0...400)))
@@ -176,6 +179,7 @@ class GamePlayViewController: UIViewController {
             guard let gameHistoryViewController = UIStoryboard(name: "GameHistory", bundle: nil).instantiateViewController(withIdentifier: "GameHistory") as? GameHistoryViewController else {
                 return
             }
+            gameHistoryViewController.recordOfPitching = recordOfPitching
             gameHistoryViewController.modalPresentationStyle = .custom
             gameHistoryViewController.transitioningDelegate = gameHistoryViewController
             present(gameHistoryViewController, animated: true, completion: nil)
