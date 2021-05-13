@@ -411,6 +411,7 @@ public class GameService {
 
         if (inning.isThirdBase()) {
             hittingTeam.increaseScore();
+            hittingTeam.updateScore(hittingTeam.getScore().toString());
             inning.setHomeBaseToTrue();
             inning.setThirdBaseToFalse();
         }

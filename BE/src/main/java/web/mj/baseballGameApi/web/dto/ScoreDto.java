@@ -8,7 +8,7 @@ public class ScoreDto {
 
     public ScoreDto(Team team){
         this.teamName = team.getName();
-        this.scores = "";
+        this.scores = team.getScoreOfCharacters();
     }
 
     public String getTeamName() {
@@ -17,9 +17,5 @@ public class ScoreDto {
 
     public String getScores() {
         return scores;
-    }
-
-    public void addScore(String score){
-        scores += score;
     }
 }

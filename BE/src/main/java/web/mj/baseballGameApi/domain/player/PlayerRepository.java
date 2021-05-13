@@ -10,8 +10,6 @@ import java.util.Optional;
 @Repository
 public interface PlayerRepository extends CrudRepository<Player, Long> {
     Optional<Player> findByPositionAndTeamIdAndTeamGameId(String position, Long teamId, Long gameId);
-
     List<Player> findALLByPositionAndTeamId(String position, Long teamId, Long gameId);
     List<Player> findAllByTeamId(Long teamId);
-
 }

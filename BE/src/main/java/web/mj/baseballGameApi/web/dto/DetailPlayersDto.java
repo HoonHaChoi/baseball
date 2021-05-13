@@ -13,4 +13,12 @@ public class DetailPlayersDto {
         this.teamName = team.getName();
         this.players = players;
     }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public List<PlayerDto> getPlayers() {
+        return players;
+    }
 }

@@ -12,6 +12,7 @@ public class Team {
     private boolean isSelected;
     private Integer score;
     private Long gameId;
+    private String scoreOfCharacters;
 
     private Integer nowBatter;
 
@@ -21,6 +22,7 @@ public class Team {
     public Team(Long id, Long gameId) {
         this.id = id;
         this.gameId = gameId;
+        this.scoreOfCharacters = "";
     }
 
     public Long getId() {
@@ -45,6 +47,18 @@ public class Team {
 
     public boolean isSelected() {
         return isSelected;
+    }
+
+    public String getScoreOfCharacters() {
+        return scoreOfCharacters;
+    }
+
+    public void updateScore(String score) {
+        this.scoreOfCharacters = score;
+    }
+
+    public void addChar(String string){
+        scoreOfCharacters += string;
     }
 
     public Long getGameId() {
