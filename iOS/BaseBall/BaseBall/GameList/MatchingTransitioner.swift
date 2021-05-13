@@ -41,9 +41,26 @@ extension MatchingTransitioner : UIViewControllerAnimatedTransitioning {
             transitionContext.containerView.addSubview(toViewController.view)
             presentAnimation(with: transitionContext, viewToAnimate: toViewController.view)
         case .dismiss:
-            break
+            transitionContext.containerView.addSubview(toViewController.view)
+            transitionContext.containerView.addSubview(fromViewController.view)
+            dismissAnimation(with: transitionContext, viewToAnimate: fromViewController.view)
         }
     }
+    func dismissAnimation(with transitionContext : UIViewControllerContextTransitioning, viewToAnimate: UIView) {
+        let duration = transitionDuration(using: transitionContext)
+        let moveOut = CGAffineTransform(translationX: -viewToAnimate.frame.width, y: 0)
+        UIView.animateKeyframes(withDuration: duration,
+                                delay: 0,
+                                options: .calculationModeLinear,
+                                animations:  {
+                                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 2.0, animations: {
+                                        viewToAnimate.transform = moveOut
+                                    })
+        }) { _ in
+            transitionContext.completeTransition(true)
+        }
+    }
+    
     func presentAnimation(with transitionContext : UIViewControllerContextTransitioning, viewToAnimate: UIView) {
         
         let duration = transitionDuration(using: transitionContext)

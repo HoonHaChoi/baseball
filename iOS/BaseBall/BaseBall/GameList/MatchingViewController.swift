@@ -17,10 +17,20 @@ class MatchingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setGradiendBackground()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(close))
+        self.view.addGestureRecognizer(tap)
     }
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(false)
+        super.viewWillAppear(true)
         watingLabel.startFlashing(interval: TimeInterval(0.6))
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        
+        guard let game = game  else { return }
+        let outMessage = SocketMessage(type: "leave", gameId: game.gameId, teamId: game.homeTeam.teamId)
+        socket?.send(with: outMessage)
     }
     func setGradiendBackground(){
         let colorTop =  UIColor(red: 255.0/255.0, green: 149.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
@@ -39,6 +49,9 @@ class MatchingViewController: UIViewController {
         gamePlayViewController.game = game
         
         self.present(gamePlayViewController, animated: true, completion: nil)
+    }
+    @objc func close(){
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -63,7 +76,7 @@ extension MatchingViewController : WebSocketConnectionDelegate {
     }
     func onMessage(connection: WebSocketConnection, string: String) {
         print(string)
-        if game?.homeTeam.occupied == true && game?.awayTeam.occupied == true {
+        if string ==  "\"success\"" {
             DispatchQueue.main.sync {
                 moveGamePlayView()
             }
