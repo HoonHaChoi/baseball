@@ -72,6 +72,37 @@ public class GameService {
         this.objectMapper = objectMapper;
     }
 
+    public GameDetailResponseDto findGameDetail(Long gameId) {
+        Game game = findGameById(gameId);
+
+        List<ScoreDto> scores = teamRepository.findAllByGameId(gameId).stream()
+                .map(ScoreDto::new)
+                .collect(Collectors.toList());
+
+        List<PlayerDto> homePlayers = playerRepository.findAllByTeamId(game.getHomeTeamId()).stream()
+                .map(PlayerDto::new)
+                .collect(Collectors.toList());
+
+        List<PlayerDto> awayPlayers = playerRepository.findAllByTeamId(game.getAwayTeamId()).stream()
+                .map(PlayerDto::new)
+                .collect(Collectors.toList());
+
+        Team awayTeam = teamRepository.findById(game.getAwayTeamId()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
+        );
+        Team homeTeam = teamRepository.findById(game.getHomeTeamId()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
+        );
+
+        DetailPlayersDto awayPlayersDto = new DetailPlayersDto(awayTeam, awayPlayers);
+        DetailPlayersDto homePlayersDto = new DetailPlayersDto(homeTeam, homePlayers);
+
+        List<DetailPlayersDto> playersByTeam = new ArrayList<>();
+        playersByTeam.add(awayPlayersDto);
+        playersByTeam.add(homePlayersDto);
+
+        return new GameDetailResponseDto(gameId, scores, playersByTeam);
+    }
 
     public <T> void sendMessage(WebSocketSession session, T message) {
         try {

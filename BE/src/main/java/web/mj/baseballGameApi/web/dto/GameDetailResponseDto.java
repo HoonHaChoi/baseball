@@ -9,8 +9,8 @@ public class GameDetailResponseDto {
     private final List<ScoreDto> detailScore;
     private final List<DetailPlayersDto> detailPlayers;
 
-    public GameDetailResponseDto(Game game, List<ScoreDto> detailScore, List<DetailPlayersDto> detailPlayers) {
-        this.gameId = game.getId();
+    public GameDetailResponseDto(Long gameId, List<ScoreDto> detailScore, List<DetailPlayersDto> detailPlayers) {
+        this.gameId = gameId;
         this.detailScore = detailScore;
         this.detailPlayers = detailPlayers;
     }

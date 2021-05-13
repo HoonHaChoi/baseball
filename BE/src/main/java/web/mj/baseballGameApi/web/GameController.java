@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.service.GameService;
+import web.mj.baseballGameApi.web.dto.GameDetailResponseDto;
 import web.mj.baseballGameApi.web.dto.GameResponseDto;
 import web.mj.baseballGameApi.web.dto.GameStatusResponseDto;
 
@@ -40,5 +41,12 @@ public class GameController {
         logger.info("특정 게임 현황 조회");
 
         return gameService.findGameStatus(gameId);
+    }
+
+    @GetMapping("/{gameId}/detail")
+    public GameDetailResponseDto viewGameDetail(@PathVariable Long gameId) {
+        logger.info("특정 게임 상세 조회");
+
+        return gameService.findGameDetail(gameId);
     }
 }
