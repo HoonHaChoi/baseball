@@ -98,8 +98,8 @@ public class GameService {
         DetailPlayersDto homePlayersDto = new DetailPlayersDto(homeTeam, homePlayers);
 
         List<DetailPlayersDto> playersByTeam = new ArrayList<>();
-        playersByTeam.add(awayPlayersDto);
         playersByTeam.add(homePlayersDto);
+        playersByTeam.add(awayPlayersDto);
 
         return new GameDetailResponseDto(gameId, scores, playersByTeam);
     }
@@ -160,12 +160,12 @@ public class GameService {
         pitcher = findPlayerByPosition(PITCHER, hittingTeam.getId(), gameId);
         PitcherDto pitcherDto = new PitcherDto(pitcher);
 
-        List<Player> batters = getBatters(BATTER, defensingTeam.getId(), gameId);
+        List<Player> batters = getBatters(BATTER, defensingTeam.getId());
         numOfBatters = batters.size();
 
-        batter = getNowBatter(defensingTeam.getId(), gameId, hittingTeam.getNowBatterIndex(numOfBatters));
+        batter = getNowPlayer(BATTER, hittingTeam.getId());
 
-        BatterDto batterDto = new BatterDto(batters.get(hittingTeam.getNowBatterIndex(numOfBatters)));
+        BatterDto batterDto = new BatterDto(getNowPlayer(BATTER, hittingTeam.getId()));
 
         StatusBoardDto statusBoardDto = new StatusBoardDto(game, selectedTeam, inning, pitcherDto, batterDto);
 
@@ -266,8 +266,10 @@ public class GameService {
 
         // TODO: 진행팀 지정은 하드코딩으로 시작, 추후 사용자에 의해 변경
         Game game = findGameById(gameId);
-        Team team = findTeamById(teamId);
+        Team hittingTeam = getHittingTeam(gameId);
         inning = getNowInning(gameId, game.getInning());
+
+        List<Player> batters = getBatters(BATTER, hittingTeam.getId());
 
         Pitching pitching = new Pitching();
 
@@ -280,15 +282,15 @@ public class GameService {
         }
 
         if (pitching.getResult().equals(STRIKE)) {
-            handleStrike(gameId, teamId);
+            handleStrike(gameId, hittingTeam.getId(), batters);
         }
 
         if (pitching.getResult().equals(BALL)) {
-            handleBall(gameId, teamId);
+            handleBall(gameId, hittingTeam.getId(), batters);
         }
 
         if (pitching.getResult().equals(HIT)) {
-            handleHit(gameId, teamId);
+            handleHit(gameId, hittingTeam.getId(), batters);
         }
 
         // TODO: 초->말 변경 로직 추후 도입
@@ -303,8 +305,11 @@ public class GameService {
 
         // TODO: 진행팀 지정은 하드코딩으로 시작, 추후 사용자에 의해 변경
         Game game = findGameById(gameId);
-        Team team = findTeamById(teamId);
+        Team hittingTeam = getHittingTeam(gameId);
         inning = getNowInning(gameId, game.getInning());
+
+        // TODO: socket에도 적용할 것
+        List<Player> batters = getBatters(BATTER, hittingTeam.getId());
 
         Pitching pitching = new Pitching();
 
@@ -317,15 +322,15 @@ public class GameService {
         }
 
         if (pitching.getResult().equals(STRIKE)) {
-            handleStrike(gameId, teamId);
+            handleStrike(gameId, hittingTeam.getId(), batters);
         }
 
         if (pitching.getResult().equals(BALL)) {
-            handleBall(gameId, teamId);
+            handleBall(gameId, hittingTeam.getId(), batters);
         }
 
         if (pitching.getResult().equals(HIT)) {
-            handleHit(gameId, teamId);
+            handleHit(gameId, hittingTeam.getId(), batters);
         }
 
         // TODO: 초->말 변경 로직 추후 도입
@@ -336,7 +341,7 @@ public class GameService {
         return new ResultResponseDto(pitching);
     }
 
-    private void handleStrike(Long gameId, Long teamId) {
+    private void handleStrike(Long gameId, Long teamId, List<Player> batters) {
 
         pitcher.increaseThrowing();
         pitcher.increaseStrike();
@@ -354,17 +359,36 @@ public class GameService {
             hittingTeam.increaseNowBatter();
             inning.resetStrikeAndBall();
 
-            batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
+            // 현재 타자의 isNowOn = false
+            List<Player> nowBatters = batters.stream()
+                    .filter(Player::isNowOn)
+                    .collect(Collectors.toList());
+
+            Player nowBatter = nowBatters.get(0);
+            nowBatter.setNowOnToFalse();
+            playerRepository.save(nowBatter);
+
+            // 다음 타자의 isNowOn = true
+            int indexOfNextBatter = (batters.indexOf(nowBatter) + 1 >= batters.size())
+                    ? 0
+                    : batters.indexOf(nowBatter) + 1;
+
+            Player nextBatter = batters.get(indexOfNextBatter);
+            nextBatter.setNowOnToTrue();
+
+            batter = nextBatter;
+
+            playerRepository.save(batter);
+
             Record newRecord = new Record(batter.getName(), lastRecord);
 
             recordRepository.save(newRecord);
         }
 
-
         saveGameStatus();
     }
 
-    private void handleBall(Long gameId, Long teamId) {
+    private void handleBall(Long gameId, Long teamId, List<Player> batters) {
 
         pitcher.increaseThrowing();
         pitcher.increaseBall();
@@ -378,7 +402,26 @@ public class GameService {
 
             changeStatusRunningToFirstBase();
 
-            batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
+            // --- 현재 타자의 isNowOn = false
+            List<Player> nowBatters = batters.stream()
+                    .filter(Player::isNowOn)
+                    .collect(Collectors.toList());
+
+            Player nowBatter = nowBatters.get(0);
+            nowBatter.setNowOnToFalse();
+            playerRepository.save(nowBatter);
+
+            // 다음 타자의 isNowOn = true
+            int indexOfNextBatter = (batters.indexOf(nowBatter) + 1 >= batters.size())
+                    ? 0
+                    : batters.indexOf(nowBatter) + 1;
+
+            Player nextBatter = batters.get(indexOfNextBatter);
+            nextBatter.setNowOnToTrue();
+
+            batter = nextBatter;
+            // ---
+
             Record newRecord = new Record(batter.getName(), lastRecord);
 
             recordRepository.save(newRecord);
@@ -388,19 +431,38 @@ public class GameService {
         saveGameStatus();
     }
 
-    private void handleHit(Long gameId, Long teamId) {
+    private void handleHit(Long gameId, Long teamId, List<Player> batters) {
 
         lastRecord.setStatus(HIT);
 
         changeStatusRunningToFirstBase();
 
+        // --- 현재 타자의 isNowOn = false
+        List<Player> nowBatters = batters.stream()
+                .filter(Player::isNowOn)
+                .collect(Collectors.toList());
+
+        Player nowBatter = nowBatters.get(0);
+        nowBatter.setNowOnToFalse();
+        playerRepository.save(nowBatter);
+
         saveGameStatus();
         teamRepository.save(hittingTeam);
 
-        batter = getNowBatter(teamId, gameId, hittingTeam.getNowBatterIndex(numOfBatters));
-        Record newRecord = new Record(batter.getName(), lastRecord);
+        // 다음 타자의 isNowOn = true
+        int indexOfNextBatter = (batters.indexOf(nowBatter) + 1 >= batters.size())
+                ? 0
+                : batters.indexOf(nowBatter) + 1;
 
+        Player nextBatter = batters.get(indexOfNextBatter);
+        nextBatter.setNowOnToTrue();
+
+        batter = nextBatter;
+
+
+        Record newRecord = new Record(batter.getName(), lastRecord);
         recordRepository.save(newRecord);
+        playerRepository.save(batter);
     }
 
     private void changeStatusRunningToFirstBase() {
@@ -453,17 +515,25 @@ public class GameService {
         );
     }
 
-    // TODO: index가 11이 넘어가면 indexOutOfBounds 예외 발생
-    private List<Player> getBatters(String position, Long teamId, Long gameId) {
-        return playerRepository.findALLByPositionAndTeamId(position, teamId, gameId);
+    // TODO: index가 8 넘어가면 indexOutOfBounds 예외 발생
+    private List<Player> getBatters(String position, Long teamId) {
+        return playerRepository.findALLByPositionAndTeamId(position, teamId);
     }
 
-    private Player getNowBatter(Long teamId, Long gameId, Integer nowBatter) {
-        return getBatters(BATTER, teamId, gameId).get(nowBatter);
+    private Player getNowPlayer(String position, Long teamId) {
+        return playerRepository.findByPositionAndTeamIdAndIsNowOnTrue(position, teamId).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.PLAYER_NOT_FOUND)
+        );
     }
 
     private Team getDefensingTeam(Long gameId) {
         return teamRepository.findByGameIdAndIsHittingFalse(gameId).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
+        );
+    }
+
+    private Team getHittingTeam(Long gameId) {
+        return teamRepository.findByGameIdAndIsHittingTrue(gameId).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
         );
     }
