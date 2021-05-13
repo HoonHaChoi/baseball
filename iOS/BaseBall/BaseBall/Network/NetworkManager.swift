@@ -18,10 +18,17 @@ final class NetworkManager: NetworkManagable {
         guard let url = EndPoint.URL(type: gameURL, at: index) else {
             return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
         }
-        return request(url: url, decodeType: T.self)
+        return request(url: url)
     }
     
-    private func request<T: Decodable>(url: URL, decodeType: T.Type) -> AnyPublisher<T, NetworkError> {
+    func requestPitchResource<T: Decodable>(gameURL: URLType, decodeType: T.Type, gameIndex: Int, teamIndex: Int) -> AnyPublisher<T, NetworkError> {
+        guard let url = EndPoint.URL(type: gameURL, game: gameIndex, team: teamIndex) else {
+            return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
+        }
+        return request(url: url)
+    }
+    
+    private func request<T: Decodable>(url: URL) -> AnyPublisher<T, NetworkError> {
         return URLSession.shared.dataTaskPublisher(for: url)
             .mapError { _ in
                 NetworkError.invalidRequest

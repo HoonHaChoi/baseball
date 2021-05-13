@@ -141,6 +141,13 @@ class GamePlayViewController: UIViewController {
             self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.midX - 20,
                                                            y: self.groundView.bounds.maxY - 40)
         } completion: { _ in
+            
+//            NetworkManager().requestPitchResource(gameURL: .pitch, decodeType: Pitch.self, gameIndex: 1, teamIndex: 1)
+//                .sink { (_) in
+//                } receiveValue: { (pitch) in
+//                    print(pitch)
+//                }.store(in: &self.cancellable)
+            
             UIView.animate(withDuration: 0.5) {
                 self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.minX + CGFloat(Int.random(in: 100...600)), y: CGFloat(Int.random(in: 0...400)))
             } completion: { (_) in
