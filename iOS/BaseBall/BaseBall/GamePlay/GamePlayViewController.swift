@@ -17,6 +17,9 @@ class GamePlayViewController: UIViewController {
     
     @IBOutlet weak var groundView: GroundView!
     
+    var socket : WebSocketTaskConnection?
+    var game : Game!
+    
     private var gameStatusView: GameSBOStackView = {
         let stackView = GameSBOStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -170,9 +173,6 @@ class GamePlayViewController: UIViewController {
         self.groundView.setNeedsDisplay()
     }
     
-    @objc func moveGameHistoryView(_ recognizer:
-                                                    UIScreenEdgePanGestureRecognizer) {
-        if recognizer.state == .began {
             guard let gameHistoryViewController = UIStoryboard(name: "GameHistory", bundle: nil).instantiateViewController(withIdentifier: "GameHistory") as? GameHistoryViewController else {
                 return
             }
@@ -225,5 +225,42 @@ class GamePlayViewController: UIViewController {
         self.present(gamePlayViewController, animated: true, completion: nil)
     }
     
+    @IBAction func moveDetailScoreView(_ sender: Any) {
+        let gamePlayViewController = UIStoryboard(name: "DetailScore", bundle: nil).instantiateViewController(withIdentifier: "DetailView")
+        gamePlayViewController.modalPresentationStyle = .pageSheet
+        self.present(gamePlayViewController, animated: true, completion: nil)
+    }
+    
 }
 
+extension GamePlayViewController : WebSocketConnectionDelegate{
+    func onConnected(connection: WebSocketConnection) {
+        print("connected")
+    }
+    
+    func onDisconnected(connection: WebSocketConnection, error: Error?) {
+        print("disconnected")
+    }
+    
+    func onError(connection: WebSocketConnection, error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    func onMessage(connection: WebSocketConnection, data: Data) {
+        
+    }
+    func onMessage(connection: WebSocketConnection, string: String) {
+        print(string)
+    }
+}
+
+// MARK: - Configuration
+extension GamePlayViewController {
+    func configureButton() {
+        pitchButton.layer.cornerRadius = 10
+        pitchButton.layer.shadowColor = UIColor.gray.cgColor
+        pitchButton.layer.shadowOpacity = 1.0
+        pitchButton.layer.shadowOffset = CGSize.zero
+        pitchButton.layer.shadowRadius = 6
+    }
+}

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1014F594264A5A1D00C55FC5 /* WebSocketTaskConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1014F593264A5A1D00C55FC5 /* WebSocketTaskConnection.swift */; };
+		1014F596264A5C5E00C55FC5 /* SocketMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1014F595264A5C5E00C55FC5 /* SocketMessage.swift */; };
 		1061AF8D2640E19E00B29805 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1061AF8B2640E19E00B29805 /* GameCell.swift */; };
 		1061AF8E2640E19E00B29805 /* GameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1061AF8C2640E19E00B29805 /* GameCell.xib */; };
 		1061AF9A2641286700B29805 /* GameOptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1061AF992641286700B29805 /* GameOptionController.swift */; };
@@ -16,6 +18,11 @@
 		BF87BBAA264C5613005ACB23 /* PlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF87BBA9264C5613005ACB23 /* PlayerView.xib */; };
 		BF87BBAD264C5881005ACB23 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF87BBAC264C5881005ACB23 /* PlayerView.swift */; };
 		BF87BBB0264CC3E9005ACB23 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF87BBAF264CC3E9005ACB23 /* ImageLoader.swift */; };
+		10861752264951CD008D0DD5 /* MatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10861751264951CD008D0DD5 /* MatchingViewController.swift */; };
+		1086175626495B53008D0DD5 /* MatchingTransitioner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086175526495B53008D0DD5 /* MatchingTransitioner.swift */; };
+		1086175B2649777A008D0DD5 /* UILabel+Flash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086175A2649777A008D0DD5 /* UILabel+Flash.swift */; };
+		10FA6712264922180038CFE2 /* SocketParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA6711264922180038CFE2 /* SocketParser.swift */; };
+		10FA6716264927940038CFE2 /* WebSocketConnectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA6715264927940038CFE2 /* WebSocketConnectionDelegate.swift */; };
 		BFAED2562645E85500492CB9 /* PlayerScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFAED2552645E85500492CB9 /* PlayerScoreCell.xib */; };
 		BFAED2592645E8D200492CB9 /* PlayerListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFAED2582645E8D200492CB9 /* PlayerListHeaderView.xib */; };
 		BFAED25C2645E9CB00492CB9 /* DetailPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAED25B2645E9CB00492CB9 /* DetailPlayerViewController.swift */; };
@@ -47,6 +54,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1014F593264A5A1D00C55FC5 /* WebSocketTaskConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTaskConnection.swift; sourceTree = "<group>"; };
+		1014F595264A5C5E00C55FC5 /* SocketMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketMessage.swift; sourceTree = "<group>"; };
 		1061AF8B2640E19E00B29805 /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		1061AF8C2640E19E00B29805 /* GameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameCell.xib; sourceTree = "<group>"; };
 		1061AF992641286700B29805 /* GameOptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOptionController.swift; sourceTree = "<group>"; };
@@ -56,6 +65,11 @@
 		BF87BBA9264C5613005ACB23 /* PlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerView.xib; sourceTree = "<group>"; };
 		BF87BBAC264C5881005ACB23 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		BF87BBAF264CC3E9005ACB23 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		10861751264951CD008D0DD5 /* MatchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingViewController.swift; sourceTree = "<group>"; };
+		1086175526495B53008D0DD5 /* MatchingTransitioner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingTransitioner.swift; sourceTree = "<group>"; };
+		1086175A2649777A008D0DD5 /* UILabel+Flash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Flash.swift"; sourceTree = "<group>"; };
+		10FA6711264922180038CFE2 /* SocketParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketParser.swift; sourceTree = "<group>"; };
+		10FA6715264927940038CFE2 /* WebSocketConnectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketConnectionDelegate.swift; sourceTree = "<group>"; };
 		BFAED2552645E85500492CB9 /* PlayerScoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerScoreCell.xib; sourceTree = "<group>"; };
 		BFAED2582645E8D200492CB9 /* PlayerListHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerListHeaderView.xib; sourceTree = "<group>"; };
 		BFAED25B2645E9CB00492CB9 /* DetailPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlayerViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +139,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+          1086175926497751008D0DD5 /* Extension */ = {
+            isa = PBXGroup;
+            children = (
+                1086175A2649777A008D0DD5 /* UILabel+Flash.swift */,
+            );
+            path = Extension;
+            sourceTree = "<group>";
+        };
 		BFEB62872643E11F0036A1DE /* GamePlay */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,9 +159,11 @@
 		BFEB62892643E1310036A1DE /* GameList */ = {
 			isa = PBXGroup;
 			children = (
+				BFFEB0B7263FDD09001E8842 /* Main.storyboard */,
 				BFFEB0B5263FDD09001E8842 /* GameListController.swift */,
 				1061AF992641286700B29805 /* GameOptionController.swift */,
-				BFFEB0B7263FDD09001E8842 /* Main.storyboard */,
+				10861751264951CD008D0DD5 /* MatchingViewController.swift */,
+				1086175526495B53008D0DD5 /* MatchingTransitioner.swift */,
 			);
 			path = GameList;
 			sourceTree = "<group>";
@@ -188,6 +212,7 @@
 				BF5D5481264BABD3006D7602 /* Extension */,
 				BFFEB0B1263FDD09001E8842 /* AppDelegate.swift */,
 				BFFEB0B3263FDD09001E8842 /* SceneDelegate.swift */,
+				1086175926497751008D0DD5 /* Extension */,
 				BFFEB0DA26402F42001E8842 /* Model */,
 				BFFEB0C6263FE8A0001E8842 /* Network */,
 				BFEB62892643E1310036A1DE /* GameList */,
@@ -210,6 +235,9 @@
 				BFFEB0CD263FEA12001E8842 /* HTTPMethod.swift */,
 				BFFEB0D0263FEA3B001E8842 /* NetworkError.swift */,
 				BFFEB0D3263FEB2B001E8842 /* NetworkManager.swift */,
+				10FA6711264922180038CFE2 /* SocketParser.swift */,
+				10FA6715264927940038CFE2 /* WebSocketConnectionDelegate.swift */,
+				1014F593264A5A1D00C55FC5 /* WebSocketTaskConnection.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -220,6 +248,7 @@
 				BFFEB0D626402F3B001E8842 /* Games.swift */,
 				BFFEB0DC2640322D001E8842 /* GameInfo.swift */,
 				BFFEB0E026403D09001E8842 /* Pitch.swift */,
+				1014F595264A5C5E00C55FC5 /* SocketMessage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -240,6 +269,8 @@
 			dependencies = (
 			);
 			name = BaseBall;
+			packageProductDependencies = (
+			);
 			productName = BaseBall;
 			productReference = BFFEB0AE263FDD09001E8842 /* BaseBall.app */;
 			productType = "com.apple.product-type.application";
@@ -267,6 +298,8 @@
 				Base,
 			);
 			mainGroup = BFFEB0A5263FDD09001E8842;
+			packageReferences = (
+			);
 			productRefGroup = BFFEB0AF263FDD09001E8842 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -308,15 +341,20 @@
 				BFF4A9CE26490F9900AF30E8 /* GameHistoryViewController.swift in Sources */,
 				BFC7BFAA2643984500632037 /* PlayerHistoryCell.swift in Sources */,
 				BFEB62842643D9AB0036A1DE /* GamePlayViewController.swift in Sources */,
-				BFAED25C2645E9CB00492CB9 /* DetailPlayerViewController.swift in Sources */,
+				BF5D5483264BABFB006D7602 /* CGRect+Extension.swift in Sources */,
+				1014F596264A5C5E00C55FC5 /* SocketMessage.swift in Sources */,
+				10FA6716264927940038CFE2 /* WebSocketConnectionDelegate.swift in Sources */,
 				BFFEB0B6263FDD09001E8842 /* GameListController.swift in Sources */,
 				BF87BBA7264C1F0F005ACB23 /* GameSBOStackView.swift in Sources */,
 				BFFEB0B2263FDD09001E8842 /* AppDelegate.swift in Sources */,
 				BFFEB0DD2640322D001E8842 /* GameInfo.swift in Sources */,
+				1014F594264A5A1D00C55FC5 /* WebSocketTaskConnection.swift in Sources */,
 				BFEB62B4264429030036A1DE /* GroundView.swift in Sources */,
 				BF5D5483264BABFB006D7602 /* CGRect+Extension.swift in Sources */,
 				BFFEB0C9263FE8CC001E8842 /* EndPoint.swift in Sources */,
+				10861752264951CD008D0DD5 /* MatchingViewController.swift in Sources */,
 				BFAED2632645EA1300492CB9 /* PlayerListHeaderView.swift in Sources */,
+				10FA6712264922180038CFE2 /* SocketParser.swift in Sources */,
 				BFFEB0E126403D09001E8842 /* Pitch.swift in Sources */,
 				BF87BBB0264CC3E9005ACB23 /* ImageLoader.swift in Sources */,
 				BFFEB0D726402F3B001E8842 /* Games.swift in Sources */,
@@ -327,6 +365,8 @@
 				BF87BBAD264C5881005ACB23 /* PlayerView.swift in Sources */,
 				BFFEB0B4263FDD09001E8842 /* SceneDelegate.swift in Sources */,
 				1061AF8D2640E19E00B29805 /* GameCell.swift in Sources */,
+				1086175B2649777A008D0DD5 /* UILabel+Flash.swift in Sources */,
+				1086175626495B53008D0DD5 /* MatchingTransitioner.swift in Sources */,
 				1061AF9A2641286700B29805 /* GameOptionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

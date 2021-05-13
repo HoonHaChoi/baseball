@@ -54,3 +54,7 @@ enum URLType {
     case pitch
     case occupy
 }
+
+enum SocketEndPoint {
+    static let baseURL = URL(string: "ws://15.164.68.136:80/ws/join")!
+}
