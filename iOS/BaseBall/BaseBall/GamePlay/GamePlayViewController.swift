@@ -18,7 +18,9 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var groundView: GroundView!
     
     var socket : WebSocketTaskConnection?
-    var game : Game!
+    
+    var gameId : Int?
+    var team : Team?
     
     private var gameStatusView: GameSBOStackView = {
         let stackView = GameSBOStackView()
@@ -72,6 +74,7 @@ class GamePlayViewController: UIViewController {
         super.viewDidLoad()
         bind()
         configure()
+        socket?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,7 +108,7 @@ class GamePlayViewController: UIViewController {
         view.addGestureRecognizer(edgePanGesture)
         groundView.addSubview(baseBallImageView)
         groundView.addSubview(baseBallBatImageView)
-
+        
         gameStatusView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         gameStatusView.topAnchor.constraint(equalTo: homeTeamNameLabel.bottomAnchor, constant: 30).isActive = true
         
@@ -145,11 +148,13 @@ class GamePlayViewController: UIViewController {
                                                            y: self.groundView.bounds.maxY - 40)
         } completion: { _ in
             
-//            NetworkManager().requestPitchResource(gameURL: .pitch, decodeType: Pitch.self, gameIndex: 1, teamIndex: 1)
-//                .sink { (_) in
-//                } receiveValue: { (pitch) in
-//                    print(pitch)
-//                }.store(in: &self.cancellable)
+            //            NetworkManager().requestPitchResource(gameURL: .pitch, decodeType: Pitch.self, gameIndex: 1, teamIndex: 1)
+            //                .sink { (_) in
+            //                } receiveValue: { (pitch) in
+            //                    print(pitch)
+            //                }.store(in: &self.cancellable)
+            
+            
             
             UIView.animate(withDuration: 0.5) {
                 self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.minX + CGFloat(Int.random(in: 100...600)), y: CGFloat(Int.random(in: 0...400)))
@@ -174,8 +179,8 @@ class GamePlayViewController: UIViewController {
     }
     
     @objc func moveGameHistoryView(_ recognizer:
-                                                        UIScreenEdgePanGestureRecognizer) {
-            if recognizer.state == .began {
+                                    UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .began {
             guard let gameHistoryViewController = UIStoryboard(name: "GameHistory", bundle: nil).instantiateViewController(withIdentifier: "GameHistory") as? GameHistoryViewController else {
                 return
             }

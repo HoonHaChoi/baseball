@@ -11,7 +11,8 @@ class MatchingViewController: UIViewController {
     
     @IBOutlet weak var watingLabel: UILabel!
 
-    var game: Game?
+    var gameId : Int!
+    var team : Team!
     var socket : WebSocketTaskConnection?
     
     override func viewDidLoad() {
@@ -29,8 +30,7 @@ class MatchingViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         
-        guard let game = game  else { return }
-        let outMessage = SocketMessage(type: SocketRequest.leave, gameId: game.gameId, teamId: game.homeTeam.teamId)
+        let outMessage = SocketMessage(type: SocketRequest.leave, gameId: gameId, teamId: team.teamId)
         socket?.send(with: outMessage)
     }
     func setGradiendBackground(){
@@ -47,7 +47,8 @@ class MatchingViewController: UIViewController {
         let gamePlayViewController = UIStoryboard(name: "GamePlay", bundle: nil)
             .instantiateViewController(withIdentifier: "GamePlay") as! GamePlayViewController
         gamePlayViewController.modalPresentationStyle = .fullScreen
-        gamePlayViewController.game = game
+        gamePlayViewController.gameId = gameId
+        gamePlayViewController.team = team
         gamePlayViewController.socket = socket
         
         self.present(gamePlayViewController, animated: true, completion: nil)

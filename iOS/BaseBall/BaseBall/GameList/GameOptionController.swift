@@ -7,14 +7,19 @@
 
 import UIKit
 
+enum SelectedTeam {
+    case home
+    case away
+}
+
 class GameOptionController: UIViewController {
     
     @IBOutlet weak var homeTeam: UIButton!
     @IBOutlet weak var awayTeam: UIButton!
     
     var game: Game?
-    var socket : WebSocketTaskConnection?
     
+    var socket : WebSocketTaskConnection?
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -44,31 +49,34 @@ class GameOptionController: UIViewController {
     // MARK: - User Action Handler
     
     @IBAction func didSelectHome(_ sender: UIButton) {
-        guard let game = game  else { return }
+        guard let game = game else { return }
+        
         let joinMessage = SocketMessage(type: SocketRequest.join, gameId: game.gameId, teamId: game.homeTeam.teamId)
         let occupyMessage = SocketMessage(type: SocketRequest.occupy, gameId: game.gameId, teamId: game.homeTeam.teamId)
         socket?.send(with: joinMessage)
         socket?.send(with: occupyMessage)
         
-        moveGameMatchingView()
+        moveGameMatchingView(game: game.gameId, with: game.homeTeam)
     }
     
     @IBAction func didSelectAway(_ sender: UIButton) {
-        guard let game = game  else { return }
+        guard let game = game else { return }
+        
         let joinMessage = SocketMessage(type: SocketRequest.join, gameId: game.gameId, teamId: game.awayTeam.teamId)
         let occupyMessage = SocketMessage(type: SocketRequest.occupy, gameId: game.gameId, teamId: game.awayTeam.teamId)
         socket?.send(with: joinMessage)
         socket?.send(with: occupyMessage)
         
-        moveGameMatchingView()
+        moveGameMatchingView(game: game.gameId, with: game.awayTeam)
     }
 }
 
 extension GameOptionController {
-    func moveGameMatchingView(){
+    func moveGameMatchingView(game : Int, with team : Team){
         let gameMatchingViewController = self.storyboard?.instantiateViewController(identifier: "GameMatching")as! MatchingViewController
         gameMatchingViewController.transitioningDelegate = self
-        gameMatchingViewController.game = game
+        gameMatchingViewController.gameId = game
+        gameMatchingViewController.team = team
         gameMatchingViewController.socket = socket
         self.present(gameMatchingViewController, animated: true, completion: nil)
     }
