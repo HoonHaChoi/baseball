@@ -202,8 +202,7 @@ class GamePlayViewController: UIViewController {
         }
     }
     
-    @objc func moveGameHistoryView(_ recognizer:
-                                                    UIScreenEdgePanGestureRecognizer) {
+    @objc func moveGameHistoryView(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .began {
             guard let gameHistoryViewController = UIStoryboard(name: "GameHistory", bundle: nil).instantiateViewController(withIdentifier: "GameHistory") as? GameHistoryViewController else {
                 return
