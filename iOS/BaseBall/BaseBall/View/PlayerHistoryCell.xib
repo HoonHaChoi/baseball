@@ -73,7 +73,13 @@
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="274" height="43"/>
-            <point key="canvasLocation" x="-24.637681159420293" y="65.959821428571431"/>
+            <connections>
+                <outlet property="PitchingResultLabel" destination="0Lo-gK-OFO" id="K0i-aa-VXo"/>
+                <outlet property="numOfBall" destination="7ky-uY-o66" id="xkP-cs-2k1"/>
+                <outlet property="numOfStrike" destination="IVX-0P-ztU" id="qx5-dy-Ado"/>
+                <outlet property="numberLabel" destination="URA-2g-1Se" id="F9i-Ch-sKf"/>
+            </connections>
+            <point key="canvasLocation" x="-271" y="42"/>
         </collectionViewCell>
     </objects>
     <resources>

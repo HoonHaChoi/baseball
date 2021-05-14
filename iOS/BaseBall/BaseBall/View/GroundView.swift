@@ -83,7 +83,7 @@ class GroundView: UIView {
     func basefitst() {
         oneplayer.frame = CGRect.movePlayer(x: self.bounds.midX,
                                             y: self.bounds.maxY - 40)
-        UIView.animate(withDuration: 2.0) {
+        UIView.animate(withDuration: 1.5) {
             self.oneplayer.frame = CGRect.movePlayer(x: self.bounds.maxX - 60,
                                                      y: self.bounds.midY - 20)
         }
@@ -91,7 +91,7 @@ class GroundView: UIView {
     
     func baseSecond() {
         twoplayer.frame = CGRect.movePlayer(x: self.bounds.maxX - 60, y: self.bounds.midY - 20)
-        UIView.animate(withDuration: 2.0) {
+        UIView.animate(withDuration: 1.5) {
             self.twoplayer.frame = CGRect.movePlayer(x: self.bounds.midX - 20,
                                                      y: self.bounds.minY + 20)
         }
@@ -100,7 +100,7 @@ class GroundView: UIView {
     func basethrid() {
         threeplayer.frame = CGRect.movePlayer(x: self.bounds.midX - 20,
                                               y: self.bounds.minY + 20)
-        UIView.animate(withDuration: 2.0) {
+        UIView.animate(withDuration: 1.5) {
             self.threeplayer.frame = CGRect.movePlayer(x: self.bounds.minX + 20,
                                                        y: self.bounds.midY - 20)
         }
@@ -110,7 +110,7 @@ class GroundView: UIView {
         homeplayer.isHidden = false
         homeplayer.frame = CGRect.movePlayer(x: self.bounds.minX + 20,
                                              y: self.bounds.midY - 20)
-        UIView.animate(withDuration: 2.0) {
+        UIView.animate(withDuration: 1.5) {
             self.homeplayer.frame = CGRect.movePlayer(x: self.bounds.midX - 20,
                                                       y: self.bounds.maxY - 40)
         } completion: { _ in

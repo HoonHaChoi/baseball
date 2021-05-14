@@ -14,16 +14,22 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="GRE-Sm-3DI">
-                    <rect key="frame" x="24" y="22.5" width="202.5" height="27.5"/>
+                    <rect key="frame" x="24" y="22.5" width="244.5" height="27.5"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7번 타자 류현진" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XW7-93-24E">
-                            <rect key="frame" x="0.0" y="0.0" width="142.5" height="27.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iir-bu-p3k">
+                            <rect key="frame" x="0.0" y="0.0" width="83.5" height="27.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아웃" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9e-Q9-I9o">
-                            <rect key="frame" x="162.5" y="0.0" width="40" height="27.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XW7-93-24E">
+                            <rect key="frame" x="103.5" y="0.0" width="60" height="27.5"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="doing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9e-Q9-I9o">
+                            <rect key="frame" x="183.5" y="0.0" width="61" height="27.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -39,6 +45,7 @@
             <connections>
                 <outlet property="player" destination="XW7-93-24E" id="Tx2-XY-6qE"/>
                 <outlet property="playerState" destination="z9e-Q9-I9o" id="IgW-3y-FZt"/>
+                <outlet property="recordId" destination="Iir-bu-p3k" id="YWW-7x-uoX"/>
             </connections>
             <point key="canvasLocation" x="-507" y="25"/>
         </collectionReusableView>
