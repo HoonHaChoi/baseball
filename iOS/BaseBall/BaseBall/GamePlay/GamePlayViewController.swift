@@ -19,7 +19,9 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var groundView: GroundView!
     
     var socket : WebSocketTaskConnection?
-    var game : Game!
+    
+    var gameId : Int!
+    var team : Team!
     
     private var gameStatusView: GameSBOStackView = {
         let stackView = GameSBOStackView()
@@ -82,13 +84,26 @@ class GamePlayViewController: UIViewController {
         super.viewDidLoad()
         bind()
         configure()
+        socket?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         makeBall()
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        let leaveMessage = SocketMessage(type: SocketRequest.leave, gameId: gameId, teamId: team.teamId)
+        socket?.send(with: leaveMessage)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        let outMessage = SocketMessage(type: SocketRequest.out, gameId: gameId, teamId: team.teamId)
+        socket?.send(with: outMessage)
+        socket?.disConnect()
+    }
     private func bind() {
         NetworkManager().requestResource(gameURL: .games, decodeType: GameInfo.self, at: 1)
             .receive(on: DispatchQueue.main)
@@ -117,7 +132,7 @@ class GamePlayViewController: UIViewController {
         view.addGestureRecognizer(edgePanGesture)
         groundView.addSubview(baseBallImageView)
         groundView.addSubview(baseBallBatImageView)
-
+        
         gameStatusView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         gameStatusView.topAnchor.constraint(equalTo: homeTeamNameLabel.bottomAnchor, constant: 30).isActive = true
         
@@ -280,5 +295,13 @@ extension GamePlayViewController : WebSocketConnectionDelegate{
     }
     func onMessage(connection: WebSocketConnection, string: String) {
         print(string)
+        let result = ResultOfPitch.init(rawValue: string)
+        
+        switch result {
+        case .ball: gameStatusView.addBall(ball: 1)
+        case .strike: gameStatusView.addStrike(strike: 1)
+        case .hit: break
+        default : break
+        }
     }
 }

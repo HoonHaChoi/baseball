@@ -13,8 +13,8 @@ class GameOptionController: UIViewController {
     @IBOutlet weak var awayTeam: UIButton!
     
     var game: Game?
-    var socket : WebSocketTaskConnection?
     
+    var socket : WebSocketTaskConnection?
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -24,51 +24,56 @@ class GameOptionController: UIViewController {
         socket?.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         socket?.connect()
         UIApplication.shared.isIdleTimerDisabled = true
     }
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
+    
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
         guard let game = game  else { return }
         let outMessage = SocketMessage(type: SocketRequest.out, gameId: game.gameId, teamId: game.homeTeam.teamId)
         socket?.send(with: outMessage)
         socket?.disConnect()
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
+        
         UIApplication.shared.isIdleTimerDisabled = false
     }
     
     // MARK: - User Action Handler
     
     @IBAction func didSelectHome(_ sender: UIButton) {
-        guard let game = game  else { return }
+        guard let game = game else { return }
+        
         let joinMessage = SocketMessage(type: SocketRequest.join, gameId: game.gameId, teamId: game.homeTeam.teamId)
         let occupyMessage = SocketMessage(type: SocketRequest.occupy, gameId: game.gameId, teamId: game.homeTeam.teamId)
         socket?.send(with: joinMessage)
         socket?.send(with: occupyMessage)
         
-        moveGameMatchingView()
+        moveGameMatchingView(game: game.gameId, with: game.homeTeam)
     }
     
     @IBAction func didSelectAway(_ sender: UIButton) {
-        guard let game = game  else { return }
+        guard let game = game else { return }
+        
         let joinMessage = SocketMessage(type: SocketRequest.join, gameId: game.gameId, teamId: game.awayTeam.teamId)
         let occupyMessage = SocketMessage(type: SocketRequest.occupy, gameId: game.gameId, teamId: game.awayTeam.teamId)
         socket?.send(with: joinMessage)
         socket?.send(with: occupyMessage)
         
-        moveGameMatchingView()
+        moveGameMatchingView(game: game.gameId, with: game.awayTeam)
     }
 }
 
 extension GameOptionController {
-    func moveGameMatchingView(){
+    func moveGameMatchingView(game : Int, with team : Team){
         let gameMatchingViewController = self.storyboard?.instantiateViewController(identifier: "GameMatching")as! MatchingViewController
         gameMatchingViewController.transitioningDelegate = self
-        gameMatchingViewController.game = game
+        gameMatchingViewController.gameId = game
+        gameMatchingViewController.team = team
         gameMatchingViewController.socket = socket
         self.present(gameMatchingViewController, animated: true, completion: nil)
     }

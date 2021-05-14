@@ -35,19 +35,19 @@ class GameSBOStackView: UIView {
         addOut(out: out)
     }
     
-    private func addStrike(strike: Int) {
+    func addStrike(strike: Int) {
         (0..<strike).forEach { _ in
             strikeStack.addArrangedSubview(makeCircleImageView(color: .yellow))
         }
     }
     
-    private func addBall(ball: Int) {
+    func addBall(ball: Int) {
         (0..<ball).forEach { _ in
             ballStack.addArrangedSubview(makeCircleImageView(color: .systemGreen))
         }
     }
     
-    private func addOut(out: Int) {
+    func addOut(out: Int) {
         (0..<out).forEach { _ in
             outStack.addArrangedSubview(makeCircleImageView(color: .red))
         }
