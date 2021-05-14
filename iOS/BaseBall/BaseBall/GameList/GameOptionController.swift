@@ -94,9 +94,6 @@ extension GameOptionController : UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return MatchingTransitioner(duration: 0.2, animationType: .present)
     }
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return MatchingTransitioner(duration: 0.2, animationType: .dismiss)
-    }
 }
 extension GameOptionController : WebSocketConnectionDelegate {
     
