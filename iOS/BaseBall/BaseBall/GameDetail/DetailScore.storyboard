@@ -1405,8 +1405,8 @@
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="1050" height="650"/>
                     <connections>
-                        <outlet property="awayPlayerCollectionView" destination="Np9-YG-Vjp" id="aLb-Mn-MxP"/>
-                        <outlet property="homePlayerCollectionView" destination="KwX-FX-iDM" id="QmV-na-uBL"/>
+                        <outlet property="awayPlayerCollectionView" destination="Np9-YG-Vjp" id="UXa-al-CPK"/>
+                        <outlet property="homePlayerCollectionView" destination="KwX-FX-iDM" id="s5E-ZN-g1A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fuJ-oV-IUT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

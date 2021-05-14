@@ -64,6 +64,17 @@ class GamePlayViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var pitchResultLabel: UILabel = {
+        let label = UILabel(frame: CGRect(origin: CGPoint(x: self.groundView.bounds.midX + 230,
+                                                          y: self.groundView.bounds.maxY + 40),
+                                          size: CGSize(width: 80, height: 25)))
+        label.text = ""
+        label.numberOfLines = 0
+        label.textColor = .white
+        label.font = .boldSystemFont(ofSize: 24)
+        return label
+    }()
+    
     private lazy var limitAreaRight = groundView.bounds.midX + 50
     private lazy var limitAreaLeft = groundView.bounds.midX - 100
     private lazy var limitAreaTop = groundView.bounds.midY - 100
@@ -77,7 +88,9 @@ class GamePlayViewController: UIViewController {
     private var thrid: Bool = false
     private var home: Bool = false
     
-    private var pianoSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "BaseballBat", ofType: "mp3")!)
+    private var pianoSound = URL(fileURLWithPath: Bundle.main.path(forResource: "BaseballBat", ofType: "mp3")!)
+    private var strikeSound = URL(fileURLWithPath: Bundle.main.path(forResource: "strikeSound", ofType: "mp3")!)
+    private var ballSound = URL(fileURLWithPath: Bundle.main.path(forResource: "ballSound", ofType: "mp3")!)
     private var audioPlayer = AVAudioPlayer()
     
     override func viewDidLoad() {
@@ -129,6 +142,7 @@ class GamePlayViewController: UIViewController {
         view.addSubview(gameStatusView)
         view.addSubview(gameBatterView)
         view.addSubview(gamePitcherView)
+        view.addSubview(pitchResultLabel)
         view.addGestureRecognizer(edgePanGesture)
         groundView.addSubview(baseBallImageView)
         groundView.addSubview(baseBallBatImageView)
@@ -181,14 +195,29 @@ class GamePlayViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { (_) in
             } receiveValue: { [weak self] (pitch) in
-                pitch.result == "hit" ? self?.hitBaseBallAnimation() : self?.resetBaseBallLocation()
+                self?.pitchResultLabel.text = pitch.result
+                self?.pitchResultLabel.isHidden = false
+                self?.pitchResultLabel.alpha = 1
+                UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0,
+                               options: [.curveEaseInOut]) {
+                    self?.pitchResultLabel.center.y -= 50
+                } completion: { (_) in
+                    UIView.animate(withDuration: 0.5,delay: 0,
+                                   usingSpringWithDamping: 0.5, initialSpringVelocity: 0,
+                                                  options: [.curveEaseInOut]
+                                   ) {
+                        self?.pitchResultLabel.center.y += 50
+                        self?.pitchResultLabel.alpha = 0
+                    } completion: { (_) in
+                        self?.pitchResultLabel.isHidden = true
+                    }
+                }
+                pitch.result == "hit" ? self?.hitBaseBallAnimation() : self?.resetBaseBallLocation(result: pitch.result)
             }.store(in: &self.cancellable)
     }
     
     private func hitBaseBallAnimation() {
-        audioPlayer = try! AVAudioPlayer(contentsOf: pianoSound as URL, fileTypeHint: nil)
-               audioPlayer.prepareToPlay()
-        audioPlayer.play()
+        playSound(sound: pianoSound)
 
         UIView.animate(withDuration: 0.5) {
             self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.minX + CGFloat(Int.random(in: 100...600)), y: CGFloat(Int.random(in: 0...400)))
@@ -197,10 +226,18 @@ class GamePlayViewController: UIViewController {
         }
     }
     
-    private func resetBaseBallLocation() {
+    private func resetBaseBallLocation(result: String? = "") {
+        if result == "strike" { playSound(sound: strikeSound) }
+        if result == "ball" { playSound(sound: ballSound) }
         self.baseBallImageView.layer.removeAllAnimations()
         self.baseBallImageView.transform = .identity
         makeBall()
+    }
+    
+    private func playSound(sound: URL) {
+        audioPlayer = try! AVAudioPlayer(contentsOf: sound , fileTypeHint: nil)
+               audioPlayer.prepareToPlay()
+        audioPlayer.play()
     }
     
     private func updateView(status: GameInfo) {

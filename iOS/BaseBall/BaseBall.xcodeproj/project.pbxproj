@@ -28,6 +28,9 @@
 		BFAED25F2645EA0000492CB9 /* PlayerScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAED25E2645EA0000492CB9 /* PlayerScoreCell.swift */; };
 		BFAED2632645EA1300492CB9 /* PlayerListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAED2622645EA1300492CB9 /* PlayerListHeaderView.swift */; };
 		BFBE1C40264D9D4B0087236E /* BaseballBat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBE1C3F264D9D4B0087236E /* BaseballBat.mp3 */; };
+		BFBE1C46264E4F9C0087236E /* DetailPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAED25B2645E9CB00492CB9 /* DetailPlayerViewController.swift */; };
+		BFBE1C4A264E605A0087236E /* ballSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBE1C48264E605A0087236E /* ballSound.mp3 */; };
+		BFBE1C4B264E605A0087236E /* strikeSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBE1C49264E605A0087236E /* strikeSound.mp3 */; };
 		BFC7BFA52643962200632037 /* GamePlay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFC7BFA42643962200632037 /* GamePlay.storyboard */; };
 		BFC7BFAA2643984500632037 /* PlayerHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC7BFA92643984500632037 /* PlayerHistoryCell.swift */; };
 		BFC7BFAD2643987F00632037 /* PlayerHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC7BFAC2643987F00632037 /* PlayerHistoryCell.xib */; };
@@ -76,6 +79,8 @@
 		BFAED25E2645EA0000492CB9 /* PlayerScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreCell.swift; sourceTree = "<group>"; };
 		BFAED2622645EA1300492CB9 /* PlayerListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListHeaderView.swift; sourceTree = "<group>"; };
 		BFBE1C3F264D9D4B0087236E /* BaseballBat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BaseballBat.mp3; sourceTree = "<group>"; };
+		BFBE1C48264E605A0087236E /* ballSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ballSound.mp3; sourceTree = "<group>"; };
+		BFBE1C49264E605A0087236E /* strikeSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = strikeSound.mp3; sourceTree = "<group>"; };
 		BFC7BFA42643962200632037 /* GamePlay.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GamePlay.storyboard; sourceTree = "<group>"; };
 		BFC7BFA92643984500632037 /* PlayerHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHistoryCell.swift; sourceTree = "<group>"; };
 		BFC7BFAC2643987F00632037 /* PlayerHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerHistoryCell.xib; sourceTree = "<group>"; };
@@ -187,6 +192,8 @@
 		BFFEB0A5263FDD09001E8842 = {
 			isa = PBXGroup;
 			children = (
+				BFBE1C48264E605A0087236E /* ballSound.mp3 */,
+				BFBE1C49264E605A0087236E /* strikeSound.mp3 */,
 				BFBE1C3F264D9D4B0087236E /* BaseballBat.mp3 */,
 				BFFEB0B0263FDD09001E8842 /* BaseBall */,
 				BFFEB0AF263FDD09001E8842 /* Products */,
@@ -321,6 +328,8 @@
 				1061AF8E2640E19E00B29805 /* GameCell.xib in Resources */,
 				BFC7BFA52643962200632037 /* GamePlay.storyboard in Resources */,
 				BFC7BFAD2643987F00632037 /* PlayerHistoryCell.xib in Resources */,
+				BFBE1C4A264E605A0087236E /* ballSound.mp3 in Resources */,
+				BFBE1C4B264E605A0087236E /* strikeSound.mp3 in Resources */,
 				BFBE1C40264D9D4B0087236E /* BaseballBat.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFBE1C46264E4F9C0087236E /* DetailPlayerViewController.swift in Sources */,
 				BFAED25F2645EA0000492CB9 /* PlayerScoreCell.swift in Sources */,
 				BFF4A9CE26490F9900AF30E8 /* GameHistoryViewController.swift in Sources */,
 				BFC7BFAA2643984500632037 /* PlayerHistoryCell.swift in Sources */,
