@@ -5,9 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.service.GameService;
+import web.mj.baseballGameApi.service.OccupyService;
 import web.mj.baseballGameApi.web.dto.GameDetailResponseDto;
 import web.mj.baseballGameApi.web.dto.GameResponseDto;
 import web.mj.baseballGameApi.web.dto.GameStatusResponseDto;
+import web.mj.baseballGameApi.web.dto.ResultResponseDto;
 
 import java.util.List;
 

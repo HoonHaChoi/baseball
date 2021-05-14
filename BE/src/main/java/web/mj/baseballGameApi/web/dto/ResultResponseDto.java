@@ -8,7 +8,6 @@ public class ResultResponseDto {
 
     public ResultResponseDto(String result) {
         this.result = result;
-
     }
 
     public ResultResponseDto(Pitching pitching) {

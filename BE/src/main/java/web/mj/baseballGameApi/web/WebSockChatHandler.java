@@ -11,6 +11,7 @@ import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.Pitching;
 import web.mj.baseballGameApi.domain.team.Team;
 import web.mj.baseballGameApi.service.GameService;
+import web.mj.baseballGameApi.service.OccupyService;
 import web.mj.baseballGameApi.service.PitchService;
 import web.mj.baseballGameApi.web.dto.SocketRequestDto;
 import web.mj.baseballGameApi.web.dto.SocketResponseDto;
@@ -26,11 +27,13 @@ public class WebSockChatHandler extends TextWebSocketHandler {
     private final ObjectMapper objectMapper;
     private final GameService gameService;
     private final PitchService pitchService;
+    private final OccupyService occupyService;
 
-    public WebSockChatHandler(ObjectMapper objectMapper, GameService gameService, PitchService pitchService) {
+    public WebSockChatHandler(ObjectMapper objectMapper, GameService gameService, PitchService pitchService, OccupyService occupyService) {
         this.objectMapper = objectMapper;
         this.gameService = gameService;
         this.pitchService = pitchService;
+        this.occupyService = occupyService;
     }
 
     @Override
@@ -64,14 +67,14 @@ public class WebSockChatHandler extends TextWebSocketHandler {
 
         if (requestDto.getType().equals("occupy")) {
 
-            SocketResponseDto responseDto = gameService.occupyTeam(requestDto);
+            SocketResponseDto responseDto = occupyService.occupyTeamToSocket(requestDto);
 
             handleOccupying(responseDto);
         }
 
         if (requestDto.getType().equals("leave")) {
 
-            SocketResponseDto responseDto = gameService.leaveTeam(requestDto);
+            SocketResponseDto responseDto = occupyService.leaveTeamToSocket(requestDto);
 
             handleOccupying(responseDto);
         }

@@ -109,11 +109,6 @@ public class GameService {
         }
     }
 
-    public Game createGame() {
-        Game game = new Game();
-        return gameRepository.save(game);
-    }
-
     public List<GameResponseDto> findAllGames() {
         return gameRepository.findAll().stream()
                 .map(game -> new GameResponseDto(game, getTeamResponseDtos(game.getId())))
@@ -179,124 +174,6 @@ public class GameService {
         return new GameStatusResponseDto(gameResponseDto, statusBoardDto,
                 records);
     }
-
-    public SocketResponseDto occupyTeam(SocketRequestDto requestDto) {
-        Team selectedTeam = teamRepository.findById(requestDto.getTeamId()).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
-        );
-
-        Game game = gameRepository.findById(requestDto.getGameId()).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
-        );
-
-        // 이미 선점된 팀이라면 fail 반환
-        // 선점되지 않은 팀이라면 isOccupied = true
-        if (selectedTeam.isOccupied()) {
-            return new SocketResponseDto(FAIL);
-        }
-
-        // 이미 선점된 팀이 아니라면
-        // 본 게임에서 해당 팀을 선택함
-        game.selectTeam(selectedTeam.getId());
-        selectedTeam.select();
-        selectedTeam.occupy();
-        logger.info("selectedTeam: {}", selectedTeam);
-        gameRepository.save(game);
-        teamRepository.save(selectedTeam);
-
-
-        List<Team> teams = teamRepository.findAllByGameIdAndIsOccupiedFalse(game.getId());
-        logger.info("teams: {}", teams);
-
-        int leftTeamSize = teamRepository.findAllByGameIdAndIsOccupiedFalse(game.getId()).size();
-
-        logger.info("leftTeamSize: {}", leftTeamSize);
-        if (leftTeamSize == 1) {
-            return new SocketResponseDto(WAIT);
-        }
-
-        // 선점된 팀도 아니고 모든 팀이 다 선택되었다면 success 반환
-        return new SocketResponseDto(SUCCESS);
-    }
-
-    public SocketResponseDto leaveTeam(SocketRequestDto requestDto) {
-        Team selectedTeam = teamRepository.findById(requestDto.getTeamId()).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
-        );
-
-        Game game = gameRepository.findById(requestDto.getGameId()).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
-        );
-
-        selectedTeam.leave();
-
-        game.selectTeam(null);
-
-        teamRepository.save(selectedTeam);
-
-        //TODO: static 변수로 변경
-        return new SocketResponseDto(SUCCESS);
-    }
-
-    public ResultResponseDto occupyTeamForHttp(OccupyTeamRequestDto requestDto) {
-        Team selectedTeam = teamRepository.findById(requestDto.getTeamId()).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
-        );
-
-        Game game = gameRepository.findById(requestDto.getGameId()).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.GAME_NOT_FOUND)
-        );
-
-        if (!selectedTeam.occupy()) {
-            return new ResultResponseDto(FAIL);
-        }
-
-        game.selectTeam(selectedTeam.getId());
-
-        teamRepository.save(selectedTeam);
-
-        //TODO: static 변수로 변경
-        return new ResultResponseDto(SUCCESS);
-    }
-
-
-
-    private void changeStatusRunningToFirstBase() {
-
-        pitcher.increaseThrowing();
-        batter.increaseBatting();
-        batter.increaseHitting();
-
-        if (inning.isThirdBase()) {
-            hittingTeam.increaseScore();
-            hittingTeam.updateScore(hittingTeam.getScore().toString());
-            inning.setHomeBaseToTrue();
-            inning.setThirdBaseToFalse();
-        }
-
-        if (inning.isSecondBase()) {
-            inning.setThirdBaseToTrue();
-            inning.setSecondBaseToFalse();
-        }
-
-        if (inning.isFirstBase()) {
-            inning.setSecondBaseToTrue();
-            inning.setFirstBaseToFalse();
-        }
-
-        inning.setFirstBaseToTrue();
-        inning.resetStrikeAndBall();
-
-        hittingTeam.increaseNowBatter();
-    }
-
-    private void saveGameStatus() {
-        inningRepository.save(inning);
-        playerRepository.save(batter);
-        playerRepository.save(pitcher);
-        recordRepository.save(lastRecord);
-    }
-
 
     private List<TeamResponseDto> getTeamResponseDtos(Long id) {
         return teamRepository.findAllByGameId(id).stream()
