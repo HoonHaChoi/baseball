@@ -11,6 +11,7 @@ import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.Pitching;
 import web.mj.baseballGameApi.domain.team.Team;
 import web.mj.baseballGameApi.service.GameService;
+import web.mj.baseballGameApi.service.PitchService;
 import web.mj.baseballGameApi.web.dto.SocketRequestDto;
 import web.mj.baseballGameApi.web.dto.SocketResponseDto;
 
@@ -24,10 +25,12 @@ public class WebSockChatHandler extends TextWebSocketHandler {
 
     private final ObjectMapper objectMapper;
     private final GameService gameService;
+    private final PitchService pitchService;
 
-    public WebSockChatHandler(ObjectMapper objectMapper, GameService gameService) {
+    public WebSockChatHandler(ObjectMapper objectMapper, GameService gameService, PitchService pitchService) {
         this.objectMapper = objectMapper;
         this.gameService = gameService;
+        this.pitchService = pitchService;
     }
 
     @Override
@@ -54,7 +57,7 @@ public class WebSockChatHandler extends TextWebSocketHandler {
 
         if (requestDto.getType().equals("pitch")) {
 
-            SocketResponseDto pitchingResult = gameService.pitch(requestDto.getGameId(), requestDto.getTeamId());
+            SocketResponseDto pitchingResult =pitchService.pitchingResultToSocket(requestDto.getGameId(), requestDto.getTeamId());
 
             handlePitching(pitchingResult);
         }
