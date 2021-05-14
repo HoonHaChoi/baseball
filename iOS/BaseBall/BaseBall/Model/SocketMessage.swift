@@ -32,3 +32,8 @@ struct SocketRequest {
     static let pitch = "pitch"
 }
 
+enum ResultOfPitch : String {
+    case ball
+    case strike
+    case hit
+}

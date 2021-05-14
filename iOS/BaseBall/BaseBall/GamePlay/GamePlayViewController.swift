@@ -265,6 +265,13 @@ extension GamePlayViewController : WebSocketConnectionDelegate{
     }
     func onMessage(connection: WebSocketConnection, string: String) {
         print(string)
+        let result = ResultOfPitch.init(rawValue: string)
         
+        switch result {
+        case .ball: gameStatusView.addBall(ball: 1)
+        case .strike: gameStatusView.addStrike(strike: 1)
+        case .hit: break
+        default : break
+        }
     }
 }
