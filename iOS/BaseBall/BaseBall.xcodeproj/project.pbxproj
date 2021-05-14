@@ -21,6 +21,7 @@
 		BFAED25C2645E9CB00492CB9 /* DetailPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAED25B2645E9CB00492CB9 /* DetailPlayerViewController.swift */; };
 		BFAED25F2645EA0000492CB9 /* PlayerScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAED25E2645EA0000492CB9 /* PlayerScoreCell.swift */; };
 		BFAED2632645EA1300492CB9 /* PlayerListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAED2622645EA1300492CB9 /* PlayerListHeaderView.swift */; };
+		BFBE1C40264D9D4B0087236E /* BaseballBat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBE1C3F264D9D4B0087236E /* BaseballBat.mp3 */; };
 		BFC7BFA52643962200632037 /* GamePlay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFC7BFA42643962200632037 /* GamePlay.storyboard */; };
 		BFC7BFAA2643984500632037 /* PlayerHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC7BFA92643984500632037 /* PlayerHistoryCell.swift */; };
 		BFC7BFAD2643987F00632037 /* PlayerHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC7BFAC2643987F00632037 /* PlayerHistoryCell.xib */; };
@@ -61,6 +62,7 @@
 		BFAED25B2645E9CB00492CB9 /* DetailPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlayerViewController.swift; sourceTree = "<group>"; };
 		BFAED25E2645EA0000492CB9 /* PlayerScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreCell.swift; sourceTree = "<group>"; };
 		BFAED2622645EA1300492CB9 /* PlayerListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListHeaderView.swift; sourceTree = "<group>"; };
+		BFBE1C3F264D9D4B0087236E /* BaseballBat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BaseballBat.mp3; sourceTree = "<group>"; };
 		BFC7BFA42643962200632037 /* GamePlay.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GamePlay.storyboard; sourceTree = "<group>"; };
 		BFC7BFA92643984500632037 /* PlayerHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHistoryCell.swift; sourceTree = "<group>"; };
 		BFC7BFAC2643987F00632037 /* PlayerHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerHistoryCell.xib; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		BFFEB0A5263FDD09001E8842 = {
 			isa = PBXGroup;
 			children = (
+				BFBE1C3F264D9D4B0087236E /* BaseballBat.mp3 */,
 				BFFEB0B0263FDD09001E8842 /* BaseBall */,
 				BFFEB0AF263FDD09001E8842 /* Products */,
 			);
@@ -294,6 +297,7 @@
 				1061AF8E2640E19E00B29805 /* GameCell.xib in Resources */,
 				BFC7BFA52643962200632037 /* GamePlay.storyboard in Resources */,
 				BFC7BFAD2643987F00632037 /* PlayerHistoryCell.xib in Resources */,
+				BFBE1C40264D9D4B0087236E /* BaseballBat.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

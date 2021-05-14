@@ -29,6 +29,7 @@ class GameSBOStackView: UIView {
     }
     
     func configure(strike: Int, ball: Int, out: Int) {
+        resetStackView(stackViews: [strikeStack,ballStack,outStack])
         addStrike(strike: strike)
         addBall(ball: ball)
         addOut(out: out)
@@ -49,6 +50,14 @@ class GameSBOStackView: UIView {
     private func addOut(out: Int) {
         (0..<out).forEach { _ in
             outStack.addArrangedSubview(makeCircleImageView(color: .red))
+        }
+    }
+    
+    private func resetStackView(stackViews: [UIStackView]) {
+        stackViews.forEach { (stackView) in
+            stackView.arrangedSubviews.forEach { (view) in
+                view.removeFromSuperview()
+            }
         }
     }
     

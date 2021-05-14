@@ -25,8 +25,8 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="DZV-PN-tQp">
                             <rect key="frame" x="0.0" y="0.0" width="173" height="32.5"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="atM-X6-Mi6">
-                                    <rect key="frame" x="0.0" y="0.0" width="15.5" height="32.5"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Y7S-tq-gKQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="75.5" height="32.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JHk-zP-w5j">
                                             <rect key="frame" x="0.0" y="0.0" width="15.5" height="32.5"/>
@@ -34,6 +34,9 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="atM-X6-Mi6">
+                                            <rect key="frame" x="25.5" y="0.0" width="50" height="32.5"/>
+                                        </stackView>
                                     </subviews>
                                 </stackView>
                             </subviews>
@@ -41,8 +44,8 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="uYG-6k-HdY">
                             <rect key="frame" x="0.0" y="37.5" width="173" height="32"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="yKH-Xj-rVE">
-                                    <rect key="frame" x="0.0" y="0.0" width="16" height="32"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pwc-lW-xJ0">
+                                    <rect key="frame" x="0.0" y="0.0" width="76" height="32"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Vp-PE-af7">
                                             <rect key="frame" x="0.0" y="0.0" width="16" height="32"/>
@@ -50,6 +53,9 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="yKH-Xj-rVE">
+                                            <rect key="frame" x="26" y="0.0" width="50" height="32"/>
+                                        </stackView>
                                     </subviews>
                                 </stackView>
                             </subviews>
@@ -57,8 +63,8 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="YaF-kI-MhA">
                             <rect key="frame" x="0.0" y="74.5" width="173" height="32.5"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="wCK-Q1-hAg">
-                                    <rect key="frame" x="0.0" y="0.0" width="18.5" height="32.5"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WkX-W7-ty9">
+                                    <rect key="frame" x="0.0" y="0.0" width="78.5" height="32.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="O" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uK0-0e-PdV">
                                             <rect key="frame" x="0.0" y="0.0" width="18.5" height="32.5"/>
@@ -66,6 +72,9 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="wCK-Q1-hAg">
+                                            <rect key="frame" x="28.5" y="0.0" width="50" height="32.5"/>
+                                        </stackView>
                                     </subviews>
                                 </stackView>
                             </subviews>

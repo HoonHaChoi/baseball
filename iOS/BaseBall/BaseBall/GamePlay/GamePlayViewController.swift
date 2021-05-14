@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import AVFoundation
 
 class GamePlayViewController: UIViewController {
     
@@ -66,6 +67,13 @@ class GamePlayViewController: UIViewController {
     private var cancellable = Set<AnyCancellable>()
     
     private var recordOfPitching: [RecordOfPitching] = []
+    private var first: Bool = false
+    private var second: Bool = false
+    private var thrid: Bool = false
+    private var home: Bool = false
+    
+    private var pianoSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "BaseballBat", ofType: "mp3")!)
+    private var audioPlayer = AVAudioPlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,8 +93,9 @@ class GamePlayViewController: UIViewController {
                 
             }
             receiveValue: { [weak self] (status) in
-                print(status)
-                self?.gameStatusView.configure(strike: 1, ball: 2, out: 3)
+                self?.gameStatusView.configure(strike: status.statusBoard.strike,
+                                               ball: status.statusBoard.ball,
+                                               out: status.statusBoard.out)
                 self?.updateView(status: status)
                 self?.gameBatterView.configureBatter(by: status.statusBoard.batter)
                 self?.gamePitcherView.configurePitcher(by: status.statusBoard.pitcher)
@@ -143,34 +152,54 @@ class GamePlayViewController: UIViewController {
                        delay: 0.0, options: [.curveEaseIn]) {
             self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.midX - 20,
                                                            y: self.groundView.bounds.maxY - 40)
-        } completion: { _ in
-            
-            NetworkManager().requestPitchResource(gameURL: .pitch, decodeType: Pitch.self, gameIndex: 1, teamIndex: 1)
-                .sink { (_) in
-                } receiveValue: { (pitch) in
-                    print(pitch)
-                }.store(in: &self.cancellable)
-            
-            UIView.animate(withDuration: 0.5) {
-                self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.minX + CGFloat(Int.random(in: 100...600)), y: CGFloat(Int.random(in: 0...400)))
-            } completion: { (_) in
-                self.baseBallImageView.layer.removeAllAnimations()
-                self.baseBallImageView.transform = .identity
-            }
-            
+        } completion: { [weak self] _ in
+            self?.requestPitch()
+            self?.bind()
         }
+    }
+    
+    private func requestPitch() {
+        NetworkManager().requestPitchResource(gameURL: .pitch, decodeType: Pitch.self, gameIndex: 1, teamIndex: 1)
+            .receive(on: DispatchQueue.main)
+            .sink { (_) in
+            } receiveValue: { [weak self] (pitch) in
+                pitch.result == "hit" ? self?.hitBaseBallAnimation() : self?.resetBaseBallLocation()
+            }.store(in: &self.cancellable)
+    }
+    
+    private func hitBaseBallAnimation() {
+        audioPlayer = try! AVAudioPlayer(contentsOf: pianoSound as URL, fileTypeHint: nil)
+               audioPlayer.prepareToPlay()
+        audioPlayer.play()
+
+        UIView.animate(withDuration: 0.5) {
+            self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.minX + CGFloat(Int.random(in: 100...600)), y: CGFloat(Int.random(in: 0...400)))
+        } completion: { (_) in
+            self.resetBaseBallLocation()
+        }
+    }
+    
+    private func resetBaseBallLocation() {
+        self.baseBallImageView.layer.removeAllAnimations()
+        self.baseBallImageView.transform = .identity
+        makeBall()
     }
     
     private func updateView(status: GameInfo) {
         self.homeTeamNameLabel.text = status.homeTeam.name
         self.homeTeamScoreLabel.text = String(status.homeTeam.score)
         self.awayTeamNameLabel.text = status.awayTeam.name
-        self.awayTeamScoreLabel.text = String(3)
+        self.awayTeamScoreLabel.text = String(status.awayTeam.score)
     }
     
     private func UpdateGroundBasePlayer(first: Bool,second: Bool,thrid: Bool,home: Bool) {
-        self.groundView.movePlayer(firstBase: first, secondBase: second, thridBase: thrid, homeBase: home)
-        self.groundView.setNeedsDisplay()
+        if self.first != first || self.second != second || self.thrid != thrid || self.home != home {
+            self.groundView.movePlayer(firstBase: first, secondBase: second, thridBase: thrid, homeBase: home)
+            self.first = first
+            self.second = second
+            self.thrid = thrid
+            self.home = home
+        }
     }
     
     @objc func moveGameHistoryView(_ recognizer:
