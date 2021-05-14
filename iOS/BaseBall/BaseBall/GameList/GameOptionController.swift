@@ -7,11 +7,6 @@
 
 import UIKit
 
-enum SelectedTeam {
-    case home
-    case away
-}
-
 class GameOptionController: UIViewController {
     
     @IBOutlet weak var homeTeam: UIButton!
@@ -29,20 +24,22 @@ class GameOptionController: UIViewController {
         socket?.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         socket?.connect()
         UIApplication.shared.isIdleTimerDisabled = true
     }
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
+    
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
         guard let game = game  else { return }
         let outMessage = SocketMessage(type: SocketRequest.out, gameId: game.gameId, teamId: game.homeTeam.teamId)
         socket?.send(with: outMessage)
         socket?.disConnect()
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
+        
         UIApplication.shared.isIdleTimerDisabled = false
     }
     

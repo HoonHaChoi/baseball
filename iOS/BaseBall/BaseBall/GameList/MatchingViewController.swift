@@ -24,14 +24,14 @@ class MatchingViewController: UIViewController {
         self.view.addGestureRecognizer(tap)
     }
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         watingLabel.startFlashing(interval: TimeInterval(0.6))
     }
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
         
-        let outMessage = SocketMessage(type: SocketRequest.leave, gameId: gameId, teamId: team.teamId)
-        socket?.send(with: outMessage)
+        let leaveMessage = SocketMessage(type: SocketRequest.leave, gameId: gameId, teamId: team.teamId)
+        socket?.send(with: leaveMessage)
     }
     func setGradiendBackground(){
         let colorTop =  UIColor(red: 255.0/255.0, green: 149.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
@@ -43,11 +43,11 @@ class MatchingViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
-    private func moveGamePlayView() {
+    private func moveGamePlayView(game : Int, with team : Team) {
         let gamePlayViewController = UIStoryboard(name: "GamePlay", bundle: nil)
             .instantiateViewController(withIdentifier: "GamePlay") as! GamePlayViewController
         gamePlayViewController.modalPresentationStyle = .fullScreen
-        gamePlayViewController.gameId = gameId
+        gamePlayViewController.gameId = game
         gamePlayViewController.team = team
         gamePlayViewController.socket = socket
         
@@ -79,7 +79,7 @@ extension MatchingViewController : WebSocketConnectionDelegate {
         print(string)
         if string ==  SocketResponse.success{
             DispatchQueue.main.sync {
-                moveGamePlayView()
+                moveGamePlayView(game: self.gameId, with: self.team)
             }
         }
     }

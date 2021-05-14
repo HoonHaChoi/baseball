@@ -19,8 +19,8 @@ class GamePlayViewController: UIViewController {
     
     var socket : WebSocketTaskConnection?
     
-    var gameId : Int?
-    var team : Team?
+    var gameId : Int!
+    var team : Team!
     
     private var gameStatusView: GameSBOStackView = {
         let stackView = GameSBOStackView()
@@ -81,7 +81,19 @@ class GamePlayViewController: UIViewController {
         super.viewWillAppear(animated)
         makeBall()
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        let leaveMessage = SocketMessage(type: SocketRequest.leave, gameId: gameId, teamId: team.teamId)
+        socket?.send(with: leaveMessage)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        let outMessage = SocketMessage(type: SocketRequest.out, gameId: gameId, teamId: team.teamId)
+        socket?.send(with: outMessage)
+        socket?.disConnect()
+    }
     private func bind() {
         NetworkManager().requestResource(gameURL: .games, decodeType: GameInfo.self, at: 1)
             .receive(on: DispatchQueue.main)
@@ -154,7 +166,7 @@ class GamePlayViewController: UIViewController {
             //                    print(pitch)
             //                }.store(in: &self.cancellable)
             
-            
+            self.socket?.send(with: SocketMessage(type: SocketRequest.pitch, gameId: self.gameId, teamId: self.team.teamId))
             
             UIView.animate(withDuration: 0.5) {
                 self.baseBallImageView.frame = CGRect.moveBall(x: self.groundView.bounds.minX + CGFloat(Int.random(in: 100...600)), y: CGFloat(Int.random(in: 0...400)))
@@ -253,5 +265,6 @@ extension GamePlayViewController : WebSocketConnectionDelegate{
     }
     func onMessage(connection: WebSocketConnection, string: String) {
         print(string)
+        
     }
 }
