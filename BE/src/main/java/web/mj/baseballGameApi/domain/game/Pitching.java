@@ -15,8 +15,8 @@ public class Pitching {
 
     public Pitching() {
         this.hittingAverage = 0.2;
-        this.strikeAverage = 0.35;
-        this.ballAverage = 0.45;
+        this.strikeAverage = 0.6;
+        this.ballAverage = 0.2;
         this.result = calculateResult();
     }
 

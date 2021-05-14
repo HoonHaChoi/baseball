@@ -15,6 +15,7 @@ public class Player {
     private Integer numOfStrike;
     private Integer numOfBall;
     private String imageUrl;
+    private boolean isNowOn;
 
     private String position;
     private Long teamId;
@@ -71,6 +72,10 @@ public class Player {
         return imageUrl;
     }
 
+    public boolean isNowOn() {
+        return isNowOn;
+    }
+
     public void increaseThrowing() {
         this.numOfThrowing++;
     }
@@ -95,6 +100,13 @@ public class Player {
         this.numOfOut++;
     }
 
+    public void setNowOnToFalse(){
+        isNowOn = false;
+    }
+    public void setNowOnToTrue(){
+        isNowOn = true;
+    }
+
 
     @Override
     public String toString() {
@@ -107,6 +119,8 @@ public class Player {
                 ", numOfOut=" + numOfOut +
                 ", numOfStrike=" + numOfStrike +
                 ", numOfBall=" + numOfBall +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", isNowOn=" + isNowOn +
                 ", position='" + position + '\'' +
                 ", teamId=" + teamId +
                 ", teamGameId=" + teamGameId +

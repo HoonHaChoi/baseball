@@ -12,6 +12,7 @@ public class Team {
     private boolean isSelected;
     private Integer score;
     private Long gameId;
+    private String scoreOfCharacters;
 
     private Integer nowBatter;
 
@@ -21,6 +22,7 @@ public class Team {
     public Team(Long id, Long gameId) {
         this.id = id;
         this.gameId = gameId;
+        this.scoreOfCharacters = "";
     }
 
     public Long getId() {
@@ -47,12 +49,24 @@ public class Team {
         return isSelected;
     }
 
+    public String getScoreOfCharacters() {
+        return scoreOfCharacters;
+    }
+
+    public void updateScore(String score) {
+        this.scoreOfCharacters = score;
+    }
+
+    public void addChar(String string) {
+        scoreOfCharacters += string;
+    }
+
     public Long getGameId() {
         return gameId;
     }
 
-    public Integer getNowBatterIndex(Integer size) {
-        return (nowBatter > size) ? nowBatter % size : nowBatter;
+    public Integer getNextBatterIndex(Integer size) {
+        return (nowBatter >= size - 1) ? nowBatter % (size - 1) : nowBatter + 1;
     }
 
     public void increaseNowBatter() {
@@ -64,11 +78,7 @@ public class Team {
     }
 
     public boolean occupy() {
-        if (isOccupied) {
-            return false;
-        }
-
-        return isOccupied = true;
+        return this.isOccupied = true;
     }
 
     public boolean select() {
@@ -87,5 +97,9 @@ public class Team {
                 ", gameId=" + gameId +
                 ", nowBatter=" + nowBatter +
                 '}';
+    }
+
+    public void leave() {
+        this.isOccupied = false;
     }
 }

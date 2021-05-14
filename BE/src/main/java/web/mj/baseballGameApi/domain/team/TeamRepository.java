@@ -14,4 +14,6 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
     Optional<Team> findByGameIdAndIsHittingTrue(Long gameId);
 
     Optional<Team> findByGameIdAndIsHittingFalse(Long gameId);
+
+    List<Team> findAllByGameIdAndIsOccupiedFalse(Long gameId);
 }

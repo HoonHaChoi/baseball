@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `baseball_db`.`team` (
   `name` VARCHAR(45) NOT NULL,
   `is_occupied` TINYINT(1) NOT NULL DEFAULT 0,
   `is_hitting` TINYINT(1) NOT NULL DEFAULT 0,
+  `score_of_characters` VARCHAR(45) NOT NULL DEFAULT '0',
   `score` INT NOT NULL DEFAULT 0,
   `game_id` INT NOT NULL,
   `is_selected` TINYINT(1) NOT NULL DEFAULT 0,
@@ -82,7 +83,8 @@ DROP TABLE IF EXISTS `baseball_db`.`player`;
 CREATE TABLE IF NOT EXISTS `baseball_db`.`player` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `image_url` VARCHAR(255) NOT NULL DEFAULT '',
+  `is_now_on` TINYINT(1) NOT NULL DEFAULT 0,
+  `image_url` TEXT NOT NULL,
   `num_of_throwing` INT NOT NULL DEFAULT 0,
   `num_of_hitting` INT NOT NULL DEFAULT 0,
   `num_of_batting` INT NOT NULL DEFAULT 0,

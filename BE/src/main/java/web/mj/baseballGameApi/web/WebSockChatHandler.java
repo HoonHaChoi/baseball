@@ -11,6 +11,8 @@ import web.mj.baseballGameApi.domain.game.Game;
 import web.mj.baseballGameApi.domain.game.Pitching;
 import web.mj.baseballGameApi.domain.team.Team;
 import web.mj.baseballGameApi.service.GameService;
+import web.mj.baseballGameApi.service.OccupyService;
+import web.mj.baseballGameApi.service.PitchService;
 import web.mj.baseballGameApi.web.dto.SocketRequestDto;
 import web.mj.baseballGameApi.web.dto.SocketResponseDto;
 
@@ -24,10 +26,14 @@ public class WebSockChatHandler extends TextWebSocketHandler {
 
     private final ObjectMapper objectMapper;
     private final GameService gameService;
+    private final PitchService pitchService;
+    private final OccupyService occupyService;
 
-    public WebSockChatHandler(ObjectMapper objectMapper, GameService gameService) {
+    public WebSockChatHandler(ObjectMapper objectMapper, GameService gameService, PitchService pitchService, OccupyService occupyService) {
         this.objectMapper = objectMapper;
         this.gameService = gameService;
+        this.pitchService = pitchService;
+        this.occupyService = occupyService;
     }
 
     @Override
@@ -54,14 +60,21 @@ public class WebSockChatHandler extends TextWebSocketHandler {
 
         if (requestDto.getType().equals("pitch")) {
 
-            SocketResponseDto pitchingResult = gameService.pitch(requestDto.getGameId(), requestDto.getTeamId());
+            SocketResponseDto pitchingResult =pitchService.pitchingResultToSocket(requestDto.getGameId(), requestDto.getTeamId());
 
             handlePitching(pitchingResult);
         }
 
         if (requestDto.getType().equals("occupy")) {
 
-            SocketResponseDto responseDto = gameService.occupyTeam(requestDto);
+            SocketResponseDto responseDto = occupyService.occupyTeamToSocket(requestDto);
+
+            handleOccupying(responseDto);
+        }
+
+        if (requestDto.getType().equals("leave")) {
+
+            SocketResponseDto responseDto = occupyService.leaveTeamToSocket(requestDto);
 
             handleOccupying(responseDto);
         }
@@ -74,37 +87,41 @@ public class WebSockChatHandler extends TextWebSocketHandler {
     public void handleJoining(WebSocketSession session) {
         // TODO: join은 occpy 대체하는 것, occupy 응답형태로 구현할 것
         sessions.add(session);
-        sendMessage("join game", gameService);
+        sendMessage("join", gameService);
     }
 
     public void handleOut() {
-        sendMessage("out game", gameService);
+        sendMessage("out", gameService);
         sessions.clear();
     }
 
     public void handlePitching(SocketResponseDto pitch) {
 
         if (pitch.getResult().equals("strike")) {
-            sendMessage(pitch, gameService);
+            sendMessage("strike", gameService);
         }
 
         if (pitch.getResult().equals("hit")) {
-            sendMessage(pitch, gameService);
+            sendMessage("hit", gameService);
         }
 
         if (pitch.getResult().equals("ball")) {
-            sendMessage(pitch, gameService);
+            sendMessage("ball", gameService);
         }
     }
 
     public void handleOccupying(SocketResponseDto response) {
 
         if (response.getResult().equals("success")) {
-            sendMessage(response, gameService);
+            sendMessage("success", gameService);
+        }
+
+        if (response.getResult().equals("wait")) {
+            sendMessage("wait", gameService);
         }
 
         if (response.getResult().equals("fail")) {
-            sendMessage(response, gameService);
+            sendMessage("fail", gameService);
         }
     }
 
