@@ -119,7 +119,6 @@ public class PitchService {
             inning.increaseOut();
             lastRecord.setStatus("out");
 
-            inning.increaseOut();
             pitcher.increaseOut();
             hittingTeam.increaseNowBatter();
             inning.resetStrikeAndBall();
@@ -136,6 +135,8 @@ public class PitchService {
             Record newRecord = new Record(nextBatter.getName(), lastRecord);
 
             recordRepository.save(newRecord);
+
+            inning.initializeStrike();
         }
 
         saveGameStatus(inning, batter, pitcher, lastRecord);

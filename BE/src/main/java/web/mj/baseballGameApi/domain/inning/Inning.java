@@ -103,6 +103,10 @@ public class Inning {
         out++;
     }
 
+    public void initializeStrike(){
+        strike = 0;
+    }
+
     public void resetStrikeAndBall() {
         strike = 0;
         ball = 0;

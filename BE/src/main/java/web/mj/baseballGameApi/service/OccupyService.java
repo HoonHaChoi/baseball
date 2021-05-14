@@ -55,7 +55,7 @@ public class OccupyService {
     }
 
     public ResultResponseDto occupyTeamToHttp(OccupyTeamRequestDto requestDto) {
-        return new ResultResponseDto(occupyTeam(requestDto.getTeamId(), requestDto.getTeamId()));
+        return new ResultResponseDto(occupyTeam(requestDto.getTeamId(), requestDto.getGameId()));
     }
 
     public SocketResponseDto leaveTeamToSocket(SocketRequestDto requestDto) {
