@@ -49,15 +49,6 @@ public class GameService {
 
     private final ObjectMapper objectMapper;
 
-    // TODO: 지역변수로 변환
-    private Player pitcher;
-    private Player batter;
-    private Team defensingTeam;
-    private Team hittingTeam;
-    private Integer numOfBatters;
-    private Inning inning;
-    private Record lastRecord;
-
     public GameService(GameRepository gameRepository, TeamRepository teamRepository,
                        InningRepository inningRepository, RecordRepository recordRepository,
                        PlayerRepository playerRepository, ObjectMapper objectMapper) {
@@ -141,21 +132,21 @@ public class GameService {
 
         GameResponseDto gameResponseDto = new GameResponseDto(game, getTeamResponseDtos(gameId));
 
-        inning = getNowInning(gameId, game.getInning());
+        Inning inning = getNowInning(gameId, game.getInning());
 
-        hittingTeam = teamRepository.findByGameIdAndIsHittingTrue(gameId).orElseThrow(
+        Team hittingTeam = teamRepository.findByGameIdAndIsHittingTrue(gameId).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.TEAM_NOT_FOUND)
         );
 
-        defensingTeam = getDefensingTeam(gameId);
+        Team defensingTeam = getDefensingTeam(gameId);
 
-        pitcher = findPlayerByPosition(PITCHER, hittingTeam.getId(), gameId);
+        Player pitcher = findPlayerByPosition(PITCHER, hittingTeam.getId(), gameId);
         PitcherDto pitcherDto = new PitcherDto(pitcher);
 
         List<Player> batters = getBatters(BATTER, defensingTeam.getId());
-        numOfBatters = batters.size();
+        Integer numOfBatters = batters.size();
 
-        batter = getNowPlayer(BATTER, hittingTeam.getId());
+        Player batter = getNowPlayer(BATTER, hittingTeam.getId());
 
         BatterDto batterDto = new BatterDto(getNowPlayer(BATTER, hittingTeam.getId()));
 

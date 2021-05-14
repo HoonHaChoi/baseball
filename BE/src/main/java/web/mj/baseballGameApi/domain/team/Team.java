@@ -57,7 +57,7 @@ public class Team {
         this.scoreOfCharacters = score;
     }
 
-    public void addChar(String string){
+    public void addChar(String string) {
         scoreOfCharacters += string;
     }
 
@@ -65,8 +65,8 @@ public class Team {
         return gameId;
     }
 
-    public Integer getNowBatterIndex(Integer size) {
-        return (nowBatter > size) ? nowBatter % size : nowBatter;
+    public Integer getNextBatterIndex(Integer size) {
+        return (nowBatter >= size - 1) ? nowBatter % (size - 1) : nowBatter + 1;
     }
 
     public void increaseNowBatter() {

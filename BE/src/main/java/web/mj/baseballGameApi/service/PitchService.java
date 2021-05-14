@@ -124,28 +124,14 @@ public class PitchService {
             hittingTeam.increaseNowBatter();
             inning.resetStrikeAndBall();
 
-            // 현재 타자의 isNowOn = false
-            List<Player> nowBatters = batters.stream()
-                    .filter(Player::isNowOn)
-                    .collect(Collectors.toList());
-
-            Player nowBatter = nowBatters.get(0);
-            nowBatter.setNowOnToFalse();
-            playerRepository.save(nowBatter);
-
-            // 다음 타자의 isNowOn = true
-            int indexOfNextBatter = (batters.indexOf(nowBatter) + 1 >= batters.size())
-                    ? 0
-                    : batters.indexOf(nowBatter) + 1;
-
-            Player nextBatter = batters.get(indexOfNextBatter);
-            nextBatter.setNowOnToTrue();
-
-            batter = nextBatter;
-
             playerRepository.save(batter);
 
-            Record newRecord = new Record(batter.getName(), lastRecord);
+            Integer nextBatterIndex = hittingTeam.getNextBatterIndex(batters.size());
+            Player nextBatter = batters.get(nextBatterIndex);
+
+            playerRepository.save(nextBatter);
+
+            Record newRecord = new Record(nextBatter.getName(), lastRecord);
 
             recordRepository.save(newRecord);
         }
@@ -167,27 +153,14 @@ public class PitchService {
 
             changeStatusRunningToFirstBase(inning, batter, pitcher, hittingTeam);
 
-            // --- 현재 타자의 isNowOn = false
-            List<Player> nowBatters = batters.stream()
-                    .filter(Player::isNowOn)
-                    .collect(Collectors.toList());
+            playerRepository.save(batter);
 
-            Player nowBatter = nowBatters.get(0);
-            nowBatter.setNowOnToFalse();
-            playerRepository.save(nowBatter);
+            Integer nextBatterIndex = hittingTeam.getNextBatterIndex(batters.size());
+            Player nextBatter = batters.get(nextBatterIndex);
 
-            // 다음 타자의 isNowOn = true
-            int indexOfNextBatter = (batters.indexOf(nowBatter) + 1 >= batters.size())
-                    ? 0
-                    : batters.indexOf(nowBatter) + 1;
+            playerRepository.save(nextBatter);
 
-            Player nextBatter = batters.get(indexOfNextBatter);
-            nextBatter.setNowOnToTrue();
-
-            batter = nextBatter;
-            // ---
-
-            Record newRecord = new Record(batter.getName(), lastRecord);
+            Record newRecord = new Record(nextBatter.getName(), lastRecord);
 
             recordRepository.save(newRecord);
         }
@@ -201,31 +174,17 @@ public class PitchService {
 
         changeStatusRunningToFirstBase(inning, pitcher, batter, hittingTeam);
 
-        // --- 현재 타자의 isNowOn = false
-        List<Player> nowBatters = batters.stream()
-                .filter(Player::isNowOn)
-                .collect(Collectors.toList());
-
-        Player nowBatter = nowBatters.get(0);
-        nowBatter.setNowOnToFalse();
-        playerRepository.save(nowBatter);
-
         saveGameStatus(inning, batter, pitcher, lastRecord);
         teamRepository.save(hittingTeam);
 
-        // 다음 타자의 isNowOn = true
-        int indexOfNextBatter = (batters.indexOf(nowBatter) + 1 >= batters.size())
-                ? 0
-                : batters.indexOf(nowBatter) + 1;
+        Integer nextBatterIndex = hittingTeam.getNextBatterIndex(batters.size());
+        Player nextBatter = batters.get(nextBatterIndex);
 
-        Player nextBatter = batters.get(indexOfNextBatter);
-        nextBatter.setNowOnToTrue();
+        playerRepository.save(nextBatter);
 
-        batter = nextBatter;
+        Record newRecord = new Record(nextBatter.getName(), lastRecord);
 
-        Record newRecord = new Record(batter.getName(), lastRecord);
         recordRepository.save(newRecord);
-        playerRepository.save(batter);
     }
 
     private void changeStatusRunningToFirstBase(Inning inning, Player batter, Player pitcher, Team hittingTeam) {
