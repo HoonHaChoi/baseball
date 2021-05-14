@@ -101,13 +101,13 @@ insert into player(name, team_id, team_game_id, image_url) values ('Lee9', 4, 2,
 -- -----------------------------------------------------
 -- record, inning 1, game 1
 -- -----------------------------------------------------
-insert into record(batter_name, status, inning_id, inning_game_id) values ('Choi', 'doing', 1, 1);
+insert into record(batter_name, status, inning_id, inning_game_id) values ('Park2', 'doing', 1, 1);
 --insert into record(batter_name, status, inning_id, inning_game_id) values ('Choi11', 'out', 1, 1);
 --insert into record(batter_name, status, inning_id, inning_game_id) values ('Choi12', 'hit', 1, 1);
 
 -- -----------------------------------------------------
 -- record, inning 1, game 2
 -- -----------------------------------------------------
-insert into record(batter_name, status, inning_id, inning_game_id) values ('Lee', 'doing', 13, 2);
+insert into record(batter_name, status, inning_id, inning_game_id) values ('kim2', 'doing', 13, 2);
 --insert into record(batter_name, status, inning_id, inning_game_id) values ('Lee11', 'out', 13, 2);
 --insert into record(batter_name, status, inning_id, inning_game_id) values ('Lee12', 'hit', 13, 2);

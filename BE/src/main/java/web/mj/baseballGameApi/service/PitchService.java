@@ -124,11 +124,13 @@ public class PitchService {
             hittingTeam.increaseNowBatter();
             inning.resetStrikeAndBall();
 
+            batter.setNowOnToFalse();
             playerRepository.save(batter);
 
             Integer nextBatterIndex = hittingTeam.getNextBatterIndex(batters.size());
             Player nextBatter = batters.get(nextBatterIndex);
 
+            nextBatter.setNowOnToTrue();
             playerRepository.save(nextBatter);
 
             Record newRecord = new Record(nextBatter.getName(), lastRecord);
@@ -152,11 +154,12 @@ public class PitchService {
             lastRecord.setStatus("BB");
 
             changeStatusRunningToFirstBase(inning, batter, pitcher, hittingTeam);
-
+            batter.setNowOnToFalse();
             playerRepository.save(batter);
 
             Integer nextBatterIndex = hittingTeam.getNextBatterIndex(batters.size());
             Player nextBatter = batters.get(nextBatterIndex);
+            nextBatter.setNowOnToTrue();
 
             playerRepository.save(nextBatter);
 
@@ -174,12 +177,14 @@ public class PitchService {
 
         changeStatusRunningToFirstBase(inning, pitcher, batter, hittingTeam);
 
+        // TODO: inNowOn 건드려서 문제 해결하자
+        batter.setNowOnToFalse();
         saveGameStatus(inning, batter, pitcher, lastRecord);
         teamRepository.save(hittingTeam);
 
         Integer nextBatterIndex = hittingTeam.getNextBatterIndex(batters.size());
         Player nextBatter = batters.get(nextBatterIndex);
-
+        nextBatter.setNowOnToTrue();
         playerRepository.save(nextBatter);
 
         Record newRecord = new Record(nextBatter.getName(), lastRecord);
