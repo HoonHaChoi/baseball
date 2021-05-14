@@ -186,7 +186,7 @@ class GamePlayViewController: UIViewController {
                                                            y: self.groundView.bounds.maxY - 40)
         } completion: { [weak self] _ in
             self?.requestPitch()
-            self?.bind()
+
         }
     }
     
@@ -212,7 +212,8 @@ class GamePlayViewController: UIViewController {
                         self?.pitchResultLabel.isHidden = true
                     }
                 }
-                pitch.result == "hit" ? self?.hitBaseBallAnimation() : self?.resetBaseBallLocation(result: pitch.result)
+                pitch.result == "hit" ? self?.hitBaseBallAnimation() : self?.resetBaseBallLocation(result:  pitch.result)
+                self?.bind()
             }.store(in: &self.cancellable)
     }
     
