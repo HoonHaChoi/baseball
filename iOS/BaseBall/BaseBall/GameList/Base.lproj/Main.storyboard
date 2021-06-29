@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad10_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game List Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="GameListController" customModule="BaseBall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseBackground" translatesAutoresizingMaskIntoConstraints="NO" id="dar-Am-yV2">
+                                <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                            </imageView>
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBR-JE-O26">
+                                <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uZ8-cl-GO5">
+                                        <rect key="frame" x="359" y="247" width="462" height="513"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Swy-X0-3O8">
+                                            <size key="itemSize" width="510" height="105"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GameCell" id="X1p-M2-XSg" customClass="GameCell" customModule="BaseBall" customModuleProvider="target">
+                                                <rect key="frame" x="-24" y="0.0" width="510" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wfy-7r-fZO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="510" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </collectionViewCellContentView>
+                                                <size key="customSize" width="510" height="100"/>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASEBALL GAME ONLINE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC6-wm-BEi">
+                                        <rect key="frame" x="274.5" y="68" width="631" height="60"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="50"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="참가할 게임을 선택하세요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ey2-Zo-Llv">
+                                        <rect key="frame" x="404" y="145" width="372" height="42"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ey2-Zo-Llv" firstAttribute="top" secondItem="fC6-wm-BEi" secondAttribute="bottom" constant="17" id="0WT-vZ-hXa"/>
+                                    <constraint firstItem="ey2-Zo-Llv" firstAttribute="centerX" secondItem="FBR-JE-O26" secondAttribute="centerX" id="3OO-7P-Rl8"/>
+                                    <constraint firstItem="uZ8-cl-GO5" firstAttribute="centerX" secondItem="FBR-JE-O26" secondAttribute="centerX" id="9yS-Td-Vob"/>
+                                    <constraint firstItem="fC6-wm-BEi" firstAttribute="centerX" secondItem="FBR-JE-O26" secondAttribute="centerX" id="D8G-2H-bIH"/>
+                                    <constraint firstItem="uZ8-cl-GO5" firstAttribute="top" secondItem="ey2-Zo-Llv" secondAttribute="bottom" constant="60" id="ET9-Oh-bZP"/>
+                                    <constraint firstItem="uZ8-cl-GO5" firstAttribute="width" secondItem="ey2-Zo-Llv" secondAttribute="height" multiplier="11:1" id="Ifa-Gk-hay"/>
+                                    <constraint firstItem="fC6-wm-BEi" firstAttribute="top" secondItem="FBR-JE-O26" secondAttribute="top" constant="68" id="ruW-u9-Vr8"/>
+                                    <constraint firstAttribute="bottom" secondItem="uZ8-cl-GO5" secondAttribute="bottom" constant="60" id="tPA-ZW-CN9"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="FBR-JE-O26" secondAttribute="bottom" id="BMp-Dt-X5r"/>
+                            <constraint firstItem="dar-Am-yV2" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="CiT-jv-A9Z"/>
+                            <constraint firstItem="FBR-JE-O26" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="E1f-hO-tMg"/>
+                            <constraint firstItem="dar-Am-yV2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="HsA-2W-TH5"/>
+                            <constraint firstItem="FBR-JE-O26" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lHS-gt-9MQ"/>
+                            <constraint firstAttribute="bottom" secondItem="dar-Am-yV2" secondAttribute="bottom" id="vpq-iW-Ulz"/>
+                            <constraint firstItem="dar-Am-yV2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="w2T-7q-cJx"/>
+                            <constraint firstItem="FBR-JE-O26" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wGe-bF-Ldh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gameList" destination="uZ8-cl-GO5" id="dMo-Nf-F4l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-279" y="26"/>
+        </scene>
+        <!--Game Option Controller-->
+        <scene sceneID="WTB-6a-sBj">
+            <objects>
+                <viewController storyboardIdentifier="GameOptionController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="FZA-rd-pxg" customClass="GameOptionController" customModule="BaseBall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oh8-i4-6va">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1fc-Wj-gWj">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="200"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="팀을 선택하세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efV-OB-cpj">
+                                        <rect key="frame" x="321.5" y="0.0" width="157" height="66.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="yyN-uY-vAY">
+                                        <rect key="frame" x="229" y="66.5" width="342" height="133.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VrO-Ba-vfq">
+                                                <rect key="frame" x="0.0" y="0.0" width="115" height="133.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
+                                                <state key="normal" title="Home"/>
+                                                <connections>
+                                                    <action selector="didSelectHome:" destination="FZA-rd-pxg" eventType="touchUpInside" id="L1J-XM-MjF"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJO-5l-Mxa">
+                                                <rect key="frame" x="155" y="0.0" width="40" height="133.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCI-VQ-YPA">
+                                                <rect key="frame" x="235" y="0.0" width="107" height="133.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
+                                                <state key="normal" title="Away"/>
+                                                <connections>
+                                                    <action selector="didSelectAway:" destination="FZA-rd-pxg" eventType="touchUpInside" id="kW5-B5-L1T"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WuN-BH-dwl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WuN-BH-dwl" firstAttribute="trailing" secondItem="1fc-Wj-gWj" secondAttribute="trailing" id="5mY-KY-z6b"/>
+                            <constraint firstItem="1fc-Wj-gWj" firstAttribute="leading" secondItem="WuN-BH-dwl" secondAttribute="leading" id="743-TZ-5d6"/>
+                            <constraint firstItem="1fc-Wj-gWj" firstAttribute="top" secondItem="oh8-i4-6va" secondAttribute="top" id="DQZ-QY-lPg"/>
+                            <constraint firstItem="WuN-BH-dwl" firstAttribute="bottom" secondItem="1fc-Wj-gWj" secondAttribute="bottom" id="PeW-cx-tQh"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="800" height="200"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="800" height="200"/>
+                    <connections>
+                        <outlet property="awayTeam" destination="vCI-VQ-YPA" id="naa-mJ-jNA"/>
+                        <outlet property="homeTeam" destination="VrO-Ba-vfq" id="fsc-1Y-qOm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VX5-ex-WVi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="272" y="-96"/>
+        </scene>
+        <!--Matching View Controller-->
+        <scene sceneID="w8X-bI-pHq">
+            <objects>
+                <viewController storyboardIdentifier="GameMatching" modalPresentationStyle="formSheet" id="7t5-9P-wo6" customClass="MatchingViewController" customModule="BaseBall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TE8-iF-MNW">
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="220"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="상대팀을 찾는 중입니다..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dld-2m-a1X">
+                                <rect key="frame" x="155" y="86" width="394" height="48"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SOZ-Va-ykM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dld-2m-a1X" firstAttribute="centerY" secondItem="TE8-iF-MNW" secondAttribute="centerY" id="3bx-En-Mws"/>
+                            <constraint firstItem="dld-2m-a1X" firstAttribute="centerX" secondItem="TE8-iF-MNW" secondAttribute="centerX" id="GJZ-W5-1UE"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="1180" height="260"/>
+                    <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="1180" height="260"/>
+                    <connections>
+                        <outlet property="watingLabel" destination="dld-2m-a1X" id="P4o-Iq-ZXk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cf9-wN-nFj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="369" y="161"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="baseBackground" width="640" height="360"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
