@@ -22,5 +22,6 @@
 - iOS : [Neo](https://github.com/HoonHaChoi), [Elly](https://github.com/ellyheetov)
 - BackEnd : [MJ](https://github.com/MJbae)
 ### 기획
-- [iOS 기획서](https://docs.google.com/presentation/d/1ADabFHrj-BQwAmhYxU9KLKleRGSZRmJFdLo0R8bIYHA/edit#slide=id.p)
+- [참고 기획서 1](https://docs.google.com/presentation/d/1ADabFHrj-BQwAmhYxU9KLKleRGSZRmJFdLo0R8bIYHA/edit#slide=id.p)
+- [참고 기획서 2](https://docs.google.com/presentation/d/1KY4myrtBFlvr6eKvgl-CVv5Cbk1zQlo1GkTz4hNjXqE/edit#slide=id.g81a8595d39_1_0)
 
