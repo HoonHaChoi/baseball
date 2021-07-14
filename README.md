@@ -1,6 +1,17 @@
 # baseball game
 ## 시연
 ### iOS
+- 게임 참가
+
+![게임 참가 화면](https://user-images.githubusercontent.com/16694346/125559039-a6b75574-3989-4afa-a315-fb6aa0d075e6.gif)
+
+- 게임 플레이
+
+![게임플레이](https://user-images.githubusercontent.com/16694346/125559050-b1a915c9-d6f1-4eae-b69a-fd69456cb77f.gif)
+
+- 게임 현황
+
+![게임 진행사항 및 상세화면](https://user-images.githubusercontent.com/16694346/125559020-222498d7-099f-489f-b2ce-e8f9854ca2e6.gif)
 
 
 ### BE
